@@ -3,13 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/docs/assignments/</loc>
+  </url>
+  
+  <url>
     <loc>https://turgeonmaxime.github.io/f19-stat4690/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://turgeonmaxime.github.io/f19-stat4690/</loc>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/docs/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/</loc>
+  </url>
+  
+  <url>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/docs/slides/</loc>
+  </url>
+  
+  <url>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/docs/suppl/</loc>
   </url>
   
   <url>
