@@ -1,0 +1,17 @@
+---
+title: "{{ replace .Name "-" " " | title }}"
+draft: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+## First Frame
+
+Hello, world!
+
