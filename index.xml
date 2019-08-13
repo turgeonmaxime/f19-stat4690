@@ -11,15 +11,6 @@
     
     
     <item>
-      <title>Assignments</title>
-      <link>https://turgeonmaxime.github.io/f19-stat4690/assignments/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://turgeonmaxime.github.io/f19-stat4690/assignments/</guid>
-      <description> Assignments </description>
-    </item>
-    
-    <item>
       <title>Slides</title>
       <link>https://turgeonmaxime.github.io/f19-stat4690/slides/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -34,7 +25,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://turgeonmaxime.github.io/f19-stat4690/suppl/</guid>
-      <description> Supplementary Material </description>
+      <description> Supplementary Material On this page, I will post additional resources and supplementary material for the course.
+Resources for R In this course, we will use R as the main computational tool. Below are some resources:
+ R for Data Science Jenny Bryan&amp;rsquo;s course on Data wrangling, exploration, and analysis with R Mine Cetinkaya&amp;rsquo;s curated list of resources for R If you&amp;rsquo;re looking for a deep understanding of R, I recommend Hadley Wickham&amp;rsquo;s book Advanced R  </description>
     </item>
     
   </channel>
