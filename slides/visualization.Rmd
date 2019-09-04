@@ -1,0 +1,166 @@
+---
+title: "Visualization"
+draft: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+## Tidyverse
+
+  - For graphics, I personally prefer using `ggplot2` than base `R` functions.
+    + Of course, you're free to use whatever you prefer!
+  - Therefore, I often use the `tidyverse` packages to prepare data for visualization
+  - Great resources:
+    + The book [*R for Data Science*](https://r4ds.had.co.nz/)
+    + RStudio's [cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+
+## Pipe operator
+
+  - One of the important features of the `tidyverse` is the pipe operator `%>%`
+  - It takes the output of a function (or of an expression) and uses it as input for the next function (or expression)
+
+---
+
+```{r, message = FALSE, eval = FALSE}
+library(tidyverse)
+
+count(mtcars, cyl)
+# Or with the pipe
+mtcars %>% count(cyl)
+```
+
+## Pipe operator
+
+  - Note that the LHS (`mtcars`) becomes the first argument of the function appearing on the RHS (`count`)
+  - In more complex examples, where multiple transformations are applied one after another, the pipe operator improves readibility and avoids creating too many intermediate variables.
+
+## Main tidyverse functions
+
+  - `mutate`: Create a new variable as a function of the other variables
+```{r eval = FALSE}
+mutate(mtcars, liters_per_100km = mpg/235.215)
+```
+  - `filter`: Keep only rows for which some condition is `TRUE`
+```{r eval = FALSE}
+filter(mtcars, cyl %in% c(6, 8))
+```
+  - `summarise`: Apply summary function to some variables. Often used with `group_by`.
+```{r eval = FALSE}
+mtcars %>% group_by(cyl) %>% 
+  summarise(avg_mpg = mean(mpg))
+```
+
+# Data Visualization
+
+## Main principles
+
+Why would we want to visualize data?
+
+  - Quality control
+  - Identify outliers
+  - Find patterns of interest (EDA)
+  
+## Visualizing multivariate data
+
+  - To start, you can visualize multivariate data one variable at a time.
+  - Therefore, you can use the same visualizing tools you're likely familiar with.
+  
+## Histogram {.allowframebreaks}
+
+```{r, message=FALSE}
+library(tidyverse)
+library(dslabs)
+
+dim(olive)
+
+olive %>% 
+  ggplot(aes(oleic)) + 
+  geom_histogram()
+
+olive %>% 
+  ggplot(aes(oleic, fill = region)) + 
+  geom_histogram() + 
+  theme(legend.position = 'top')
+
+# Or with facets
+olive_bg <- olive %>% dplyr::select(-region)
+olive %>% 
+  ggplot(aes(oleic, fill = region)) + 
+  geom_histogram(data = olive_bg, 
+                 fill = 'grey') +
+  geom_histogram() +
+  facet_grid(. ~ region) +
+  theme(legend.position = 'top')
+```
+
+## Density plots {.allowframebreaks}
+
+```{r, message=FALSE}
+olive %>% 
+  ggplot(aes(oleic)) + 
+  geom_density()
+
+olive %>% 
+  ggplot(aes(oleic, fill = region)) + 
+  geom_density(alpha = 0.5) + 
+  theme(legend.position = 'top')
+```
+
+## ECDF plots {.allowframebreaks}
+
+  - Density plots are "smoothed histograms"
+  - The smoothing can hide important details, or even create artifacts
+  - Another way of looking at the distribution: **Empirical CDFs**
+    + Easily compute/compare quantiles
+    + Steepness corresponds to variance
+
+```{r, message=FALSE}
+olive %>% 
+  ggplot(aes(oleic)) + 
+  stat_ecdf() + 
+  ylab("Cumulative Probability")
+
+# You can add a "rug"
+olive %>% 
+  ggplot(aes(oleic)) + 
+  stat_ecdf() + 
+  geom_rug(sides = "b") + 
+  ylab("Cumulative Probability")
+
+olive %>% 
+  ggplot(aes(oleic, colour = region)) + 
+  stat_ecdf() + 
+  ylab("Cumulative Probability") + 
+  theme(legend.position = 'top')
+```
+
+## Boxplots {.allowframebreaks}
+
+```{r, message=FALSE}
+olive %>% 
+  ggplot(aes(y = oleic)) + 
+  geom_boxplot(x = 0)
+
+olive %>% 
+  ggplot(aes(x = region, y = oleic)) + 
+  geom_boxplot()
+
+# Add all points on top of boxplots
+# Note: need to remove outliers or you will get 
+#       duplicates
+olive %>% 
+  ggplot(aes(x = region, y = oleic)) + 
+  geom_boxplot(outlier.colour = NA) +
+  geom_jitter(width = 0.25, height = 0)
+```

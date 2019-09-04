@@ -1,0 +1,52 @@
+---
+title: "Review of Linear Algebra"
+draft: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+# Eigenvalues and Eigenvectors
+
+## Eigenvalues
+
+  - Let $\mathbf{A}$ be a square $n\times n$ matrix.
+  - The equation $$\det(\mathbf{A} - \lambda I_n) = 0$$ is called the *characteristic equation* of $\mathbf{A}$.
+  - This is a polynomial equation of degree $n$, and its roots are called the *eigenvalues* of $\mathbf{A}$.
+  
+## Example
+
+Let $$\mathbf{A} = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}.$$
+
+Then we have
+\begin{align*}
+\det(\mathbf{A} - \lambda I_n) &= (1 - \lambda)^2 - 0.25\\
+  &= (\lambda - 1.5)(\lambda - 0.5)
+\end{align*}
+
+Therefore, $\mathbf{A}$ has two (real) eigenvalues, namely 
+$$\lambda_1 = 1.5, \lambda_2 = 0.5.$$
+
+## A few properties
+
+Let $\lambda_1, \ldots, \lambda_n$ be the eigenvalues of $\mathbf{A}$ (with multiplicities).
+
+  1. $\mathrm{tr}(\mathbf{A}) = \sum_{i=1}^n \lambda_i$;
+  2. $\det(\mathbf{A}) = \prod_{i=1}^n \lambda_i$;
+  3. The eigenvalues of $\mathbf{A}^k$ are $\lambda_1^k, \ldots, \lambda_n^k$, for $k$ a nonnegative integer;
+  4. If $\mathbf{A}$ is invertible, then the eigenvalues of $\mathbf{A}^{-1}$ are $\lambda_1^{-1}, \ldots, \lambda_n^{-1}$.
+
+## Eigenvectors
+
+  - If $\lambda$ is an eigenvalues of $\mathbf{A}$, then (by definition) we have $\det(\mathbf{A} - \lambda I_n) = 0$.
+  - In other words, the following equivalent statements hold:
+    + The matrix $\mathbf{A} - \lambda I_n$ is singular;
+    + The kernel space of $\mathbf{A} - \lambda I_n$ is nontrivial (i.e. not equal to the zero vector);
+    + The system of equations $(\mathbf{A} - \lambda I_n)v = 0$ has a nontrivial solution;
+    + There exists a nonzero vector $v$ such that $$\mathbf{A}v = \lambda v.$$
+  - Such a vector is called an *eigenvector* of $\mathbf{A}$.

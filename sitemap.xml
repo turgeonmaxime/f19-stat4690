@@ -4,15 +4,18 @@
   
   <url>
     <loc>https://turgeonmaxime.github.io/f19-stat4690/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://turgeonmaxime.github.io/f19-stat4690/</loc>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/docs/</loc>
   </url>
   
   <url>
     <loc>https://turgeonmaxime.github.io/f19-stat4690/slides/</loc>
+  </url>
+  
+  <url>
+    <loc>https://turgeonmaxime.github.io/f19-stat4690/</loc>
   </url>
   
   <url>
@@ -21,7 +24,6 @@
   
   <url>
     <loc>https://turgeonmaxime.github.io/f19-stat4690/tags/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
