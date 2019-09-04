@@ -23,6 +23,8 @@ Moreover, the course aims to make students familiar, or competent, with the `R` 
     + Tuesday 9:30AM-11AM
     + Thursday 1PM-2:30PM
     + By appointment (if necessary)
+    
+The course outline can be downloaded [here](outline_stat4690_f19.pdf).
 
 ## Prerequisites
 
