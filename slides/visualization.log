@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  26 AUG 2019 12:07
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  6 SEP 2019 09:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1126,7 +1126,10 @@ Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
 Package grffile Info: Option `space' is set to `true'.
 Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
-) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tikzpagenodes/tikzpagenodes.sty
+)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamerfontthemeprofessiona
+lfonts.sty) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tikzpagenodes/tikzpag
+enodes.sty
 Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the 
 page
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
@@ -1158,31 +1161,31 @@ Package caption Info: Hyperref support is turned off
 ) (./visualization.aux)
 \openout1 = `visualization.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 169.
-LaTeX Font Info:    ... okay on input line 169.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 169.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 169.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 170.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 170.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    ... okay on input line 170.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1219,7 +1222,7 @@ LaTeX Font Info:    ... okay on input line 169.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box82
-Package hyperref Info: Link coloring OFF on input line 169.
+Package hyperref Info: Link coloring OFF on input line 170.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1227,59 +1230,13 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count356
 )
-LaTeX Info: Redefining \ref on input line 169.
-LaTeX Info: Redefining \pageref on input line 169.
-LaTeX Info: Redefining \nameref on input line 169.
+LaTeX Info: Redefining \ref on input line 170.
+LaTeX Info: Redefining \pageref on input line 170.
+LaTeX Info: Redefining \nameref on input line 170.
 (./visualization.out) (./visualization.out)
 \@outlinefile=\write6
 \openout6 = `visualization.out'.
 
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 169.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 169.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 169.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 169.
-\symnumbers=\mathgroup6
-\sympureletters=\mathgroup7
-LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmr/m/n on input line 169.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmss/bx/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> TU/lmss/bx/n on input line 169.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/m/n on input line 169.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmss/m/it on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> TU/lmss/m/it on input line 169.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 169.
-LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  TU/lmss/m/n --> TU/lmss/bx/n on input line 169.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  TU/lmss/m/it --> TU/lmss/bx/it on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmr/bx/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  TU/lmss/bx/n --> TU/lmss/bx/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  TU/lmss/m/n --> TU/lmss/bx/n on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  TU/lmss/m/it --> TU/lmss/bx/it on input line 169.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  TU/lmtt/m/n --> TU/lmtt/bx/n on input line 169.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
 onary-English.dict
@@ -1308,7 +1265,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 (./visualization.nav)
-Overfull \vbox (16.67491pt too high) detected at line 174
+Overfull \vbox (16.67491pt too high) detected at line 175
  []
 
 [1
@@ -1343,51 +1300,46 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb)
-Overfull \vbox (10.31232pt too high) detected at line 298
+Overfull \vbox (10.31232pt too high) detected at line 299
  []
 
 [6
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 301
-.
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
-File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 302.
+
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 301.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 302.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 301
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 302
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 301
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 302
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 301.
+(Font)              <12> on input line 302.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 301.
+(Font)              <8> on input line 302.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 301.
-LaTeX Font Info:    Try loading font information for U+msa on input line 301.
+(Font)              <6> on input line 302.
+LaTeX Font Info:    Try loading font information for U+msa on input line 302.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 301.
+LaTeX Font Info:    Try loading font information for U+msb on input line 302.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 301.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <6> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 301.
-[7
+) [7
 
 ] [8
 
@@ -1444,6 +1396,9 @@ e pdf)
 ] [19
 
 
+] [20
+
+
 ]
 \openout4 = `visualization.vrb'.
 
@@ -1457,10 +1412,7 @@ e pdf)
 File: visualization_files/figure-beamer/unnamed-chunk-7-3.pdf Graphic file (typ
 e pdf)
 <use visualization_files/figure-beamer/unnamed-chunk-7-3.pdf>
-) [20
-
-] [21
-
+) [21
 
 ] [22
 
@@ -1477,6 +1429,9 @@ e pdf)
 ] [26
 
 
+] [27
+
+
 ]
 \openout4 = `visualization.vrb'.
 
@@ -1490,10 +1445,7 @@ e pdf)
 File: visualization_files/figure-beamer/unnamed-chunk-8-3.pdf Graphic file (typ
 e pdf)
 <use visualization_files/figure-beamer/unnamed-chunk-8-3.pdf>
-) [27
-
-] [28
-
+) [28
 
 ] [29
 
@@ -1507,6 +1459,144 @@ e pdf)
 ] [32
 
 
+] [33
+
+
+] [34
+
+
+] [35
+
+]
+\openout4 = `visualization.vrb'.
+
+(./visualization.vrb
+File: visualization_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (typ
+e pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-9-1.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-9-2.pdf Graphic file (typ
+e pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-9-2.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-10-1.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-10-1.pdf>
+) [36
+
+] [37
+
+
+] [38
+
+
+] [39
+
+
+] [40
+
+
+] [41
+
+
+]
+\openout4 = `visualization.vrb'.
+
+(./visualization.vrb
+File: visualization_files/figure-beamer/unnamed-chunk-11-1.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-11-1.pdf>
+) [42
+
+] [43
+
+
+]
+\openout4 = `visualization.vrb'.
+
+(./visualization.vrb
+File: visualization_files/figure-beamer/unnamed-chunk-12-1.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-12-1.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-12-2.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-12-2.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-12-3.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-12-3.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-12-4.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-12-4.pdf>
+) [44
+
+] [45
+
+
+] [46
+
+
+] [47
+
+
+] [48
+
+
+] [49
+
+
+] [50
+
+
+] [51
+
+
+] [52
+
+
+] [53
+
+] [54
+
+]
+\openout4 = `visualization.vrb'.
+
+(./visualization.vrb
+File: visualization_files/figure-beamer/unnamed-chunk-13-1.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-13-1.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-14-1.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-14-1.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-14-2.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-14-2.pdf>
+File: visualization_files/figure-beamer/unnamed-chunk-14-3.pdf Graphic file (ty
+pe pdf)
+<use visualization_files/figure-beamer/unnamed-chunk-14-3.pdf>
+) [55
+
+] [56
+
+
+] [57
+
+
+] [58
+
+
+] [59
+
+
+] [60
+
+
+] [61
+
+
+] [62
+
+
+] [63
+
+
 ]
 \tf@nav=\write7
 \openout7 = `visualization.nav'.
@@ -1517,24 +1607,24 @@ e pdf)
 \tf@snm=\write9
 \openout9 = `visualization.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 516.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 516.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 828.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 828.
 (./visualization.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 516.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 516.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 828.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 828.
 Package rerunfilecheck Info: File `visualization.out' has not changed.
-(rerunfilecheck)             Checksum: B48C3676D007E4AAA5B30F8001001A5E.
+(rerunfilecheck)             Checksum: E3F523D6C496422B3C804D57DFA79AE4.
  ) 
 Here is how much of TeX's memory you used:
- 38319 strings out of 494894
- 780381 string characters out of 6177483
- 853441 words of memory out of 5000000
- 41620 multiletter control sequences out of 15000+600000
- 544449 words of font info for 59 fonts, out of 8000000 for 9000
+ 38469 strings out of 494894
+ 784805 string characters out of 6177483
+ 859824 words of memory out of 5000000
+ 41747 multiletter control sequences out of 15000+600000
+ 545094 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1816b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on visualization.pdf (32 pages).
+Output written on visualization.pdf (63 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

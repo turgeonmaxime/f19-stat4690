@@ -9,3 +9,6 @@ dplyr
 stringr
 forcats
 dslabs
+scatterplot3d
+GGally
+ggforce
