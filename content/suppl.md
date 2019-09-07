@@ -12,8 +12,10 @@ On this page, I will post additional resources and supplementary material for th
 
 In this course, we will use R as the main computational tool. Below are some resources:
 
-  - [R for Data Science](https://r4ds.had.co.nz/)
+  - [R for Data Science](https://r4ds.had.co.nz/) by Grolemund and Wickham.
+  - [Hands-On Programming with R](https://d1b10bmlvqabco.cloudfront.net/attach/ighbo26t3ua52t/igp9099yy4v10/igz7vp4w5su9/OReilly_HandsOn_Programming_with_R_2014.pdf) by Grolemund.
   - Jenny Bryan's course on [Data wrangling, exploration, and analysis with R](https://stat545.com/)
+    + In particular, I recommend the notes on [The Many Flavours of R objects](https://stat545.com/block004_basic-r-objects.html)
   - Mine Cetinkaya's curated list of [resources for R](https://github.com/rstudio-education/rstats-ed)
   - If you're looking for a deep understanding of R, I recommend Hadley Wickham's book [Advanced R](https://adv-r.hadley.nz/)
   - RStudio has several great [cheatsheets](https://www.rstudio.com/resources/cheatsheets/) on their website. In particular, I recommend:
