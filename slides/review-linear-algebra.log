@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  15 AUG 2019 09:36
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  8 SEP 2019 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1104,34 +1104,88 @@ Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 ))
 Package hyperref Info: Option `breaklinks' set `true' on input line 55.
-(./review-linear-algebra.aux)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2019/01/15
+Style option: `fancyvrb' v3.2a <2019/01/15> (tvz)
+\FV@CodeLineNo=\count350
+\FV@InFile=\read3
+\FV@TabBox=\box81
+\c@FancyVerbLine=\count351
+\FV@StepNumber=\count352
+\FV@OutFile=\write5
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip75
+\fb@frw=\dimen297
+\fb@frh=\dimen298
+\FrameRule=\dimen299
+\FrameSep=\dimen300
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
+Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
+Package grffile Info: Option `multidot' is set to `true'.
+Package grffile Info: Option `extendedchars' is set to `false'.
+Package grffile Info: Option `space' is set to `true'.
+Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
+)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamerfontthemeprofessiona
+lfonts.sty) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tikzpagenodes/tikzpag
+enodes.sty
+Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the 
+page
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count353
+))
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2019/08/03 v3.1.4b (3.1.4b)
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen301
+\captionmargin@=\dimen302
+\captionwidth=\dimen303
+\caption@tempdima=\dimen304
+\caption@indent=\dimen305
+\caption@parindent=\dimen306
+\caption@hangindent=\dimen307
+)
+\c@caption@flags=\count354
+\c@ContinuedFloat=\count355
+Package caption Info: beamer document class.
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+) (./review-linear-algebra.aux)
 \openout1 = `review-linear-algebra.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 116.
-LaTeX Font Info:    ... okay on input line 116.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 116.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 116.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 171.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 171.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    ... okay on input line 171.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1167,68 +1221,22 @@ LaTeX Font Info:    ... okay on input line 116.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring OFF on input line 116.
+\AtBeginShipoutBox=\box82
+Package hyperref Info: Link coloring OFF on input line 171.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count350
+\c@section@level=\count356
 )
-LaTeX Info: Redefining \ref on input line 116.
-LaTeX Info: Redefining \pageref on input line 116.
-LaTeX Info: Redefining \nameref on input line 116.
+LaTeX Info: Redefining \ref on input line 171.
+LaTeX Info: Redefining \pageref on input line 171.
+LaTeX Info: Redefining \nameref on input line 171.
 (./review-linear-algebra.out) (./review-linear-algebra.out)
-\@outlinefile=\write5
-\openout5 = `review-linear-algebra.out'.
+\@outlinefile=\write6
+\openout6 = `review-linear-algebra.out'.
 
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 116.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 116.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 116.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 116.
-\symnumbers=\mathgroup6
-\sympureletters=\mathgroup7
-LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmr/m/n on input line 116.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmss/bx/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> TU/lmss/bx/n on input line 116.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/m/n on input line 116.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmss/m/it on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> TU/lmss/m/it on input line 116.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 116.
-LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  TU/lmss/m/n --> TU/lmss/bx/n on input line 116.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  TU/lmss/m/it --> TU/lmss/bx/it on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmr/bx/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  TU/lmss/bx/n --> TU/lmss/bx/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  TU/lmss/m/n --> TU/lmss/bx/n on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  TU/lmss/m/it --> TU/lmss/bx/it on input line 116.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  TU/lmtt/m/n --> TU/lmtt/bx/n on input line 116.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
 onary-English.dict
@@ -1253,94 +1261,237 @@ Dictionary: translator-numbers-dictionary, Language: English
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-theorem-dic
 tionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
-) (./review-linear-algebra.nav)
-Overfull \vbox (16.67491pt too high) detected at line 121
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+(./review-linear-algebra.nav)
+Overfull \vbox (16.67491pt too high) detected at line 176
  []
 
 [1
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 127
-.
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
-File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 181.
+
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 127.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 181.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 127
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 181
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 127
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 181
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 127.
+(Font)              <12> on input line 181.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 127.
+(Font)              <8> on input line 181.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 127.
-LaTeX Font Info:    Try loading font information for U+msa on input line 127.
+(Font)              <6> on input line 181.
+LaTeX Font Info:    Try loading font information for U+msa on input line 181.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 127.
+LaTeX Font Info:    Try loading font information for U+msb on input line 181.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [2
+
+]
+\openout4 = `review-linear-algebra.vrb'.
+
+(./review-linear-algebra.vrb
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 22.
 )
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 127.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <6> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 127.
-[2
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 209.
+[3
 
-] [3
+]
+\openout4 = `review-linear-algebra.vrb'.
 
-] [4
+(./review-linear-algebra.vrb
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 6.
+) [4
 
 ] [5
 
+
+] [6
+
+
+] [7
+
+
+] [8
+
+
+]
+\openout4 = `review-linear-algebra.vrb'.
+
+(./review-linear-algebra.vrb) [9
+
+] [10
+
+
+] [11
+
+
+] [12
+
+
+] [13
+
+
+] [14
+
+] [15
+
+] [16
+
+] [17
+
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 212.
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 212.
-[6
+(Font)              <10.95> on input line 492.
+[18
+
+] [19
+
+] [20
+
+
+] [21
+
 
 ]
-\tf@nav=\write6
-\openout6 = `review-linear-algebra.nav'.
+\openout4 = `review-linear-algebra.vrb'.
 
-\tf@toc=\write7
-\openout7 = `review-linear-algebra.toc'.
+(./review-linear-algebra.vrb) [22
 
-\tf@snm=\write8
-\openout8 = `review-linear-algebra.snm'.
+] [23
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 217.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 217.
+
+] [24
+
+] [25
+
+
+] [26
+
+
+] [27
+
+
+] [28
+
+] [29
+
+
+] [30
+
+
+]
+\openout4 = `review-linear-algebra.vrb'.
+
+(./review-linear-algebra.vrb) [31
+
+] [32
+
+
+] [33
+
+
+] [34
+
+
+] [35
+
+
+] [36
+
+] [37
+
+] [38
+
+
+] [39
+
+]
+Overfull \vbox (21.95093pt too high) detected at line 864
+ []
+
+[40
+
+] [41
+
+] [42
+
+
+]
+\openout4 = `review-linear-algebra.vrb'.
+
+(./review-linear-algebra.vrb) [43
+
+] [44
+
+
+] [45
+
+
+] [46
+
+
+]
+File: review-linear-algebra_files/figure-beamer/unnamed-chunk-7-1.pdf Graphic f
+ile (type pdf)
+<use review-linear-algebra_files/figure-beamer/unnamed-chunk-7-1.pdf>
+
+Overfull \vbox (12.59145pt too high) detected at line 1000
+ []
+
+[47
+
+]
+\tf@nav=\write7
+\openout7 = `review-linear-algebra.nav'.
+
+\tf@toc=\write8
+\openout8 = `review-linear-algebra.toc'.
+
+\tf@snm=\write9
+\openout9 = `review-linear-algebra.snm'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1005.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1005.
 (./review-linear-algebra.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 217.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 217.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1005.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1005.
+
 Package rerunfilecheck Info: File `review-linear-algebra.out' has not changed.
-(rerunfilecheck)             Checksum: 855AF0527CD64ACAA6201D76C3AD76CE.
+(rerunfilecheck)             Checksum: 9FE6EFC71FD87564557CA934471647BC.
  ) 
 Here is how much of TeX's memory you used:
- 36440 strings out of 494894
- 745423 string characters out of 6177483
- 816912 words of memory out of 5000000
- 39796 multiletter control sequences out of 15000+600000
- 548263 words of font info for 67 fonts, out of 8000000 for 9000
+ 38370 strings out of 494894
+ 780453 string characters out of 6177483
+ 860235 words of memory out of 5000000
+ 41679 multiletter control sequences out of 15000+600000
+ 560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,88p,1824b,726s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,15n,92p,1824b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on review-linear-algebra.pdf (6 pages).
+Output written on review-linear-algebra.pdf (47 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

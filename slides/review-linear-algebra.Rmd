@@ -1,14 +1,86 @@
 ---
 title: "Review of Linear Algebra"
-draft: true
+draft: false
 output: binb::metropolis
 fontsize: 12pt
 author: Max Turgeon
 institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+  - \usepackage{xcolor}
 ---
 
 ```{r,setup, include=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
+```
+
+# Basic Matrix operations
+
+## Matrix algebra and `R`
+
+  - Matrix operations in `R` are *very* fast.
+  - This includes various class of operations:
+    + Matrix addition, scalar multiplication, matrix multiplication, matrix-vector multiplication
+    + Standard functions like determinant, rank, condition number, etc.
+    + Matrix decompositions, e.g. eigenvalue, singular value, Cholesky, QR, etc.
+    + Support for *sparse* matrices, i.e. matrices where a significant number of entries are exactly zero.
+    
+## Matrix functions {.allowframebreaks}
+
+```{r}
+A <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
+A
+
+# Determinant
+det(A)
+
+# Rank
+library(Matrix)
+rankMatrix(A)
+
+# Condition number
+kappa(A)
+
+# How to compute the trace?
+sum(diag(A))
+
+# Transpose
+t(A)
+
+# Inverse
+solve(A)
+
+A %*% solve(A) # CHECK
+```
+
+## Matrix operations {.allowframebreaks}
+
+```{r}
+A <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
+B <- matrix(c(4, 3, 2, 1), nrow = 2, ncol = 2)
+
+# Addition
+A + B
+
+# Scalar multiplication
+3*A
+
+# Matrix multiplication
+A %*% B
+
+# Hadamard product aka entrywise multiplication
+A * B
+
+# Matrix-vector product
+vect <- c(1, 2)
+A %*% vect
+
+# BE CAREFUL: R recycles vectors
+A * vect
 ```
 
 # Eigenvalues and Eigenvectors
@@ -25,7 +97,7 @@ Let $$\mathbf{A} = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}.$$
 
 Then we have
 \begin{align*}
-\det(\mathbf{A} - \lambda I_n) &= (1 - \lambda)^2 - 0.25\\
+\det(\mathbf{A} - \lambda I_2) &= (1 - \lambda)^2 - 0.25\\
   &= (\lambda - 1.5)(\lambda - 0.5)
 \end{align*}
 
@@ -50,3 +122,265 @@ Let $\lambda_1, \ldots, \lambda_n$ be the eigenvalues of $\mathbf{A}$ (with mult
     + The system of equations $(\mathbf{A} - \lambda I_n)v = 0$ has a nontrivial solution;
     + There exists a nonzero vector $v$ such that $$\mathbf{A}v = \lambda v.$$
   - Such a vector is called an *eigenvector* of $\mathbf{A}$.
+  
+## Example (cont'd) {.allowframebreaks}
+
+Recall that we had $$\mathbf{A} = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix},$$
+and we determined that $0.5$ was an eigenvalue of $\mathbf{A}$.
+
+We therefore have
+\begin{align*}
+\mathbf{A} - 0.5 I_2 &= \begin{pmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{pmatrix}.
+\end{align*}
+
+As we can see, any vector $v$ of the form $(x, -x)$ satisfies
+\begin{align*}
+(\mathbf{A} - 0.5 I_2)v &= (0,0).
+\end{align*}
+
+In other words, we not only get a single eigenvector, but a whole subspace of $\mathbb{R}^2$. By convention, we usually select as a represensative a vector of norm 1, e.g.
+$$ v = \left(\frac{1}{\sqrt{2}}, \frac{-1}{\sqrt{2}}\right).$$
+
+Alternatively, instead of finding the eigenvector by inspection, we can use the reduced row-echelon form of $\mathbf{A} - 0.5 I_2$, which is given by
+$$\mathbf{A} = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}.$$
+Therefore, the solutions to $(\mathbf{A} - 0.5 I_2)v$, with $v = (x, y)$ are given by a single equation, namely $y + x = 0$, or $y = -x$.
+
+## Eigenvalues and eigenvectors in `R` {.allowframebreaks}
+
+```{r}
+A <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+
+result <- eigen(A)
+
+names(result)
+
+result$values
+
+result$vectors
+
+1/sqrt(2)
+```
+
+## Symmetric matrices {.allowframebreaks}
+
+  - A matrix $\mathbf{A}$ is called *symmetric* if $\mathbf{A}^T = \mathbf{A}$. 
+  - **Proposition 1**: If $\mathbf{A}$ is (real) symmetric, then its eigenvalues are real.
+  
+*Proof*: Let $\lambda$ be an eigenvalue of $\mathbf{A}$, and let $v\neq 0$ be an eigenvector corresponding to this eigenvalue. Then we have
+
+\begin{align*}
+\lambda \bar{v}^T v &= \bar{v}^T (\lambda v) \\
+  &= \bar{v}^T (\mathbf{A}v)\\
+  &= (\mathbf{A}^T\bar{v})^Tv\\
+  &= (\mathbf{A}\bar{v})^Tv \qquad (\mathbf{A}\mbox{ is symmetric})\\
+  &= (\overline{\mathbf{A}v})^Tv \qquad (\mathbf{A}\mbox{ is real})\\
+  &= \bar{\lambda}\bar{v}^Tv.
+\end{align*}
+
+Since we have $v\neq 0$, we conclude that $\lambda = \bar{\lambda}$, i.e. $\lambda$ is real. \hfill \qed
+
+  - **Proposition 2**: If $\mathbf{A}$ is (real) symmetric, then eigenvectors corresponding to distinct eigenvalues are orthogonal.
+  
+*Proof*: Let $\lambda_1, \lambda_2$ be distinct eigenvalues, and let $v_1\neq 0, v_2 \neq 0$ be corresponding eigenvectors. Then we have
+
+\begin{align*}
+\lambda_1 v_1^T v_2 &= (\mathbf{A}v_1)^Tv_2 \\
+  &= v_1^T\mathbf{A}^Tv_2 \\
+  &= v_1^T\mathbf{A}v_2 \qquad (\mathbf{A}\mbox{ is symmetric})\\
+  &= v_1^T (\lambda_2v_2)\\
+  &= \lambda_2 v_1^T v_2.
+\end{align*}
+
+Since $\lambda_1\neq\lambda_2$, we conclude that $v_1^T v_2 = 0$, i.e. $v_1$ and $v_2$ are orthogonal. \hfill\qed
+
+## Spectral Decomposition {.allowframebreaks}
+
+  - Putting these two propositions together, we get the *Spectral Decomposition* for symmetric matrices.
+  - **Theorem**: Let $\mathbf{A}$ be an $n\times n$ symmetric matrix, and let $\lambda_1\geq\cdots\geq\lambda_n$ be its eigenvalues (with multiplicity). Then there exist vectors $v_1,\ldots,v_n$ such that
+    1. $\mathbf{A} v_i = \lambda_i v_i$, i.e. $v_i$ is an eigenvector, for all $i$;
+    2. If $i\neq j$, then $v_i^T v_j=0$, i.e. they are orthogonal;
+    3. For all $i$, we have $v_i^T v_i=1$, i.e. they have unit norm;
+    4. We can write $\mathbf{A} = \sum_{i=1}^n \lambda_i v_i v_i^T$.
+    
+*Sketch of a proof*:
+
+  1. We are saying that we can find $n$ eigenvectors. This means that if an eigenvalue $\lambda$ has multiplicity $m$ (as a root of the characteristic polynomial), then the dimension of its *eigenspace* (i.e. the subspace of vectors satisfying $\mathbf{A}v = \lambda v$) is also equal to $m$. This is not necessarily the case for a general matrix $\mathbf{A}$.
+  2. If $\lambda_i \neq \lambda_j$, this is simply a consequence of Proposition 2. Otherwise, find a basis of the eigenspace and turn it into an orthogonal basis using the Gram-Schmidt algorithm.
+  3. This is one is straightforward: we are simply saying that we can choose the vectors so that they have unit norm.
+  4. First, note that if $\Lambda$ is a diagonal matrix with $\lambda_1,\ldots,\lambda_n$ on the diagonal, and $P$ is a matrix whose $i$-th column is $v_i$, then $\mathbf{A} = \sum_{i=1}^n \lambda_i v_i v_i^T$ is equivalent to
+  $$\mathbf{A} = P\Lambda P^T.$$
+  Then 4. is a consequence of the change of basis theorem: if we change the basis from the standard one to $\{v_1, \ldots, v_n\}$, then $\mathbf{A}$ acts by scalar multiplication in each direction, i.e. it is represented by a diagonal matrix $\Lambda$. \hfill\qed
+  
+## Examples {.allowframebreaks}
+
+We looked at $$\mathbf{A} = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix},$$ and determined that the eigenvalues where $1.5, 0.5$, with corresponding eigenvectors $\left(1/\sqrt{2}, 1/\sqrt{2}\right)$ and $\left(1/\sqrt{2}, -1/\sqrt{2}\right)$.
+
+```{r}
+v1 <- c(1/sqrt(2), 1/sqrt(2))
+v2 <- c(1/sqrt(2), -1/sqrt(2))
+
+Lambda <- diag(c(1.5, 0.5))
+P <- cbind(v1, v2)
+
+P %*% Lambda %*% t(P)
+
+# Now let's look at a random matrix----
+A <- matrix(rnorm(3 * 3), ncol = 3, nrow = 3)
+# Let's make it symmetric
+A[lower.tri(A)] <- A[upper.tri(A)]
+A
+
+result <- eigen(A, symmetric = TRUE)
+Lambda <- diag(result$values)
+P <- result$vectors
+
+P %*% Lambda %*% t(P)
+
+# How to check if they are equal?
+all.equal(A, P %*% Lambda %*% t(P))
+```
+
+## Positive-definite matrices
+
+Let $\mathbf{A}$ be a real symmetric matrix, and let $\lambda_1 \geq \cdots \geq \lambda_n$ be its (real) eigenvalues. 
+
+  1. If $\lambda_i > 0$ for all $i$, we say $\mathbf{A}$ is *positive definite*. 
+  2. If the inequality is not strict, if $\lambda_i \geq 0$, we say $\mathbf{A}$ is *positive semidefinite*. 
+  3. Similary, if $\lambda_i < 0$ for all $i$, we say $\mathbf{A}$ is *negative definite*. 
+  2. If the inequality is not strict, if $\lambda_i \leq 0$, we say $\mathbf{A}$ is *negative semidefinite*. 
+  
+**Note**: If $\mathbf{A}$ is *positive-definite*, then it is invertible!
+
+## Square Root Matrix {.allowframebreaks}
+
+  - Let $\mathbf{A}$ be a positive semidefinite symmetric matrix.
+  - By the Spectral Decomposition, we can write $$\mathbf{A} = P\Lambda P^T.$$
+  - Since $\mathbf{A}$ is positive-definite, we know that the elements on the diagonal of $\Lambda$ are positive.
+  - Let $\Lambda^{1/2}$ be the diagonal matrix whose entries are the square root of the entries on the diagonal of $\Lambda$.
+  - For example:
+  $$\Lambda = \begin{pmatrix} 1.5 & 0 \\ 0 & 0.5 \end{pmatrix} \Rightarrow \Lambda^{1/2} = \begin{pmatrix} 1.2247 & 0 \\ 0 & 0.7071 \end{pmatrix}.$$
+  - We define the square root $\mathbf{A}^{1/2}$ of $\mathbf{A}$ as follows:
+  $$\mathbf{A}^{1/2} := P\Lambda^{1/2} P^T.$$
+  - *Check*:
+
+\begin{align*}
+\mathbf{A}^{1/2}\mathbf{A}^{1/2} &= (P\Lambda^{1/2} P^T)(P\Lambda^{1/2} P^T)\\
+  &= P\Lambda^{1/2} (P^TP)\Lambda^{1/2} P^T\\
+  &= P\Lambda^{1/2}\Lambda^{1/2} P^T \qquad (P\mbox{ is orthogonal})\\
+  &= P\Lambda P^T\\
+  &= \mathbf{A}.
+\end{align*}
+  
+  <!-- - *What is the point?* Can be useful in computations to split a positive semidefinite matrix into two parts. -->
+  
+# Power method
+
+## Introduction to numerical algebra
+
+  - As presented in these notes, we can find the eigenvalue decomposition by
+    1. Finding the roots of a degree $n$ polynomial.
+    2. For each root, find the solutions to a system of linear equations.
+  - Problem: no exact formula for roots of a generic polynomial when $n > 4$. 
+    + So we need to find approximate solutions
+  - Other problem: approximation errors for eigenvalues propagate to eigenvectors
+  - **Need more stable algorithms**
+  - This is what numerical algebra is about. For a good reference, I recommend *Matrix Computations* by Golub and Van Loan.
+  
+## Power Method {.allowframebreaks}
+
+  - We'll discuss one approach to finding the leading eigenvector, i.e. the eigenvector corresponding to the largest eigenvalue (in absolute value).
+  - **Note**: We have to assume that the largest eigenvalue (in absolute value) is unique.
+  - *Algorithm*:
+    1. Let $v_0$ be an initial vector with unit norm.
+    2. At step $k$, define
+    $$ v_{k+1} = \frac{\mathbf{A}v_k}{\| \mathbf{A}v_k \|},$$
+    where $\|v\|$ is the norm of the vector $v$.
+    3. Then the sequence $v_k$ converges to the desired eigenvector.
+    4. The corresponding eigenvalue is defined by
+    $$\lambda = \lim_{k\to\infty} \frac{v_k^T\mathbf{A}v_k}{v_k^Tv_k}.$$
+    
+  - Comment: unless $v_0$ is orthogonal to the eigenvector we are looking for, we have theoretical guarantees of convergence.
+    + In practice, we can pick $v_0$ randomly, since the probability a random vector is orthogonal to the eigenvector is zero.
+    
+## Example {.allowframebreaks}
+
+```{r}
+set.seed(123)
+
+A <- matrix(rnorm(3*3), ncol = 3)
+# Make A symmetric
+A[lower.tri(A)] <- A[upper.tri(A)]
+
+# Set initial value
+v_current <- rnorm(3)
+v_current <- v_current/norm(v_current, type = "2")
+```
+
+
+```{r}
+# We'll perform 100 iterations
+for (i in seq_len(100)) {
+  # Save result from previous iteration
+  v_previous <- v_current
+  # Compute matrix product
+  numerator <- A %*% v_current
+  # Normalize
+  v_current <- numerator/norm(numerator, type = "2")
+}
+
+v_current
+
+# Corresponding eigenvalue
+num <- t(v_current) %*% A %*% v_current
+denom <- t(v_current) %*% v_current
+num/denom
+
+# CHECK results
+result <- eigen(A, symmetric = TRUE)
+result$values[which.max(abs(result$values))]
+result$vectors[,which.max(abs(result$values))]
+```
+
+  - Note that we did not get the same eigenvector: they differ by -1.
+  
+## Visualization
+
+```{r, echo=FALSE, fig.height=6, fig.width=6}
+set.seed(123)
+p <- 2
+
+A <- matrix(rnorm(p*p), ncol = p)
+# Make A symmetric
+A[lower.tri(A)] <- A[upper.tri(A)]
+
+# Set initial value
+v_current <- rnorm(p)
+v_current <- v_current/norm(v_current, type = "2")
+results <- matrix(NA, ncol = p, nrow = 100)
+
+for (i in seq_len(100)) {
+  results[i,] <- v_previous <- v_current
+  # Compute matrix product
+  numerator <- A %*% v_current
+  # Normalize
+  v_current <- numerator/norm(numerator, type = "2")
+}
+
+# Plot sequence
+decomp <- eigen(A)
+leading_vect <- decomp$vectors[,which.max(abs(decomp$values))]
+
+theta_vect <- seq(0, 2*pi, length.out = 100)
+x_circle <- cos(theta_vect)
+y_circle <- sin(theta_vect)
+
+plot(x_circle, y_circle, col = 'grey60', type = 'l',
+     xlab = "", ylab = "")
+lines(results[,1], results[,2])
+points(results[,1], results[,2], pch = 19,
+       col = c("green", rep("black", 98), "red"))
+points(x = c(0, leading_vect[1]), y = c(0, leading_vect[2]), 
+       col = 'blue', type = 'b', pch = 19, cex = 2)
+```
+
+Blue is the objective; the sequence goes from green to red.
