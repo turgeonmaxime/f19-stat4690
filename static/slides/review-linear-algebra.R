@@ -182,3 +182,46 @@ points(results[,1], results[,2], pch = 19,
 points(x = c(0, leading_vect[1]), y = c(0, leading_vect[2]), 
        col = 'blue', type = 'b', pch = 19, cex = 2)
 
+
+## ---- cache = FALSE------------------------------------------------------
+set.seed(1234)
+A <- matrix(rnorm(3 * 2), ncol = 2, nrow = 3)
+result <- svd(A)
+names(result)
+
+result$d
+result$u
+result$v
+
+D <- diag(result$d)
+all.equal(A, result$u %*% D %*% t(result$v)) #CHECK
+
+
+## ---- cache = FALSE------------------------------------------------------
+# Note: crossprod(A) == t(A) %*% A
+#  tcrossprod(A) == A %*% t(A)
+U <- eigen(tcrossprod(A))$vectors
+V <- eigen(crossprod(A))$vectors
+
+D <- matrix(0, nrow = 3, ncol = 2)
+diag(D) <- result$d
+
+all.equal(A, U %*% D %*% t(V)) # CHECK
+
+
+## ---- cache = FALSE------------------------------------------------------
+# What went wrong?
+# Recall that eigenvectors are unique 
+# only up to a sign!
+
+# These elements should all be positive
+diag(t(U) %*% A %*% V)
+
+# Therefore we need to multiply the 
+# corresponding columns of U or V 
+# (but not both!) by -1
+cols_flip <- which(diag(t(U) %*% A %*% V) < 0)
+V[,cols_flip] <- -V[,cols_flip]
+
+all.equal(A, U %*% D %*% t(V)) # CHECK
+

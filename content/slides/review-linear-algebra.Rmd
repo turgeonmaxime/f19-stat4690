@@ -443,9 +443,55 @@ Blue is the objective; the sequence goes from green to red.
   - Therefore, we can write:
     + $\mathbf{A}^T \mathbf{A} = P_1\Lambda_1 P_1^T$;
     + $\mathbf{A} \mathbf{A}^T = P_2\Lambda_2 P_2^T$.
-  - Moreover, note that $\mathbf{A}^T \mathbf{A}$ and $\mathbf{A}\mathbf{A}^T$ have the **same** eigenvalues.
+  - Moreover, note that $\mathbf{A}^T \mathbf{A}$ and $\mathbf{A}\mathbf{A}^T$ have the **same** nonzero eigenvalues.
   - Therefore, if we choose $\Lambda_1$ and $\Lambda_2$ so that the elements on the diagonal are in descending order, we can choose
     + $U = P_2$;
     + $V = P_1$;
     + The main diagonal of $D$ contains the nonzero eigenvalues of $\mathbf{A}^T \mathbf{A}$ in descending order.
+    
+## Example {.allowframebreaks}
+
+```{r, cache = FALSE}
+set.seed(1234)
+A <- matrix(rnorm(3 * 2), ncol = 2, nrow = 3)
+result <- svd(A)
+names(result)
+
+result$d
+result$u
+result$v
+
+D <- diag(result$d)
+all.equal(A, result$u %*% D %*% t(result$v)) #CHECK
+```
+
+```{r, cache = FALSE}
+# Note: crossprod(A) == t(A) %*% A
+#  tcrossprod(A) == A %*% t(A)
+U <- eigen(tcrossprod(A))$vectors
+V <- eigen(crossprod(A))$vectors
+
+D <- matrix(0, nrow = 3, ncol = 2)
+diag(D) <- result$d
+
+all.equal(A, U %*% D %*% t(V)) # CHECK
+```
+
+```{r, cache = FALSE}
+# What went wrong?
+# Recall that eigenvectors are unique 
+# only up to a sign!
+
+# These elements should all be positive
+diag(t(U) %*% A %*% V)
+
+# Therefore we need to multiply the 
+# corresponding columns of U or V 
+# (but not both!) by -1
+cols_flip <- which(diag(t(U) %*% A %*% V) < 0)
+V[,cols_flip] <- -V[,cols_flip]
+
+all.equal(A, U %*% D %*% t(V)) # CHECK
+```
+
   
