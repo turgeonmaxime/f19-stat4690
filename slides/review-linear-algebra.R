@@ -92,6 +92,24 @@ all.equal(A, P %*% Lambda %*% t(P))
 
 
 ## ------------------------------------------------------------------------
+A <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+
+# Eigenvalue method
+result <- eigen(A)
+Lambda <- diag(result$values)
+P <- result$vectors
+A_sqrt <- P %*% Lambda^0.5 %*% t(P)
+
+all.equal(A, A_sqrt %*% A_sqrt) # CHECK
+
+# Cholesky method
+# It's upper triangular!
+(L <- chol(A))
+
+all.equal(A, t(L) %*% L) # CHECK
+
+
+## ------------------------------------------------------------------------
 set.seed(123)
 
 A <- matrix(rnorm(3*3), ncol = 3)

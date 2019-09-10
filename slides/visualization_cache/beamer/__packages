@@ -12,3 +12,9 @@ dslabs
 scatterplot3d
 GGally
 ggforce
+intervals
+knitr
+copula
+Matrix
+microbenchmark
+magrittr

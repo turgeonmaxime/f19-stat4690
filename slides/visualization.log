@@ -1,9 +1,12 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  6 SEP 2019 09:42
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  10 SEP 2019 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**visualization.tex
-(./visualization.tex
+**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualization.t
+ex
+
+(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualization.te
+x
 LaTeX2e <2018-12-01>
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
@@ -1349,15 +1352,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-5-1.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-5-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-5-2.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-5-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-5-3.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-5-3.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-5-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-5-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-5-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-5-3.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-5-3.pdf>
 ) [10
 
 ] [11
@@ -1379,12 +1385,14 @@ e pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-6-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-6-2.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-6-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-6-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-6-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-6-2.pdf>
 ) [16
 
 ] [17
@@ -1403,15 +1411,18 @@ e pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-7-1.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-7-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-7-2.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-7-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-7-3.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-7-3.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-7-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-7-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-7-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-7-3.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-7-3.pdf>
 ) [21
 
 ] [22
@@ -1436,15 +1447,18 @@ e pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-8-1.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-8-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-8-2.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-8-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-8-3.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-8-3.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-8-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-8-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-8-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-8-3.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-8-3.pdf>
 ) [28
 
 ] [29
@@ -1471,15 +1485,18 @@ e pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-9-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-9-2.pdf Graphic file (typ
-e pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-9-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-10-1.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-10-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-9-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-9-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-9-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-10-1.pdf>
 ) [36
 
 ] [37
@@ -1501,9 +1518,10 @@ pe pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-11-1.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-11-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-11-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-11-1.pdf>
 ) [42
 
 ] [43
@@ -1513,18 +1531,22 @@ pe pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-12-1.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-12-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-12-2.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-12-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-12-3.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-12-3.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-12-4.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-12-4.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-12-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-12-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-12-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-12-3.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-12-3.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-12-4.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-12-4.pdf>
 ) [44
 
 ] [45
@@ -1559,18 +1581,22 @@ pe pdf)
 \openout4 = `visualization.vrb'.
 
 (./visualization.vrb
-File: visualization_files/figure-beamer/unnamed-chunk-13-1.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-13-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-14-1.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-14-1.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-14-2.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-14-2.pdf>
-File: visualization_files/figure-beamer/unnamed-chunk-14-3.pdf Graphic file (ty
-pe pdf)
-<use visualization_files/figure-beamer/unnamed-chunk-14-3.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-13-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-13-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-14-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-14-2.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-14-2.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizati
+on_files/figure-beamer/unnamed-chunk-14-3.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/visualizatio
+n_files/figure-beamer/unnamed-chunk-14-3.pdf>
 ) [55
 
 ] [56
@@ -1616,13 +1642,13 @@ Package rerunfilecheck Info: File `visualization.out' has not changed.
 (rerunfilecheck)             Checksum: E3F523D6C496422B3C804D57DFA79AE4.
  ) 
 Here is how much of TeX's memory you used:
- 38469 strings out of 494894
- 784805 string characters out of 6177483
+ 38470 strings out of 494894
+ 789329 string characters out of 6177483
  859824 words of memory out of 5000000
  41747 multiletter control sequences out of 15000+600000
  545094 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,92p,1816b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,13n,92p,1878b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on visualization.pdf (63 pages).
 

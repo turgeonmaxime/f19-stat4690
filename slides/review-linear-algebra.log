@@ -1,9 +1,12 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  8 SEP 2019 14:44
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  10 SEP 2019 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**review-linear-algebra.tex
-(./review-linear-algebra.tex
+**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/review-linear-a
+lgebra.tex
+
+(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/review-linear-al
+gebra.tex
 LaTeX2e <2018-12-01>
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
@@ -1428,40 +1431,67 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 ] [39
 
+
 ]
-Overfull \vbox (21.95093pt too high) detected at line 864
+Overfull \vbox (5.3308pt too high) detected at line 875
  []
 
 [40
 
-] [41
+]
+\openout4 = `review-linear-algebra.vrb'.
+
+(./review-linear-algebra.vrb) [41
 
 ] [42
 
 
+] [43
+
 ]
-\openout4 = `review-linear-algebra.vrb'.
+Overfull \vbox (21.95093pt too high) detected at line 962
+ []
 
-(./review-linear-algebra.vrb) [43
-
-] [44
-
+[44
 
 ] [45
-
 
 ] [46
 
 
 ]
-File: review-linear-algebra_files/figure-beamer/unnamed-chunk-7-1.pdf Graphic f
-ile (type pdf)
-<use review-linear-algebra_files/figure-beamer/unnamed-chunk-7-1.pdf>
+\openout4 = `review-linear-algebra.vrb'.
 
-Overfull \vbox (12.59145pt too high) detected at line 1000
+(./review-linear-algebra.vrb) [47
+
+] [48
+
+
+] [49
+
+
+] [50
+
+
+]
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/review-line
+ar-algebra_files/figure-beamer/unnamed-chunk-8-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/review-linea
+r-algebra_files/figure-beamer/unnamed-chunk-8-1.pdf>
+
+Overfull \vbox (12.59145pt too high) detected at line 1098
  []
 
-[47
+[51
+
+] [52
+
+] [53
+
+] [54
+
+
+] [55
 
 ]
 \tf@nav=\write7
@@ -1473,25 +1503,25 @@ Overfull \vbox (12.59145pt too high) detected at line 1000
 \tf@snm=\write9
 \openout9 = `review-linear-algebra.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1005.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1005.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1196.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1196.
 (./review-linear-algebra.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1005.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1005.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1196.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1196.
 
 Package rerunfilecheck Info: File `review-linear-algebra.out' has not changed.
-(rerunfilecheck)             Checksum: 9FE6EFC71FD87564557CA934471647BC.
+(rerunfilecheck)             Checksum: 66093359B80FE23B543E7196C8F5821D.
  ) 
 Here is how much of TeX's memory you used:
- 38370 strings out of 494894
- 780453 string characters out of 6177483
- 860235 words of memory out of 5000000
- 41679 multiletter control sequences out of 15000+600000
- 560881 words of font info for 67 fonts, out of 8000000 for 9000
+ 38394 strings out of 494894
+ 781159 string characters out of 6177483
+ 859893 words of memory out of 5000000
+ 41699 multiletter control sequences out of 15000+600000
+ 560889 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,15n,92p,1824b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,15n,92p,1886b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on review-linear-algebra.pdf (47 pages).
+Output written on review-linear-algebra.pdf (55 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

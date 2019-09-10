@@ -1,6 +1,7 @@
 ---
 title: "Review of Linear Algebra"
 draft: false
+source: true
 output: binb::metropolis
 fontsize: 12pt
 author: Max Turgeon
@@ -251,7 +252,7 @@ Let $\mathbf{A}$ be a real symmetric matrix, and let $\lambda_1 \geq \cdots \geq
   
 **Note**: If $\mathbf{A}$ is *positive-definite*, then it is invertible!
 
-## Square Root Matrix {.allowframebreaks}
+## Matrix Square Root {.allowframebreaks}
 
   - Let $\mathbf{A}$ be a positive semidefinite symmetric matrix.
   - By the Spectral Decomposition, we can write $$\mathbf{A} = P\Lambda P^T.$$
@@ -271,8 +272,40 @@ Let $\mathbf{A}$ be a real symmetric matrix, and let $\lambda_1 \geq \cdots \geq
   &= \mathbf{A}.
 \end{align*}
   
-  <!-- - *What is the point?* Can be useful in computations to split a positive semidefinite matrix into two parts. -->
-  
+  - *Be careful*: your intuition about square roots of positive real numbers doesn't translate to matrices.
+    + In particular, matrix square roots are **not** unique (unless you impose further restrictions).
+
+## Cholesky Decomposition
+
+  - The most common way to obtain a square root matrix for a positive definite matrix $\mathbf{A}$ is via the *Cholesky decomposition*.
+  - There exists a unique matrix $L$ such that:
+    + $L$ is lower triangular (i.e. all entries above the diagonal are zero);
+    + The entries on the diagonal are positive;
+    + $\mathbf{A} = LL^T$.
+  - For matrix square roots, the Cholesky decomposition should be prefered to the eigenvalue decomposition because:
+    + It is computationally more efficient;
+    + It is numerically more stable.
+    
+## Example {.allowframebreaks}
+
+```{r}
+A <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+
+# Eigenvalue method
+result <- eigen(A)
+Lambda <- diag(result$values)
+P <- result$vectors
+A_sqrt <- P %*% Lambda^0.5 %*% t(P)
+
+all.equal(A, A_sqrt %*% A_sqrt) # CHECK
+
+# Cholesky method
+# It's upper triangular!
+(L <- chol(A))
+
+all.equal(A, t(L) %*% L) # CHECK
+```
+
 # Power method
 
 ## Introduction to numerical algebra
@@ -384,3 +417,35 @@ points(x = c(0, leading_vect[1]), y = c(0, leading_vect[2]),
 ```
 
 Blue is the objective; the sequence goes from green to red.
+
+# Singular Value Decomposition
+
+## Singular Value Decomposition {.allowframebreaks}
+
+  - We saw earlier that real symmetric matrices are *diagonalizable*, i.e. they admit a decomposition of the form $P\Lambda P^T$ where
+    + $\Lambda$ is diagonal;
+    + $P$ is orthogonal, i.e. $PP^T = P^TP=I$.
+  - For a general $n\times p$ matrix $\mathbf{A}$, we have the *Singular Value Decomposition* (SVD). 
+  - We can write $\mathbf{A} = UDV^T$, where
+    + $U$ is an $n\times n$ orthonal matrix;
+    + $V$ is a $p \times p$ orthogonal matrix;
+    + $D$ is an $n\times p$ diagonal matrix.
+  - We say that:
+    + the columns of $U$ are the *left-singular vectors* of $\mathbf{A}$;
+    + the columns of $V$ are the *right-singular vectors* of $\mathbf{A}$;
+    + the nonzero entries of $D$ are the *singular values* of $\mathbf{A}$.
+    
+## Existence proof
+
+  <!-- - How do we know that the SVD exists for any $n\times p$ matrix $\mathbf{A}$? -->
+  
+  - First, note that both $\mathbf{A}^T \mathbf{A}$ and $\mathbf{A}\mathbf{A}^T$ are symmetric.
+  - Therefore, we can write:
+    + $\mathbf{A}^T \mathbf{A} = P_1\Lambda_1 P_1^T$;
+    + $\mathbf{A} \mathbf{A}^T = P_2\Lambda_2 P_2^T$.
+  - Moreover, note that $\mathbf{A}^T \mathbf{A}$ and $\mathbf{A}\mathbf{A}^T$ have the **same** eigenvalues.
+  - Therefore, if we choose $\Lambda_1$ and $\Lambda_2$ so that the elements on the diagonal are in descending order, we can choose
+    + $U = P_2$;
+    + $V = P_1$;
+    + The main diagonal of $D$ contains the nonzero eigenvalues of $\mathbf{A}^T \mathbf{A}$ in descending order.
+  
