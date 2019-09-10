@@ -3,3 +3,4 @@ content/slides/*.log
 content/slides/*.pdf
 content/slides/*_cache/
 content/slides/*_files/
+static/slides/*_files/
