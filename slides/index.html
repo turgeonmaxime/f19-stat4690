@@ -1,24 +1,15 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-  
-    
-    Slides
-  
- | STAT 4690 - Fall 2019</title>
+<title>Slides | STAT 4690 - Fall 2019</title>
 
 
+<link rel="stylesheet" href="/f19-stat4690/book.min.f4161f5e2de53a2e927f51df1611323a2a12cccb2681f23cb6fc3517852e8643.css" integrity="sha256-9BYfXi3lOi6Sf1HfFhEyOioSzMsmgfI8tvw1F4UuhkM=">
 
-<link rel="stylesheet" href="/f19-stat4690/book.min.f4161f5e2de53a2e927f51df1611323a2a12cccb2681f23cb6fc3517852e8643.css">
+
 
 
 <link rel="icon" href="/f19-stat4690/favicon.png" type="image/x-icon">
@@ -33,14 +24,18 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
+  <input type="checkbox" class="hidden" id="menu-control" />
   <main class="flex container">
 
     <aside class="book-menu fixed">
       <nav>
 <h2 class="book-brand">
-  <a href="https://turgeonmaxime.github.io/f19-stat4690/">STAT 4690 - Fall 2019</a>
+  <a href="https://turgeonmaxime.github.io/f19-stat4690/"><span>STAT 4690 - Fall 2019</span>
+  </a>
 </h2>
+
+
+
 
 
 
@@ -65,23 +60,29 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
 </nav>
 
 
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
 
     </aside>
 
     <div class="book-page">
-      <header class="align-center justify-between book-header">
+      <header class="flex align-center justify-between book-header">
   <label for="menu-control">
     <img src="/f19-stat4690/svg/menu.svg" alt="Menu" />
   </label>
-  <strong>
-  
-    
-    Slides
-  
-</strong>
+  <strong>Slides</strong>
 </header>
 
       
@@ -90,7 +91,7 @@ https://github.com/alex-shpak/hugo-book
 <h1 id="slides">Slides</h1>
 
 <ul>
-<li><a href="overview.pdf">Course overview</a></li>
+<li><a href="overview.pdf">Course Overview</a></li>
 <li><a href="visualization.pdf">Data Visualization</a>
 
 <ul>
@@ -102,6 +103,12 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><a href="review-linear-algebra.R">R code</a></li>
 </ul></li>
+<li><a href="multivariate-random-variables.pdf">Multivariate Random Variables</a>
+
+<ul>
+<li><a href="multivariate-random-variables.R">R code</a></li>
+</ul></li>
+<li>Multivariate Normal Distribution</li>
 </ul>
 </article>
 
@@ -116,7 +123,7 @@ https://github.com/alex-shpak/hugo-book
 
 
   </main>
-  
+
   
   
 </body>

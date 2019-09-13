@@ -1,9 +1,12 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  11 SEP 2019 16:26
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  13 SEP 2019 12:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**multivariate-distributions.tex
-(./multivariate-distributions.tex
+**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-ra
+ndom-variables.tex
+
+(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-ran
+dom-variables.tex
 LaTeX2e <2018-12-01>
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
@@ -1104,7 +1107,29 @@ Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 ))
 Package hyperref Info: Option `breaklinks' set `true' on input line 55.
-
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2019/01/15
+Style option: `fancyvrb' v3.2a <2019/01/15> (tvz)
+\FV@CodeLineNo=\count350
+\FV@InFile=\read3
+\FV@TabBox=\box81
+\c@FancyVerbLine=\count351
+\FV@StepNumber=\count352
+\FV@OutFile=\write5
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip75
+\fb@frw=\dimen297
+\fb@frh=\dimen298
+\FrameRule=\dimen299
+\FrameSep=\dimen300
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
+Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
+Package grffile Info: Option `multidot' is set to `true'.
+Package grffile Info: Option `extendedchars' is set to `false'.
+Package grffile Info: Option `space' is set to `true'.
+Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
+)
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamerfontthemeprofessiona
 lfonts.sty) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tikzpagenodes/tikzpag
 enodes.sty
@@ -1112,7 +1137,7 @@ Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the
 page
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count350
+\c@checkoddpage=\count353
 ))
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
@@ -1122,48 +1147,48 @@ Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen297
-\captionmargin@=\dimen298
-\captionwidth=\dimen299
-\caption@tempdima=\dimen300
-\caption@indent=\dimen301
-\caption@parindent=\dimen302
-\caption@hangindent=\dimen303
+\captionmargin=\dimen301
+\captionmargin@=\dimen302
+\captionwidth=\dimen303
+\caption@tempdima=\dimen304
+\caption@indent=\dimen305
+\caption@parindent=\dimen306
+\caption@hangindent=\dimen307
 )
-\c@caption@flags=\count351
-\c@ContinuedFloat=\count352
+\c@caption@flags=\count354
+\c@ContinuedFloat=\count355
 Package caption Info: beamer document class.
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
-) (./multivariate-distributions.aux)
-\openout1 = `multivariate-distributions.aux'.
+) (./multivariate-random-variables.aux)
+\openout1 = `multivariate-random-variables.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 121.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 170.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 170.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    ... okay on input line 170.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1199,21 +1224,21 @@ LaTeX Font Info:    ... okay on input line 121.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring OFF on input line 121.
+\AtBeginShipoutBox=\box82
+Package hyperref Info: Link coloring OFF on input line 170.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count353
+\c@section@level=\count356
 )
-LaTeX Info: Redefining \ref on input line 121.
-LaTeX Info: Redefining \pageref on input line 121.
-LaTeX Info: Redefining \nameref on input line 121.
-(./multivariate-distributions.out) (./multivariate-distributions.out)
-\@outlinefile=\write5
-\openout5 = `multivariate-distributions.out'.
+LaTeX Info: Redefining \ref on input line 170.
+LaTeX Info: Redefining \pageref on input line 170.
+LaTeX Info: Redefining \nameref on input line 170.
+(./multivariate-random-variables.out) (./multivariate-random-variables.out)
+\@outlinefile=\write6
+\openout6 = `multivariate-random-variables.out'.
 
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
@@ -1242,92 +1267,190 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(./multivariate-distributions.nav)
-Overfull \vbox (16.67491pt too high) detected at line 126
+(./multivariate-random-variables.nav)
+Overfull \vbox (16.67491pt too high) detected at line 175
  []
 
 [1
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 131.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 194.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 131.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 194.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 131
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 194
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 131
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 194
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 131.
+(Font)              <12> on input line 194.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 131.
+(Font)              <8> on input line 194.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 131.
-LaTeX Font Info:    Try loading font information for U+msa on input line 131.
+(Font)              <6> on input line 194.
+LaTeX Font Info:    Try loading font information for U+msa on input line 194.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 131.
+LaTeX Font Info:    Try loading font information for U+msb on input line 194.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2
 
 ] [3
 
-]
-Overfull \hbox (42.4809pt too wide) detected at line 171
-\OML/lmm/m/it/12 E\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 Y[] [] Y[]\OT1/lmr/m/n/12 )
- = [][] [] [][] \OML/lmm/m/it/12 u[] [] u[]f\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 u
-[]; [] ; u[]\OT1/lmr/m/n/12 )\OML/lmm/m/it/12 du[] [] du[]:
- []
-
-[4
+] [4
 
 ] [5
 
+
 ] [6
 
+] [7
+
 ]
-\tf@nav=\write6
-\openout6 = `multivariate-distributions.nav'.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 309.
+[8
 
-\tf@toc=\write7
-\openout7 = `multivariate-distributions.toc'.
+] [9
 
-\tf@snm=\write8
-\openout8 = `multivariate-distributions.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 193.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
-(./multivariate-distributions.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 193.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
-Package rerunfilecheck Info: File `multivariate-distributions.out' has not chan
-ged.
-(rerunfilecheck)             Checksum: D05A9CE16816AFE59B43738FCC1F79CF.
+]
+Overfull \hbox (30.10747pt too wide) detected at line 337
+[]
+ []
+
+[10
+
+] [11
+
+
+] [12
+
+
+]
+Overfull \vbox (16.12108pt too high) detected at line 366
+ []
+
+[13
+
+]
+\openout4 = `multivariate-random-variables.vrb'.
+
+(./multivariate-random-variables.vrb
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+) [14
+
+] [15
+
+
+] [16
+
+
+] [17
+
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 509.
+[18
+
+] [19
+
+
+] [20
+
+
+]
+\openout4 = `multivariate-random-variables.vrb'.
+
+(./multivariate-random-variables.vrb
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariat
+e-random-variables_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate
+-random-variables_files/figure-beamer/unnamed-chunk-4-1.pdf>
+) [21
+
+] [22
+
+
+] [23
+
+
+] [24
+
+
+]
+\openout4 = `multivariate-random-variables.vrb'.
+
+(./multivariate-random-variables.vrb) [25
+
+]
+Overfull \vbox (15.75598pt too high) detected at line 592
+ []
+
+[26
+
+
+]
+\openout4 = `multivariate-random-variables.vrb'.
+
+(./multivariate-random-variables.vrb) [27
+
+] [28
+
+] [29
+
+] [30
+
+] [31
+
+] [32
+
+
+]
+\tf@nav=\write7
+\openout7 = `multivariate-random-variables.nav'.
+
+\tf@toc=\write8
+\openout8 = `multivariate-random-variables.toc'.
+
+\tf@snm=\write9
+\openout9 = `multivariate-random-variables.snm'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 727.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 727.
+(./multivariate-random-variables.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 727.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 727.
+Package rerunfilecheck Info: File `multivariate-random-variables.out' has not c
+hanged.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 37628 strings out of 494894
- 768194 string characters out of 6177483
- 841023 words of memory out of 5000000
- 40979 multiletter control sequences out of 15000+600000
- 545054 words of font info for 53 fonts, out of 8000000 for 9000
+ 38280 strings out of 494894
+ 778980 string characters out of 6177483
+ 857028 words of memory out of 5000000
+ 41592 multiletter control sequences out of 15000+600000
+ 560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,92p,1829b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,15n,92p,1894b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on multivariate-distributions.pdf (6 pages).
+Output written on multivariate-random-variables.pdf (32 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '
