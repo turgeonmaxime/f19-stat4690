@@ -6,3 +6,5 @@ theme = "book"
 [params]
 BookMenuBundle = "/menu"
 BookToC = false
+ignoreFiles = [ "content/slides/*_cache/" ]
+BookSearch = false
