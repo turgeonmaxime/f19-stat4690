@@ -21,7 +21,7 @@ Moreover, the course aims to make students familiar, or competent, with the `R` 
   - Lectures: MWF 10:30 AM--11:20 AM, 500A Machray Hall
   - Office Hours:
     + Tuesday 9:30AM-11AM
-    + Thursday 1PM-2:30PM
+    + Wednesday 11:30AM-1PM (i.e. after class)
     + By appointment (if necessary)
     
 The course outline can be downloaded [here](outline_stat4690_f19.pdf).
