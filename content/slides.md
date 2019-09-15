@@ -13,4 +13,6 @@ type: docs
     + [R code](review-linear-algebra.R)
   - [Multivariate Random Variables](multivariate-random-variables.pdf)
     + [R code](multivariate-random-variables.R)
-  - Multivariate Normal Distribution
+  - [Multivariate Normal Distribution](multivariate-normal.pdf)
+    + [R code](multivariate-normal.R)
+  - Maximum Likelihood Theory
