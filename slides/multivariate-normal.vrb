@@ -1,0 +1,89 @@
+\frametitle{Example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{n <-}\StringTok{ }\DecValTok{1000}\NormalTok{; p <-}\StringTok{ }\DecValTok{2}
+\NormalTok{Z <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p), }\DataTypeTok{ncol =}\NormalTok{ p)}
+
+\NormalTok{mu <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{Sigma <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\NormalTok{L <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{chol}\NormalTok{(Sigma))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y <-}\StringTok{ }\NormalTok{L }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(Z) }\OperatorTok{+}\StringTok{ }\NormalTok{mu}
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{t}\NormalTok{(Y)}
+
+\KeywordTok{colMeans}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.016128 2.044840
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.9834589 0.5667194
+## [2,] 0.5667194 1.0854361
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{Y }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{data.frame}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(X1, X2)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_density_2d}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-normal_files/figure-beamer/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(n, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sigma =}\NormalTok{ Sigma)}
+
+\KeywordTok{colMeans}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9812102 1.9829380
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cov}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.9982835 0.4906990
+## [2,] 0.4906990 0.9489171
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{data.frame}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(X1, X2)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_density_2d}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-normal_files/figure-beamer/unnamed-chunk-3-1.pdf}
+
