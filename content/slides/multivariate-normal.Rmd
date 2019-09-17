@@ -48,7 +48,7 @@ knitr::opts_chunk$set(cache=TRUE)
   & f(y_1, \ldots, y_p) = \frac{1}{\det(\Sigma)^{1/2}}\phi(L^{-1}(\mathbf{y} - \mu))\\
   &= \frac{1}{\det(\Sigma)^{1/2}}\left(\frac{1}{(\sqrt{2\pi})^p}\exp\left(-\frac{1}{2}(L^{-1}(\mathbf{y} - \mu))^TL^{-1}(\mathbf{y} - \mu)\right)\right)\\
   &= \frac{1}{\det(\Sigma)^{1/2}(\sqrt{2\pi})^p}\exp\left(-\frac{1}{2}(\mathbf{y} - \mu)^T(LL^T)^{-1}(\mathbf{y} - \mu)\right)\\
-  &= \frac{1}{\sqrt{(2\pi)^p}\lvert\Sigma\rvert}\exp\left(-\frac{1}{2}(\mathbf{y} - \mu)^T\Sigma^{-1}(\mathbf{y} - \mu)\right).
+  &= \frac{1}{\sqrt{(2\pi)^p\lvert\Sigma\rvert}}\exp\left(-\frac{1}{2}(\mathbf{y} - \mu)^T\Sigma^{-1}(\mathbf{y} - \mu)\right).
   \end{align*}
   
 ## Example {.allowframebreaks}  
@@ -153,7 +153,7 @@ Which of the following random variables are independent? Explain.
   - Let $\mathbf{Y}\sim N_p(\mu, \Sigma)$, and let $\Sigma = LL^T$ be the Cholesky decomposition of $\Sigma$.
   - We know that $\mathbf{Z} = L^{-1}(\mathbf{Y} - \mu)$ is normally distributed, with mean 0 and covariance matrix
   $$ \mathrm{Cov}(\mathbf{Z}) = L^{-1}\Sigma(L^{-1})^T = I_p.$$
-  - Therefore $(\mathbf{Y} - \mu)^T\Sigma^{-1}(\mathbf{Y} - \mu)$ is the sum of standard normal random variables.
+  - Therefore $(\mathbf{Y} - \mu)^T\Sigma^{-1}(\mathbf{Y} - \mu)$ is the sum of *squared* standard normal random variables.
     + In other words, $(\mathbf{Y} - \mu)^T\Sigma^{-1}(\mathbf{Y} - \mu) \sim \chi^2(p)$.
     + This can be seen as a generalization of the univariate result $\left(\frac{X - \mu}{\sigma}\right)^2\sim\chi^2(1)$.
   - From this, we get a result about the probability that a multivariate normal falls within an *ellipse*:
