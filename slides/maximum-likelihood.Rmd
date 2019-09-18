@@ -175,7 +175,7 @@ persp(x, y, z, theta = 30, phi = 30, expand = 0.5, col = "lightblue")
   $$ W = \sum_{i=1}^n \mathbf{Z}_i\mathbf{Z}_i^T$$
   follows a *Wishart distribution* $W_n(\Sigma)$ with $n$ degrees of freedom.
   - Note that since $E(\mathbf{Z}_i\mathbf{Z}_i^T) = \Sigma$, we have $E(W) = n\Sigma$.
-  - From the previous slide: $\sum_{i=1}^n(\mathbf{Y}_i - \mathbf{\bar{Y}})(\mathbf{Y}_i - \mathbf{\bar{Y}})^T$ has the same distribution as $\sum_{i=1}^{\color{blue}n-1} \mathbf{Z}_i\mathbf{Z}_i^T$ for some choice of $\mathbf{Z}_1, \ldots, \mathbf{Z}_{n-1}\sim N_p(0,\Sigma)$.
+  - From the previous slide: $\sum_{i=1}^n(\mathbf{Y}_i - \mathbf{\bar{Y}})(\mathbf{Y}_i - \mathbf{\bar{Y}})^T$ has the same distribution as $\sum_{i=1}^{{\color{blue}n-1}} \mathbf{Z}_i\mathbf{Z}_i^T$ for some choice of $\mathbf{Z}_1, \ldots, \mathbf{Z}_{n-1}\sim N_p(0,\Sigma)$.
     
 ## Useful Properties
 
