@@ -1,0 +1,35 @@
+\frametitle{Visualizing the likelihood}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(ggrepel)}
+\CommentTok{# Create df with pop and sample means}
+\NormalTok{data_means <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(mu[}\DecValTok{1}\NormalTok{], }\KeywordTok{mean}\NormalTok{(Y[,}\DecValTok{1}\NormalTok{])),}
+                         \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(mu[}\DecValTok{2}\NormalTok{], }\KeywordTok{mean}\NormalTok{(Y[,}\DecValTok{2}\NormalTok{])),}
+                         \DataTypeTok{label =} \KeywordTok{c}\NormalTok{(}\StringTok{"Pop."}\NormalTok{, }\StringTok{"Sample"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{contours }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x, y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_contour}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ z)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_means) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_label_repel}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_means,}
+                   \KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ label))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/maximum-likelihood_files/figure-beamer/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(scatterplot3d)}
+\KeywordTok{with}\NormalTok{(contours, }\KeywordTok{scatterplot3d}\NormalTok{(x, y, z))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/maximum-likelihood_files/figure-beamer/unnamed-chunk-6-1.pdf}
+
