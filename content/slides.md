@@ -15,4 +15,5 @@ type: docs
     + [R code](multivariate-random-variables.R)
   - [Multivariate Normal Distribution](multivariate-normal.pdf)
     + [R code](multivariate-normal.R)
-  - Maximum Likelihood Theory
+  - [Maximum Likelihood Theory](maximum-likelihood.pdf)
+    + [R code](maximum-likelihood.R)
