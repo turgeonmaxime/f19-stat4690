@@ -18,16 +18,16 @@ Y <- rmvnorm(n, mean = mu, sigma = Sigma)
 loglik <- function(mu, sigma, data = Y) {
   # Compute quantities
   y_bar <- colMeans(Y)
-  Sn <- (n-1)*cov(Y)/n
+  Sn <- cov(Y)
   Sigma_inv <- solve(sigma)
   
   # Compute quadratic form
   quad_form <- drop(t(y_bar - mu) %*% Sigma_inv %*% 
                       (y_bar - mu))
   
-  -0.5*n*(log(det(sigma)) + 
-            sum(diag(Sigma_inv %*% Sn)) +
-            quad_form)
+  -0.5*n*log(det(sigma)) -
+    0.5*(n - 1)*sum(diag(Sigma_inv %*% Sn)) -
+    0.5*n*quad_form
 }
 
 
