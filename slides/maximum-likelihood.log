@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  18 SEP 2019 12:03
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  20 SEP 2019 08:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1439,7 +1439,7 @@ Package rerunfilecheck Info: File `maximum-likelihood.out' has not changed.
 Here is how much of TeX's memory you used:
  38194 strings out of 494894
  777963 string characters out of 6177483
- 859221 words of memory out of 5000000
+ 859277 words of memory out of 5000000
  41507 multiletter control sequences out of 15000+600000
  560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191

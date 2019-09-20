@@ -1,5 +1,4 @@
 \frametitle{Example (cont'd)}
-\protect\hypertarget{example-contd}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -35,5 +34,5 @@
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{testing-means_files/figure-beamer/unnamed-chunk-9-1.pdf}
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means_files/figure-beamer/unnamed-chunk-9-1.pdf}
 

@@ -1,6 +1,6 @@
 ---
 title: "Tests for Multivariate Means"
-draft: true
+draft: false
 source: true
 output: binb::metropolis
 fontsize: 12pt
@@ -207,3 +207,6 @@ abline(v = axis_proj[1,], lty = 2)
 abline(h = axis_proj[2,], lty = 2)
 ```
 
+<!-- ## Simultaneous Confidence Statements {.allowframebreaks} -->
+
+<!--   - Let $a\in\mathbb{R}^p$. We are interested in constructing confidence intervals for $a^T\mu$ that are simultaneously valid (i.e. right coverage probability) for all $a$. -->
