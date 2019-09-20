@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  20 SEP 2019 08:45
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  20 SEP 2019 09:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1403,6 +1403,27 @@ s_files/figure-beamer/unnamed-chunk-9-1.pdf>
 
 
 ]
+Overfull \hbox (16.43146pt too wide) detected at line 547
+\OML/lmm/m/it/12 t[]\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 w\OT1/lmr/m/n/12 ) = [] =
+ [] \OMS/lmsy/m/n/12 ^^T \OML/lmm/m/it/12 F[]\OT1/lmr/m/n/12 (1\OML/lmm/m/it/12
+ ; n \OMS/lmsy/m/n/12 ^^@ \OT1/lmr/m/n/12 1)\OML/lmm/m/it/12 :
+ []
+
+[21
+
+] [22
+
+
+] [23
+
+
+] [24
+
+
+] [25
+
+
+]
 \tf@nav=\write7
 \openout7 = `testing-means.nav'.
 
@@ -1412,24 +1433,24 @@ s_files/figure-beamer/unnamed-chunk-9-1.pdf>
 \tf@snm=\write9
 \openout9 = `testing-means.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 499.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 499.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 552.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 552.
 (./testing-means.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 499.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 499.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 552.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 552.
 Package rerunfilecheck Info: File `testing-means.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
  38215 strings out of 494894
  777748 string characters out of 6177483
- 855198 words of memory out of 5000000
+ 856422 words of memory out of 5000000
  41525 multiletter control sequences out of 15000+600000
  581764 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1878b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on testing-means.pdf (20 pages).
+Output written on testing-means.pdf (25 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '
