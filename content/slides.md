@@ -17,5 +17,6 @@ type: docs
     + [R code](multivariate-normal.R)
   - [Maximum Likelihood Theory](maximum-likelihood.pdf)
     + [R code](maximum-likelihood.R)
-  - Tests for Multivariate Means
+  - [Tests for Multivariate Means](testing-means.Rmd)
+    + [R code](testing-means.R)
     + Notes on [quadratic forms and ellipses](quadratic_forms_ellipses.pdf)
