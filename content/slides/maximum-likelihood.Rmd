@@ -193,7 +193,7 @@ persp(x, y, z, theta = 30, phi = 30, expand = 0.5, col = "lightblue")
 ## Eigenvalue density function
 
   - For a random matrix $A \sim W_{n}(I_p)$ with $n\geq p$, the joint distribution of its eigenvalues $\lambda_1 \geq \cdots \geq \lambda_p$ has density
-  $$ C_{n,p}\exp\left(-\frac{1}{2}\sum_{i=1}^p\right)\prod_{i=1}^p \lambda_i^{(n-p-1)/2}\prod{i < j} \lvert\lambda_i - \lambda_j\vert,$$
+  $$ C_{n,p}\exp\left(-\frac{1}{2}\sum_{i=1}^p\right)\prod_{i=1}^p \lambda_i^{(n-p-1)/2}\prod_{i < j} \lvert\lambda_i - \lambda_j\vert,$$
   for some constant $C_{n,p}$.
   - We will study this distribution in STAT 7200--Multivariate Analysis I
   
