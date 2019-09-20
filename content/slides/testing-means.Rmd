@@ -207,6 +207,30 @@ abline(v = axis_proj[1,], lty = 2)
 abline(h = axis_proj[2,], lty = 2)
 ```
 
-<!-- ## Simultaneous Confidence Statements {.allowframebreaks} -->
+## Simultaneous Confidence Statements {.allowframebreaks}
 
-<!--   - Let $a\in\mathbb{R}^p$. We are interested in constructing confidence intervals for $a^T\mu$ that are simultaneously valid (i.e. right coverage probability) for all $a$. -->
+  - Let $w\in\mathbb{R}^p$. We are interested in constructing confidence intervals for $w^T\mu$ that are simultaneously valid (i.e. right coverage probability) for all $w$.
+  - Note that $w^T\mathbf{\bar{Y}}$ and $w^TS_n w$ are both scalars.
+  - If we were only interested in a particular $w$, we could use the following confidence interval:
+  $$\left(w^T\mathbf{\bar{Y}} \pm t_{\alpha/2,n-1}\sqrt{w^TS_n w/n}\right).$$
+  - Or equivalently, the confidence interval contains the set of values $w^T\mu$ for which
+  $$t^2(w) = \frac{n(w^T\mathbf{\bar{Y}} - w^T\mu)^2}{w^TS_n w} = \frac{n(w^T(\mathbf{\bar{Y}} - \mu))^2}{w^TS_n w} \leq F_\alpha(1, n-1).$$
+  - **Strategy**: Maximise over all $w$:
+  $$\max_w t^2(w) = \max_w \frac{n(w^T(\mathbf{\bar{Y}} - \mu))^2}{w^TS_n w}.$$
+  - Using the Cauchy-Schwarz Inequality:
+  \begin{align*}
+  (w^T(\mathbf{\bar{Y}} - \mu))^2 &= (w^TS^{1/2}S^{-1/2}(\mathbf{\bar{Y}} - \mu))^2 \\
+  &= ((S^{1/2}w)^T(S^{-1/2}(\mathbf{\bar{Y}} - \mu)))^2 \\
+  &\leq (w^TS_nw)((\mathbf{\bar{Y}} - \mu)^TS_n^{-1}(\mathbf{\bar{Y}} - \mu)).
+  \end{align*}
+  - Dividing both sides by $w^TS_n w/n$, we get
+  $$t^2(w) \leq n(\mathbf{\bar{Y}} - \mu)^TS_n^{-1}(\mathbf{\bar{Y}} - \mu).$$
+  - Since the Cauchy-Schwarz inequality also implies that the inequality is an *equality* if and only if $w$ is proportional to $S_n^{-1}(\mathbf{\bar{Y}} - \mu)$, it means the upper bound is attained and therefore
+  $$\max_w t^2(w) = n(\mathbf{\bar{Y}} - \mu)^TS_n^{-1}(\mathbf{\bar{Y}} - \mu).$$
+  - The right-hand side is Hotteling's $T^2$, and therefore we know that 
+  $$\max_w t^2(w) \sim \frac{(n-1)p}{(n-p)}F(p, n-p).$$
+  - **Theorem**: Simultaneously for all $w\in\mathbb{R}^p$, the interval
+  $$\left(w^T\mathbf{\bar{Y}} \pm \sqrt{\frac{(n-1)p}{n(n-p)}F_\alpha(p, n-p)w^TS_n w}\right).$$
+  will contain $w^T\mu$ with probability $1 - \alpha$.
+  - **Corrolary**: If we take $w$ to be the standard basis vectors, we recover the projection results from earlier.
+  
