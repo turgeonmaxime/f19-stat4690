@@ -18,6 +18,8 @@ header-includes:
 knitr::opts_chunk$set(cache=TRUE)
 ```
 
+# Tests for one multivariate mean
+
 ## Review of univariate tests {.allowframebreaks}
 
   - Let $X_1, \ldots, X_n\sim N(\mu,\sigma^2)$ be independently distributed, and let $\bar{X}$ and $s^2$ be the sample mean and variance, respectively. 
@@ -136,6 +138,15 @@ drop(test_statistic) > critical_val
 ## Example
 
 ```{r}
+n <- nrow(dataset); p <- ncol(dataset)
+
+# Test mu = mu_0
+mu_0 <- c(25, 50, 3)
+test_statistic <- n * t(mu_hat - mu_0) %*% 
+  solve(cov(dataset)) %*% (mu_hat - mu_0)
+
+critical_val <- (n - 1)*p*qf(0.95, df1 = p,
+                             df2 = n - p)/(n-p)
 sample_cov <- diag(cov(dataset))
 
 cbind(mu_hat - sqrt(critical_val*
@@ -234,3 +245,159 @@ abline(h = axis_proj[2,], lty = 2)
   will contain $w^T\mu$ with probability $1 - \alpha$.
   - **Corrolary**: If we take $w$ to be the standard basis vectors, we recover the projection results from earlier.
   
+## Further comments
+
+  - If we take $w = (0,\ldots, 0, 1, 0, \ldots, 0, -1, 0, \ldots, 0)$, we can also derive confidence statements about mean differences $\mu_i - \mu_k$.
+  - In general, simultaneous confidence statements are good for exploratory analyses, i.e. when we test many different contrasts. 
+  - However, this much generality comes at a cost: the resulting confidence intervals are quite large. 
+    + Since we typically only care about a finite number of hypotheses, there are more efficient ways to account for the exploratory nature of the tests.
+    
+## Bonferroni correction {.allowframebreaks}
+
+  - Assume that we are interested in $m$ null hypotheses $H_{0i}:w_i^T \mu =\mu_{0i}$, at confidence level $\alpha_i$, for $i=1,\ldots,m$.
+  - We can show that
+  \begin{align*}
+  P(\mbox{all }H_{0i}\mbox{ are true}) &= 1 - P(\mbox{at least one }H_{0i}\mbox{ is false})\\
+  &\geq 1 - \sum_{i=1}^m P(H_{0i}\mbox{ is false})\\
+  &= 1 - \sum_{i=1}^m\alpha_i.
+  \end{align*}
+  - Therefore, if we want to control the overall error rate at $\alpha$, we can take
+  $$\alpha_i = \alpha/m,\qquad\mbox{for all }i=1,\ldots,m.$$
+  - If we take $w_i$ to be the $i$-th standard basis vector, we get simultaneous confidence intervals for all $p$ components of $\mu$:
+  $$\left(\mathbf{\bar{Y}}_i \pm t_{\alpha/2p,n-1}(\sqrt{s^2_{ii}/n})\right).$$
+  
+## Example {.allowframebreaks}
+
+```{r, message=FALSE}
+# Let's focus on only two variables
+dataset <- gapminder %>% 
+  filter(year == 2012, 
+         !is.na(infant_mortality)) %>% 
+  select(infant_mortality, 
+         life_expectancy) %>% 
+  as.matrix()
+
+n <- nrow(dataset); p <- ncol(dataset)
+```
+
+```{r}
+alpha <- 0.05
+mu_hat <- colMeans(dataset) 
+sample_cov <- diag(cov(dataset))
+
+# Simultaneous CIs
+critical_val <- (n - 1)*p*qf(1-0.5*alpha, df1 = p,
+                             df2 = n - p)/(n-p)
+
+simul_ci <- cbind(mu_hat - sqrt(critical_val*
+                                  sample_cov/n),
+                  mu_hat + sqrt(critical_val*
+                                  sample_cov/n))
+```
+
+## Example iii
+
+```{r}
+# Univariate without correction
+univ_ci <- cbind(mu_hat - qt(1-0.5*alpha, n - 1) *
+                   sqrt(sample_cov/n),
+                 mu_hat + qt(1-0.5*alpha, n - 1) *
+                   sqrt(sample_cov/n))
+```
+
+
+```{r}
+# Bonferroni adjustment
+bonf_ci <- cbind(mu_hat - qt(1-0.5*alpha/p, n - 1) *
+                   sqrt(sample_cov/n),
+                 mu_hat + qt(1-0.5*alpha/p, n - 1) *
+                   sqrt(sample_cov/n))
+```
+
+---
+
+```{r}
+simul_ci
+univ_ci
+bonf_ci
+```
+
+---
+
+```{r, echo = FALSE}
+transf_mat <- solve(chol(solve(cov(dataset)/n)))
+# First create a circle of radius c
+theta_vect <- seq(0, 2*pi, length.out = 100)
+circle <- sqrt(critical_val) * cbind(cos(theta_vect), sin(theta_vect))
+ellipse1 <- circle %*% t(transf_mat)
+ellipse2 <- t(apply(ellipse1, 1, function(row) row + mu_hat))
+colnames(ellipse2) <- c("X", "Y")
+
+data_ellipse <- data.frame(ellipse2)
+
+bind_rows(
+  data.frame(t(simul_ci)) %>% mutate(type = 'T2-intervals'),
+  data.frame(t(univ_ci)) %>% mutate(type = 'Unadjusted'),
+  data.frame(t(bonf_ci)) %>% mutate(type = 'Bonferroni')
+  ) %>% 
+  ggplot() +
+  geom_polygon(data = data_ellipse,
+               aes(X, Y),
+               fill = 'grey60')+
+  geom_vline(aes(xintercept = infant_mortality,
+                 linetype = type)) +
+  geom_hline(aes(yintercept = life_expectancy,
+                 linetype = type)) +
+  theme_minimal() +
+  geom_point(x = mu_hat[1],
+             y = mu_hat[2],
+             size = 2) +
+  xlab("Infant mortality") +
+  ylab("Life Expectancy") +
+  theme(legend.position = "top",
+        legend.title=element_blank()) +
+  scale_linetype_discrete(breaks = c('T2-intervals',
+                                     'Bonferroni',
+                                     'Unadjusted'))
+```
+
+## Summary
+
+  - *So which one should you use?*
+    + Use the confidence region when you're interested in a single multivariate hypothesis test.
+    + Use the simultaneous (i.e. $T^2$) intervals when testing a large number of contrasts.
+    + Use the Bonferroni correction when testing a small number of contrasts (e.g. each component of $\mu$).
+    + (Almost) **never** use the unadjusted intervals.
+  - We can check the coverage probabilities of each approach using a simulation study:
+    + https://www.maxturgeon.ca/f19-stat4690/simulation_coverage_probability.R
+ 
+## Likelihood Ratio Test {.allowframebreaks}
+
+  - There is another important approach to performing hypothesis testing:
+    + **Likelihood Ratio Test**
+  - General strategy:
+    i. Maximise likelihood under the null hypothesis: $L_0$
+    ii. Maximise likelihood over the whole parameter space: $L_1$
+    iii. Since the value of the parameters under the null hypothesis is in the parameter space, we have $L_1 \geq L_0$.
+    iv. Reject the null hypothesis if the ratio $\Lambda = L_0/L_1$ is small.
+  - In our setting, recall that the likelihood is given by
+  $$L(\mu, \Sigma) = \prod_{i=1}^n\left(\frac{1}{\sqrt{(2\pi)^p\lvert\Sigma\rvert}}\exp\left(-\frac{1}{2}(\mathbf{y}_i - \mu)^T\Sigma^{-1}(\mathbf{y}_i - \mu)\right)\right).$$
+  - Over the whole parameter space, it is maximised at 
+  $$\hat{\mu} = \mathbf{\bar{Y}},\quad \hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n(\mathbf{Y}_i - \bar{\mathbf{Y}})(\mathbf{Y}_i - \bar{\mathbf{Y}})^T.$$
+  - Under the null hypothesis $H_0:\mu=\mu_0$, the only free parameter is $\Sigma$, and $L(\mu_0, \Sigma)$ is maximised at
+  $$\hat{\Sigma}_0 = \frac{1}{n}\sum_{i=1}^n(\mathbf{Y}_i - \mu_0)(\mathbf{Y}_i - \mu_0)^T.$$
+  - With some linear algbera, you can check that
+  \begin{align*}
+  L(\hat{\mu}, \hat{\Sigma}) &= \frac{\exp(-np/2)}{(2\pi)^{np/2}\lvert\hat{\Sigma}\rvert^{n/2}}\\
+  L(\mu_0, \hat{\Sigma}_0) &= \frac{\exp(-np/2)}{(2\pi)^{np/2}\lvert\hat{\Sigma}_0\rvert^{n/2}}.
+  \end{align*}
+  - Therefore, the likelihood ratio is given by
+  $$\Lambda = \frac{L(\mu_0, \hat{\Sigma}_0)}{L(\hat{\mu}, \hat{\Sigma})} = \left(\frac{\lvert\hat{\Sigma}\rvert}{\lvert\hat{\Sigma}_0\rvert}\right)^{n/2}.$$
+  - The equivalent statistic $\Lambda^{2/n}=\lvert\hat{\Sigma}\rvert/\lvert\hat{\Sigma}_0\rvert$ is called *Wilks' lambda*.
+  - What is the sampling distribution of $\Lambda$ under the null hypothesis? It turns out that
+  $$ \Lambda^{2/n} = \left(1 + \frac{T^2}{n-1}\right)^{-1},$$
+  where $T^2$ is Hotelling's statistic.
+    + Therefore the two tests are equivalent.
+    + But note that $\Lambda^{2/n}$ involves computing two determinants, whereas $T^2$ involves inverting a matrix.
+
+<!-- # Tests for two multivariate means -->

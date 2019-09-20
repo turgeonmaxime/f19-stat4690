@@ -48,6 +48,15 @@ drop(test_statistic) > critical_val
 
 
 ## ------------------------------------------------------------------------
+n <- nrow(dataset); p <- ncol(dataset)
+
+# Test mu = mu_0
+mu_0 <- c(25, 50, 3)
+test_statistic <- n * t(mu_hat - mu_0) %*% 
+  solve(cov(dataset)) %*% (mu_hat - mu_0)
+
+critical_val <- (n - 1)*p*qf(0.95, df1 = p,
+                             df2 = n - p)/(n-p)
 sample_cov <- diag(cov(dataset))
 
 cbind(mu_hat - sqrt(critical_val*
@@ -106,4 +115,90 @@ axis_proj <- cbind(mu_hat - sqrt(critical_val*
                                    sample_cov/n))
 abline(v = axis_proj[1,], lty = 2)
 abline(h = axis_proj[2,], lty = 2)
+
+
+## ---- message=FALSE------------------------------------------------------
+# Let's focus on only two variables
+dataset <- gapminder %>% 
+  filter(year == 2012, 
+         !is.na(infant_mortality)) %>% 
+  select(infant_mortality, 
+         life_expectancy) %>% 
+  as.matrix()
+
+n <- nrow(dataset); p <- ncol(dataset)
+
+
+## ------------------------------------------------------------------------
+alpha <- 0.05
+mu_hat <- colMeans(dataset) 
+sample_cov <- diag(cov(dataset))
+
+# Simultaneous CIs
+critical_val <- (n - 1)*p*qf(1-0.5*alpha, df1 = p,
+                             df2 = n - p)/(n-p)
+
+simul_ci <- cbind(mu_hat - sqrt(critical_val*
+                                  sample_cov/n),
+                  mu_hat + sqrt(critical_val*
+                                  sample_cov/n))
+
+
+## ------------------------------------------------------------------------
+# Univariate without correction
+univ_ci <- cbind(mu_hat - qt(1-0.5*alpha, n - 1) *
+                   sqrt(sample_cov/n),
+                 mu_hat + qt(1-0.5*alpha, n - 1) *
+                   sqrt(sample_cov/n))
+
+
+## ------------------------------------------------------------------------
+# Bonferroni adjustment
+bonf_ci <- cbind(mu_hat - qt(1-0.5*alpha/p, n - 1) *
+                   sqrt(sample_cov/n),
+                 mu_hat + qt(1-0.5*alpha/p, n - 1) *
+                   sqrt(sample_cov/n))
+
+
+## ------------------------------------------------------------------------
+simul_ci
+univ_ci
+bonf_ci
+
+
+## ---- echo = FALSE-------------------------------------------------------
+transf_mat <- solve(chol(solve(cov(dataset)/n)))
+# First create a circle of radius c
+theta_vect <- seq(0, 2*pi, length.out = 100)
+circle <- sqrt(critical_val) * cbind(cos(theta_vect), sin(theta_vect))
+ellipse1 <- circle %*% t(transf_mat)
+ellipse2 <- t(apply(ellipse1, 1, function(row) row + mu_hat))
+colnames(ellipse2) <- c("X", "Y")
+
+data_ellipse <- data.frame(ellipse2)
+
+bind_rows(
+  data.frame(t(simul_ci)) %>% mutate(type = 'T2-intervals'),
+  data.frame(t(univ_ci)) %>% mutate(type = 'Unadjusted'),
+  data.frame(t(bonf_ci)) %>% mutate(type = 'Bonferroni')
+  ) %>% 
+  ggplot() +
+  geom_polygon(data = data_ellipse,
+               aes(X, Y),
+               fill = 'grey60')+
+  geom_vline(aes(xintercept = infant_mortality,
+                 linetype = type)) +
+  geom_hline(aes(yintercept = life_expectancy,
+                 linetype = type)) +
+  theme_minimal() +
+  geom_point(x = mu_hat[1],
+             y = mu_hat[2],
+             size = 2) +
+  xlab("Infant mortality") +
+  ylab("Life Expectancy") +
+  theme(legend.position = "top",
+        legend.title=element_blank()) +
+  scale_linetype_discrete(breaks = c('T2-intervals',
+                                     'Bonferroni',
+                                     'Unadjusted'))
 

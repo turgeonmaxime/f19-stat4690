@@ -1,38 +1,37 @@
-\frametitle{Example (cont'd)}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{U <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
-              \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{), }
-            \DataTypeTok{ncol =} \DecValTok{2}\NormalTok{)}
-\NormalTok{R <-}\StringTok{ }\NormalTok{n}\OperatorTok{*}\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(U) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{cov}\NormalTok{(dataset) }\OperatorTok{%*%}\StringTok{ }\NormalTok{U)}
-\NormalTok{transf <-}\StringTok{ }\KeywordTok{chol}\NormalTok{(R)}
+\NormalTok{simul_ci}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##                      [,1]     [,2]
+## infant_mortality 20.95439 30.69392
+## life_expectancy  69.61504 73.00181
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# First create a circle of radius c}
-\NormalTok{theta_vect <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\OperatorTok{*}\NormalTok{pi, }\DataTypeTok{length.out =} \DecValTok{100}\NormalTok{)}
-\NormalTok{circle <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(critical_val) }\OperatorTok{*}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\KeywordTok{cos}\NormalTok{(theta_vect), }\KeywordTok{sin}\NormalTok{(theta_vect))}
-\CommentTok{# Then turn into ellipse}
-\NormalTok{ellipse <-}\StringTok{ }\NormalTok{circle }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{solve}\NormalTok{(transf)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{matrix}\NormalTok{(mu_hat[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{, }
-         \DataTypeTok{nrow =} \KeywordTok{nrow}\NormalTok{(circle), }
-         \DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{univ_ci}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+##                      [,1]     [,2]
+## infant_mortality 22.33295 29.31537
+## life_expectancy  70.09441 72.52244
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Eigendecomposition}
-\NormalTok{decomp <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(}\KeywordTok{t}\NormalTok{(U) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{cov}\NormalTok{(dataset) }\OperatorTok{%*%}\StringTok{ }\NormalTok{U)}
-\NormalTok{first <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(decomp}\OperatorTok{$}\NormalTok{values[}\DecValTok{1}\NormalTok{]) }\OperatorTok{*}
-\StringTok{  }\NormalTok{decomp}\OperatorTok{$}\NormalTok{vectors[,}\DecValTok{1}\NormalTok{] }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(critical_val)}
-\NormalTok{second <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(decomp}\OperatorTok{$}\NormalTok{values[}\DecValTok{2}\NormalTok{]) }\OperatorTok{*}\StringTok{ }
-\StringTok{  }\NormalTok{decomp}\OperatorTok{$}\NormalTok{vectors[,}\DecValTok{2}\NormalTok{] }\OperatorTok{*}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(critical_val)}
+\NormalTok{bonf_ci}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means_files/figure-beamer/unnamed-chunk-9-1.pdf}
+\begin{verbatim}
+##                      [,1]    [,2]
+## infant_mortality 21.82491 29.8234
+## life_expectancy  69.91775 72.6991
+\end{verbatim}
 
