@@ -44,7 +44,7 @@ knitr::opts_chunk$set(cache=TRUE)
   - This means that 
   $$n(\bar{\mathbf{Y}} - \mu)^T\Sigma^{-1}(\bar{\mathbf{Y}} - \mu) \sim \chi^2(p).$$
   - In particular, if we want to test $H_0:\mu=\mu_0$ at level $\alpha$, then we reject the null hypothesis if 
-  $$ n(\bar{\mathbf{Y}} - \mu)^T\Sigma^{-1}(\bar{\mathbf{Y}} - \mu) > \chi^2_{\alpha}(p).$$
+  $$ n(\bar{\mathbf{Y}} - \mu_0)^T\Sigma^{-1}(\bar{\mathbf{Y}} - \mu_0) > \chi^2_{\alpha}(p).$$
   
 ## Example {.allowframebreaks}
 
@@ -87,7 +87,7 @@ drop(test_statistic) > qchisq(0.95, df = 3)
   $$\hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n(\mathbf{Y}_i - \bar{\mathbf{Y}})(\mathbf{Y}_i - \bar{\mathbf{Y}})^T$$
   or the sample covariance $S_n$.
   - Therefore, to test $H_0:\mu=\mu_0$ at level $\alpha$, then we reject the null hypothesis if 
-  $$ T^2=n(\bar{\mathbf{Y}} - \mu)^TS_n^{-1}(\bar{\mathbf{Y}} - \mu) > c,$$
+  $$ T^2=n(\bar{\mathbf{Y}} - \mu_0)^TS_n^{-1}(\bar{\mathbf{Y}} - \mu_0) > c,$$
   for a suitably chosen constant $c$ that depends on $\alpha$.
     + **Note**: The test statistic $T^2$ is known as *Hotelling's $T^2$*.
   - It turns out that (under $H_0$) $T^2$ has a simple distribution:
