@@ -257,8 +257,8 @@ abline(h = axis_proj[2,], lty = 2)
   - Assume that we are interested in $m$ null hypotheses $H_{0i}:w_i^T \mu =\mu_{0i}$, at confidence level $\alpha_i$, for $i=1,\ldots,m$.
   - We can show that
   \begin{align*}
-  P(\mbox{all }H_{0i}\mbox{ are true}) &= 1 - P(\mbox{at least one }H_{0i}\mbox{ is false})\\
-  &\geq 1 - \sum_{i=1}^m P(H_{0i}\mbox{ is false})\\
+  P(\mbox{none of }H_{0i}\mbox{ are rejected}) &= 1 - P(\mbox{some }H_{0i}\mbox{ is rejected})\\
+  &\geq 1 - \sum_{i=1}^m P(H_{0i}\mbox{ is rejected})\\
   &= 1 - \sum_{i=1}^m\alpha_i.
   \end{align*}
   - Therefore, if we want to control the overall error rate at $\alpha$, we can take
