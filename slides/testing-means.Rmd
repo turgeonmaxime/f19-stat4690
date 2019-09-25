@@ -399,5 +399,3 @@ bind_rows(
   where $T^2$ is Hotelling's statistic.
     + Therefore the two tests are equivalent.
     + But note that $\Lambda^{2/n}$ involves computing two determinants, whereas $T^2$ involves inverting a matrix.
-
-<!-- # Tests for two multivariate means -->

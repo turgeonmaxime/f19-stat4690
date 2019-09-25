@@ -1,0 +1,401 @@
+---
+title: "Tests for Multivariate Means II"
+draft: false
+source: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+# Repeated Mesures Design
+
+## Contrast matrices
+
+  - A *contrast* is a linear combination $\theta$ of variables such that its coefficients sum to zero.
+    + E.g. $\theta = (1, -1, 0)$ or $\theta = (2, -1, -1)$.
+  - A *contrast matrix* is a matrix $C$ whose rows are contrasts (so the row-sums are zero) and are linearly independent. 
+    + E.g. $C = \begin{pmatrix} 1 & -1 & 0\\ 1 & 0 & -1\end{pmatrix}.$
+  - As their name suggests, contrasts and contrast matrices are used to contrast (or compare) different combinations of variables.
+  
+## Testing Structural Relations
+
+  - Let $C$ be a $q\times p$ contrast matrix, and let $\mathbf{\bar{Y}}$ be the (p-dimensional) sample mean and $S_n$, the ($p\times p$) sample covariance.
+  - We can test the null hypothesis $H_0:C\mu = 0$ using Hotelling's $T^2$:
+  $$T^2 = n(C\mathbf{\bar{Y}})^T(CS_nC^T)^{-1}(C\mathbf{\bar{Y}}).$$
+  - **What is the sampling distribution?** $C\mathbf{\bar{Y}}$ is $q$-dimensional and $CS_nC^T$ is $q\times q$, therefore
+  $$ T^2 \sim \frac{(n-1)q}{(n-q)}F(q, n-q).$$
+  
+## Repeated Measurements {.allowframebreaks}
+
+  - Suppose that our random sample $\mathbf{Y}_1, \ldots, \mathbf{Y}_n\sim N_p(\mu, \Sigma)$ be such that each component of $\mathbf{Y}_i$ represent a repeated measurement on the same experimental unit.
+    + E.g. Grades on different tests, blood pressure measurements at different doctor visits.
+  - **Question**: Is there any evidence that the means differ between the measurements?
+    + Or in other words: are all components of $\mu$ equal?
+  - Consider the following $(p-1)\times p$ contrast matrix:
+  $$C = \begin{pmatrix}
+  1 & -1 & 0 & \cdots & 0\\
+  1 & 0 & -1 & \cdots & 0\\
+  \vdots & \vdots & \vdots & \ddots & \vdots\\
+  1 & 0 & 0 & \cdots & -1\end{pmatrix}.$$
+  - We thus have
+  $$C\mu = \begin{pmatrix}\mu_1 - \mu_2 \\
+  \mu_1 - \mu_3 \\
+  \vdots \\
+  \mu_1 - \mu_p \end{pmatrix}.$$
+  - To test the null hypothesis $H_0:C\mu=0$, we use $T^2$ as above:
+  $$T^2 = n(C\mathbf{\bar{Y}})^T(CS_nC^T)^{-1}(C\mathbf{\bar{Y}}),$$
+  where
+  $$ T^2 \sim \frac{(n-1)(p-1)}{(n-p+1)}F(p-1, n-p+1).$$
+  
+## Example {.allowframebreaks}
+
+```{r message = FALSE}
+library(tidyverse)
+library(dslabs)
+
+dataset <- gapminder %>% 
+  filter(year %in% 2012:2016, 
+         continent == "Africa") %>% 
+  select(year, country, life_expectancy)
+```
+
+
+```{r message = FALSE}
+# QQ-plots to assess normality
+dataset %>% 
+  ggplot(aes(sample = life_expectancy)) + 
+  stat_qq() + stat_qq_line() + 
+  facet_wrap(~year)
+```
+
+```{r}
+C <- matrix(c(1, -1, 0, 0, 0,
+              1, 0, -1, 0, 0,
+              1, 0, 0, -1, 0,
+              1, 0, 0, 0, -1),
+            ncol = 5, byrow = TRUE)
+C
+```
+
+
+```{r}
+# Transform data into wide format
+dataset <- dataset %>% 
+  spread(year, life_expectancy)
+
+head(dataset)
+```
+
+```{r}
+# Compute test statistic
+dataset <- dataset %>% 
+  select(-country) %>% 
+  as.matrix()
+n <- nrow(dataset); p <- ncol(dataset)
+
+mu_hat <- colMeans(dataset)
+mu_hat
+```
+
+
+```{r eval = TRUE}
+Sn <- cov(dataset)
+test_statistic <- n * t(C %*% mu_hat) %*% 
+  solve(C %*% Sn %*% t(C)) %*% (C %*% mu_hat)
+
+const <- (n - 1)*(p - 1)/(n - p + 1)
+critical_val <- const * qf(0.95, df1 = p - 1,
+                           df2 = n - p + 1)
+
+drop(test_statistic) > critical_val
+```
+
+## Other contrast matrices {.allowframebreaks}
+
+  - What about other contrast matrices of the same size? For example:
+  $$\tilde{C} = \begin{pmatrix}
+  -1 & 1 & 0 & \cdots & 0\\
+  0 & -1 & 1 & \cdots & 0\\
+  \vdots & \vdots & \vdots & \ddots & \vdots\\
+  0 & 0 & 0 & \cdots & 1\end{pmatrix}.$$
+  - Do we get the same inference results? **YES**
+  - Let $C,\tilde{C}$ be two $(p-1)\times p$ contrast matrices. 
+  - Since their rows are independent, there exists an invertible $(p-1)\times(p-1)$ matrix $B$ such that $\tilde{C} = BC$.
+  \begin{align*}
+  (\tilde{C}\mathbf{\bar{Y}})^T(\tilde{C}S_n\tilde{C}^T)^{-1}(\tilde{C}\mathbf{\bar{Y}}) &= (BC\mathbf{\bar{Y}})^T(BCS_nC^TB^T)^{-1}(BC\mathbf{\bar{Y}}) \\
+  &= (C\mathbf{\bar{Y}})^TB^T(BCS_nC^TB^T)^{-1}B(C\mathbf{\bar{Y}})\\
+  %% &= (C\mathbf{\bar{Y}})^TB^T(B^T)^{-1}(CS_nC^T)^{-1}B^{-1}B(C\mathbf{\bar{Y}})\\
+  &= (C\mathbf{\bar{Y}})^T(CS_nC^T)^{-1}(C\mathbf{\bar{Y}})
+  \end{align*}
+  - In other words, we get the same test statistic whether we use $C$ or $\tilde{C}$.
+  
+## Confidence regions and Confidence Intervals
+
+  - As discussed earlier, we can use $T^2$ to create a confidence region around $C\mathbf{\bar{Y}}$:
+  $$ T^2 \leq \frac{(n-1)(p-1)}{(n-p+1)}F_\alpha(p-1, n-p+1).$$
+  - We can also construct $T^2$ intervals for any contrast $\theta$:
+  $$\left(\theta\mathbf{\bar{Y}} \pm \sqrt{\frac{n(n-1)(p-1)}{(n-p+1)}F_\alpha(p-1, n-p+1)}\sqrt{\theta^T S_n\theta}\right).$$
+  - Or we can construct Bonferroni-adjusted confidence intervals for each row $c_i$ of $C$:
+  $$\left(c_i\mathbf{\bar{Y}} \pm t_{\alpha/2(p-1)}(n-1)(\sqrt{c_i^T S_n c_i/n})\right).$$
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+alpha <- 0.05
+mu_contr <- C %*% mu_hat
+sample_cov <- diag(C %*% Sn %*% t(C))
+
+mu_contr
+```
+
+
+```{r}
+# Simultaneous CIs
+simul_ci <- cbind(mu_contr - sqrt(critical_val*
+                                    sample_cov/n),
+                  mu_contr + sqrt(critical_val*
+                                    sample_cov/n))
+```
+
+```{r}
+# Bonferroni adjustment
+bonf_ci <- cbind(mu_contr - qt(1-0.5*alpha/(p-1), 
+                               n - 1) *
+                   sqrt(sample_cov/n),
+                 mu_contr + qt(1-0.5*alpha/(p-1), 
+                               n - 1) *
+                   sqrt(sample_cov/n))
+```
+
+---
+
+```{r}
+simul_ci
+bonf_ci
+```
+
+## Comments
+
+  - The test above is best used when we cannot make any assumptions about the covariance structure $\Sigma$. 
+  - When we assume $\Sigma$ has a special structure, it is possible to build more powerful tests.
+    + E.g. If the repeated measurements are taken over time, it may be reasonable to assume an autoregressive structure.
+  - Similarly, if we are interested in a specific relationship between the components of $\mu$, it is possible to build more powerful tests.
+    + E.g. Linear relationship between the components when measurements are taken over time.
+
+# Comparing two multivariate means
+
+## Equal covariance case {.allowframebreaks}
+
+  - Now let's assume we have *two* independent multivariate samples of (potentially) different sizes:
+    + $\mathbf{Y}_{11}, \ldots, \mathbf{Y}_{1n_1}\sim N_p(\mu_1, \Sigma)$
+    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_1}\sim N_p(\mu_2, \Sigma)$
+  - We are interested in testing $\mu_1 = \mu_2$.
+    + Note that we assume *equal covariance* for the time being.
+  - Let $\mathbf{\bar{Y}}_1, \mathbf{\bar{Y}}_2$ be their respective sample means, and let $S_1, S_2$, their respective sample covariances.
+  - First, note that
+  $$ \mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2 \sim N_p\left( \mu_1 - \mu_2, \left(\frac{1}{n_1} + \frac{1}{n_2}\right)\Sigma \right).$$
+  - Second, we also have that $(n_i - 1)S_i$ is an estimator for $(n_i - 1)\Sigma$, for $i=1,2$.
+    + Therefore, we can *pool* both $(n_1 - 1)S_1$ and $(n_2 - 1)S_2$ into a single estimator for $\Sigma$:
+  $$S_{pool} = \frac{(n_1 - 1)S_1 + (n_2 - 1)S_2}{n_1 + n_2 - 2}.$$
+  - Putting these two observations together, we get a test statistic for $H_0:\mu_1=\mu_2$:
+  $$ T^2 = (\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2)^T\left[\left(\frac{1}{n_1} + \frac{1}{n_2}\right)S_{pool}\right]^{-1}(\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2).$$
+  - Under the null hypothesis, we get
+  $$ T^2 \sim \frac{(n_1 + n_2 - 2)p}{(n_1 + n_2 - p - 1)}F(p, n_1 + n_2 - p - 1).$$
+
+## Example {.allowframebreaks}
+
+```{r message = FALSE}
+dataset1 <- gapminder %>% 
+  filter(year == 2012, 
+         continent == "Africa",
+         !is.na(infant_mortality)) %>% 
+  select(life_expectancy, infant_mortality) %>% 
+  as.matrix()
+dim(dataset1)
+
+dataset2 <- gapminder %>% 
+  filter(year == 2012, 
+         continent == "Asia",
+         !is.na(infant_mortality)) %>% 
+  select(life_expectancy, infant_mortality) %>% 
+  as.matrix()
+dim(dataset2)
+
+n1 <- nrow(dataset1); n2 <- nrow(dataset2)
+p <- ncol(dataset1)
+```
+
+```{r}
+(mu_hat1 <- colMeans(dataset1))
+(mu_hat2 <- colMeans(dataset2))
+
+(S1 <- cov(dataset1))
+(S2 <- cov(dataset2))
+
+# Even though it doesn't look reasonable
+# We will assume equal covariance for now
+```
+
+```{r}
+mu_hat_diff <- mu_hat1 - mu_hat2
+
+S_pool <- ((n1 - 1)*S1 + (n2 - 1)*S2)/(n1+n2-2)
+
+test_statistic <- t(mu_hat_diff) %*% 
+  solve((n1^-1 + n2^-1)*S_pool) %*% mu_hat_diff
+
+const <- (n1 + n2 - 2)*p/(n1 + n2 - p - 2)
+critical_val <- const * qf(0.95, df1 = p,
+                           df2 = n1 + n2 - p - 2)
+
+drop(test_statistic) > critical_val
+```
+
+---
+
+```{r echo = FALSE}
+R <- solve((n1^-1 + n2^-1)*S_pool)
+transf <- chol(R)
+
+# First create a circle of radius c
+theta_vect <- seq(0, 2*pi, length.out = 100)
+circle <- sqrt(critical_val) * cbind(cos(theta_vect), sin(theta_vect))
+# Then turn into ellipse
+ellipse1 <- circle %*% t(solve(transf)) + 
+  matrix(mu_hat_diff, ncol = p, 
+         nrow = nrow(circle), 
+         byrow = TRUE)
+
+plot(ellipse1, type = 'l',
+     xlab = colnames(dataset1)[1],
+     ylab = colnames(dataset1)[2],
+     main = "Comparing Africa vs. Asia")
+points(x = mu_hat_diff[1],
+       y = mu_hat_diff[2])
+```
+
+## Unequal covariance case {.allowframebreaks}
+
+  - Now let's turn our attention to the case where the covariance matrices are **not** equal:
+    + $\mathbf{Y}_{11}, \ldots, \mathbf{Y}_{1n_1}\sim N_p(\mu_1, \Sigma_1)$
+    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_1}\sim N_p(\mu_2, \Sigma_2)$
+  - Recall that in the univariate case, the test statistic that is typically used is called *Welch's t-statistic*.
+    + The general idea is to adjust the degrees of freedom of the $t$-distribution.
+    + **Note**: This is actually the default test used by `t.test`!
+  - Unfortunately, there is no single best approximation in the multivariate case.
+  - First, observe that we have
+  $$ \mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2 \sim N_p\left( \mu_1 - \mu_2, \frac{1}{n_1}\Sigma_1 + \frac{1}{n_2}\Sigma_2 \right).$$
+  - Therefore, under $H_0:\mu_1=\mu_2$, we have
+  $$(\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2)^T\left(\frac{1}{n_1}\Sigma_1 + \frac{1}{n_2}\Sigma_2\right)^{-1}(\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2) \sim \chi^2(p).$$
+  - Since $S_i$ converges to $\Sigma_i$ as $n_i\to\infty$, we can use Slutsky's theorem to argue that if both $n_1 - p$ and $n_2 - p$ are "large", then 
+  $$T^2 = (\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2)^T\left(\frac{1}{n_1}S_1 + \frac{1}{n_2}S_2\right)^{-1}(\mathbf{\bar{Y}}_1 - \mathbf{\bar{Y}}_2) \approx \chi^2(p).$$
+  - Unfortunately, the definition of "large" in this case depends on how different $\Sigma_1$ and $\Sigma_2$ are.
+  - Alternatives:
+    + Use one of the many approximations to the null distribution of $T^2$ (e.g. see Timm (2002), Section 3.9; Rencher (1998), Section 3.9.2).
+    + Use a resampling technique (e.g. bootstrap or permutation test).
+    + Use Welch's t-statistic for each component of $\mu_1-\mu_2$ with a Bonferroni correction for the significance level.
+
+## Nel & van der Merwe Approximation
+
+  - First, define
+  $$ W_i = \frac{1}{n_i}S_i\left(\frac{1}{n_1}S_1 + \frac{1}{n_2}S_2\right)^{-1}.$$
+  - Then let
+  $$\nu = \frac{p + p^2}{\sum_{i=1}^2\frac{1}{n_i}\left(\mathrm{tr}(W_i^2) + \mathrm{tr}(W_i)^2\right)}.$$
+  - One can show that $\min(n_1, n_2) \leq \nu \leq n_1 + n_2$.
+  - Under the null hypothesis, we approximately have
+  $$T^2 \approx \frac{\nu p}{\nu - p + 1}F(p, \nu - p + 1).$$
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+test_statistic <- t(mu_hat_diff) %*% 
+  solve(n1^-1*S1 + n2^-1*S2) %*% mu_hat_diff
+
+critical_val <- qchisq(0.95, df = p)
+
+drop(test_statistic) > critical_val
+```
+
+```{r echo = FALSE}
+R <- solve(n1^-1*S1 + n2^-1*S2)
+transf <- chol(R)
+
+# First create a circle of radius c
+theta_vect <- seq(0, 2*pi, length.out = 100)
+circle <- sqrt(critical_val) * cbind(cos(theta_vect), sin(theta_vect))
+# Then turn into ellipse
+ellipse2 <- circle %*% t(solve(transf)) + 
+  matrix(mu_hat_diff, ncol = p, 
+         nrow = nrow(circle), 
+         byrow = TRUE)
+```
+
+```{r}
+W1 <- S1 %*% solve(n1^-1*S1 + n2^-1*S2)/n1
+W2 <- S2 %*% solve(n1^-1*S1 + n2^-1*S2)/n2
+
+trace_square <- sum(diag(W1%*%W1))/n1 + sum(diag(W2%*%W2))/n2
+square_trace <- sum(diag(W1))^2/n1 + sum(diag(W2))^2/n2
+
+nu <- (p + p^2)/(trace_square + square_trace)
+
+const <- nu*p/(nu - p - 1)
+critical_val <- const * qf(0.95, df1 = p,
+                           df2 = nu - p - 1)
+
+drop(test_statistic) > critical_val
+```
+
+---
+
+```{r echo = FALSE}
+# First create a circle of radius c
+theta_vect <- seq(0, 2*pi, length.out = 100)
+circle <- sqrt(critical_val) * cbind(cos(theta_vect), sin(theta_vect))
+# Then turn into ellipse
+ellipse3 <- circle %*% t(solve(transf)) + 
+  matrix(mu_hat_diff, ncol = p, 
+         nrow = nrow(circle), 
+         byrow = TRUE)
+
+xlim <- range(c(ellipse1[,1], 
+                ellipse2[,1],
+                ellipse3[,1]))
+ylim <- range(c(ellipse1[,2], 
+                ellipse2[,2],
+                ellipse3[,2]))
+
+plot(ellipse2, type = 'l',
+     xlab = colnames(dataset1)[1],
+     ylab = colnames(dataset1)[2],
+     xlim = xlim, ylim = ylim,
+     main = "Comparing Africa vs. Asia")
+points(x = mu_hat_diff[1],
+       y = mu_hat_diff[2])
+lines(ellipse1, lty = 2)
+lines(ellipse3, lty = 3)
+legend('topright', legend = c("Unequal", "Equal", "Nel-VDM"), lty = 1:3)
+```
+
+## Robustness
+
+  - To perform the tests on means, we made two main assumptions (listed in order of **importance**):
+    1. Independence of the observations;
+    2. Normality of the observations.
+  - Independence is the most important assumption: 
+    + Departure from independence can introduce significant bias and will impact the coverage probability.
+  - Normality is not as important:
+    + Both tests for one or two means are relatively robust to heavy tail distributions.
+    + Test for one mean can be sensitive to skewed distributions; test for two means is more robust.
+  

@@ -1,12 +1,12 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  24 SEP 2019 17:27
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  25 SEP 2019 09:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means.t
-ex
+**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means-i
+i.tex
 
-(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means.te
-x
+(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-means-ii
+.tex
 LaTeX2e <2018-12-01>
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
@@ -1161,8 +1161,8 @@ Package caption Info: beamer document class.
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
-) (./testing-means.aux)
-\openout1 = `testing-means.aux'.
+) (./testing-means-ii.aux)
+\openout1 = `testing-means-ii.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
 LaTeX Font Info:    ... okay on input line 170.
@@ -1236,9 +1236,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 170.
 LaTeX Info: Redefining \pageref on input line 170.
 LaTeX Info: Redefining \nameref on input line 170.
-(./testing-means.out) (./testing-means.out)
+(./testing-means-ii.out) (./testing-means-ii.out)
 \@outlinefile=\write6
-\openout6 = `testing-means.out'.
+\openout6 = `testing-means-ii.out'.
 
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
@@ -1267,7 +1267,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-No file testing-means.nav.
+No file testing-means-ii.nav.
 
 Overfull \vbox (16.67491pt too high) detected at line 175
  []
@@ -1275,132 +1275,110 @@ Overfull \vbox (16.67491pt too high) detected at line 175
 [1
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 180.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 179.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 180.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 179.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 180
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 179
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 180
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 179
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 180.
+(Font)              <12> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 180.
+(Font)              <8> on input line 179.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 180.
-LaTeX Font Info:    Try loading font information for U+msa on input line 180.
+(Font)              <6> on input line 179.
+LaTeX Font Info:    Try loading font information for U+msa on input line 179.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 180.
+LaTeX Font Info:    Try loading font information for U+msb on input line 179.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 227.
+(Font)              <10.95> on input line 208.
 [3
 
 ] [4
 
+] [5
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 248.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 248.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 248.
-[5
+] [6
 
-]
-\openout4 = `testing-means.vrb'.
-
-(./testing-means.vrb
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
-
-Overfull \hbox (20.25005pt too wide) in paragraph at lines 32--32
-[]\TU/lmtt/m/n/12 ## infant_mortality  life_expectancy        fertility[] 
- []
-
-
-Overfull \hbox (20.22594pt too wide) in paragraph at lines 32--32
-[]\TU/lmtt/m/n/12 ##        25.824157        71.308427         2.868933[] 
- []
-
-) [6
 
 ] [7
 
 
-] [8
-
-
 ]
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 329.
-[9
+\openout4 = `testing-means-ii.vrb'.
+
+(./testing-means-ii.vrb
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mea
+ns-ii_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mean
+s-ii_files/figure-beamer/unnamed-chunk-2-1.pdf>
+) [8
+
+] [9
+
 
 ] [10
 
 
-]
-\openout4 = `testing-means.vrb'.
+] [11
 
-(./testing-means.vrb)
-Overfull \vbox (15.53705pt too high) detected at line 353
- []
-
-[11
 
 ] [12
+
 
 ] [13
 
 
 ] [14
 
+
 ] [15
 
 
 ]
-\openout4 = `testing-means.vrb'.
-
-(./testing-means.vrb)
-Overfull \vbox (134.07344pt too high) detected at line 448
+Overfull \hbox (29.20198pt too wide) detected at line 408
+[]
  []
 
 [16
 
 ] [17
 
+
 ]
-\openout4 = `testing-means.vrb'.
+Overfull \hbox (5.9611pt too wide) detected at line 427
+[] \OML/lmm/m/it/12 :
+ []
 
-(./testing-means.vrb
-File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mea
-ns_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (type pdf)
-<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mean
-s_files/figure-beamer/unnamed-chunk-9-1.pdf>
-) [18
+[18
 
-] [19
+]
+\openout4 = `testing-means-ii.vrb'.
 
+(./testing-means-ii.vrb) [19
 
 ] [20
 
@@ -1409,118 +1387,152 @@ s_files/figure-beamer/unnamed-chunk-9-1.pdf>
 
 
 ]
-Overfull \hbox (16.43146pt too wide) detected at line 559
-\OML/lmm/m/it/12 t[]\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 w\OT1/lmr/m/n/12 ) = [] =
- [] \OMS/lmsy/m/n/12 ^^T \OML/lmm/m/it/12 F[]\OT1/lmr/m/n/12 (1\OML/lmm/m/it/12
- ; n \OMS/lmsy/m/n/12 ^^@ \OT1/lmr/m/n/12 1)\OML/lmm/m/it/12 :
+\openout4 = `testing-means-ii.vrb'.
+
+(./testing-means-ii.vrb)
+Overfull \vbox (1.38826pt too high) detected at line 503
  []
 
 [22
 
 ] [23
 
-
 ] [24
 
-
-] [25
-
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 589.
+[25
 
 ] [26
 
 
 ] [27
 
+
 ]
-Overfull \hbox (7.66025pt too wide) detected at line 612
-[]
+\openout4 = `testing-means-ii.vrb'.
+
+(./testing-means-ii.vrb
+Overfull \hbox (14.06999pt too wide) in paragraph at lines 74--74
+[]\TU/lmtt/m/n/12 ##                  life_expectancy infant_mortality[] 
  []
 
-[28
+
+Overfull \hbox (14.04599pt too wide) in paragraph at lines 74--74
+[]\TU/lmtt/m/n/12 ## life_expectancy          48.7241        -107.1926[] 
+ []
+
+
+Overfull \hbox (14.03403pt too wide) in paragraph at lines 74--74
+[]\TU/lmtt/m/n/12 ## infant_mortality       -107.1926         504.2972[] 
+ []
+
+
+Overfull \hbox (14.06999pt too wide) in paragraph at lines 86--86
+[]\TU/lmtt/m/n/12 ##                  life_expectancy infant_mortality[] 
+ []
+
+
+Overfull \hbox (14.022pt too wide) in paragraph at lines 86--86
+[]\TU/lmtt/m/n/12 ## life_expectancy         26.08727        -65.19568[] 
+ []
+
+
+Overfull \hbox (14.01003pt too wide) in paragraph at lines 86--86
+[]\TU/lmtt/m/n/12 ## infant_mortality       -65.19568        256.40655[] 
+ []
+
+) [28
 
 ] [29
 
 
-]
-\openout4 = `testing-means.vrb'.
+] [30
 
-(./testing-means.vrb) [30
 
-]
-Overfull \vbox (0.76106pt too high) detected at line 647
- []
+] [31
 
-[31
+
+] [32
 
 
 ]
-\openout4 = `testing-means.vrb'.
-
-(./testing-means.vrb) [32
-
-]
-\openout4 = `testing-means.vrb'.
-
-(./testing-means.vrb)
-Overfull \vbox (25.06825pt too high) detected at line 711
+Overfull \vbox (27.35995pt too high) detected at line 706
  []
 
 [33
 
+
 ]
 File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mea
-ns_files/figure-beamer/unnamed-chunk-15-1.pdf Graphic file (type pdf)
+ns-ii_files/figure-beamer/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mean
-s_files/figure-beamer/unnamed-chunk-15-1.pdf>
+s-ii_files/figure-beamer/unnamed-chunk-14-1.pdf>
 [34
 
-] [35
-
 ]
-Overfull \hbox (26.97328pt too wide) detected at line 822
-\OML/lmm/m/it/12 L\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 ^^V; \OT1/lmr/m/n/12 ^^F) =
- [] [] \OML/lmm/m/it/12 :
- []
+\openout4 = `testing-means-ii.vrb'.
 
-[36
+(./testing-means-ii.vrb) [35
+
+] [36
+
 
 ] [37
 
 
 ] [38
 
+]
+\openout4 = `testing-means-ii.vrb'.
 
-] [39
+(./testing-means-ii.vrb) [39
+
+]
+Overfull \vbox (44.88687pt too high) detected at line 836
+ []
+
+[40
 
 
 ]
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mea
+ns-ii_files/figure-beamer/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mean
+s-ii_files/figure-beamer/unnamed-chunk-18-1.pdf>
+[41
+
+] [42
+
+]
 \tf@nav=\write7
-\openout7 = `testing-means.nav'.
+\openout7 = `testing-means-ii.nav'.
 
 \tf@toc=\write8
-\openout8 = `testing-means.toc'.
+\openout8 = `testing-means-ii.toc'.
 
 \tf@snm=\write9
-\openout9 = `testing-means.snm'.
+\openout9 = `testing-means-ii.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 827.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 827.
-(./testing-means.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 827.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 827.
-Package rerunfilecheck Info: File `testing-means.out' has not changed.
-(rerunfilecheck)             Checksum: DB546FEF527F7EB6709BBCA029A908B4.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 888.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 888.
+(./testing-means-ii.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 888.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 888.
+Package rerunfilecheck Info: File `testing-means-ii.out' has not changed.
+(rerunfilecheck)             Checksum: B1EABEEB550DFE9FA8F330C3642FBEF4.
  ) 
 Here is how much of TeX's memory you used:
- 38277 strings out of 494894
- 780082 string characters out of 6177483
- 860440 words of memory out of 5000000
- 41578 multiletter control sequences out of 15000+600000
- 581772 words of font info for 86 fonts, out of 8000000 for 9000
+ 38253 strings out of 494894
+ 780213 string characters out of 6177483
+ 861876 words of memory out of 5000000
+ 41559 multiletter control sequences out of 15000+600000
+ 560889 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,92p,1878b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,13n,92p,1881b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on testing-means.pdf (39 pages).
+Output written on testing-means-ii.pdf (42 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '
