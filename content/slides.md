@@ -20,7 +20,8 @@ type: docs
   - [Tests for Multivariate Means I](testing-means.pdf)
     + [R code](testing-means.R)
     + Notes on [quadratic forms and ellipses](quadratic_forms_ellipses.pdf)
-  - Tests for Multivariate Means II
+  - [Tests for Multivariate Means II](testing-means-ii.pdf)
+    + [R code](testing-means-ii.R)
   - Multivariate Analysis of Variance
   - Multivariate Linear Regression
   - Principal Component Analysis
