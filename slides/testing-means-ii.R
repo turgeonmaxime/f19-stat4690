@@ -186,11 +186,15 @@ ellipse2 <- circle %*% t(solve(transf)) +
 W1 <- S1 %*% solve(n1^-1*S1 + n2^-1*S2)/n1
 W2 <- S2 %*% solve(n1^-1*S1 + n2^-1*S2)/n2
 
-trace_square <- sum(diag(W1%*%W1))/n1 + sum(diag(W2%*%W2))/n2
-square_trace <- sum(diag(W1))^2/n1 + sum(diag(W2))^2/n2
+trace_square <- sum(diag(W1%*%W1))/n1 + 
+  sum(diag(W2%*%W2))/n2
+square_trace <- sum(diag(W1))^2/n1 + 
+  sum(diag(W2))^2/n2
 
-nu <- (p + p^2)/(trace_square + square_trace)
+(nu <- (p + p^2)/(trace_square + square_trace))
 
+
+## ------------------------------------------------------------------------
 const <- nu*p/(nu - p - 1)
 critical_val <- const * qf(0.95, df1 = p,
                            df2 = nu - p - 1)

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  25 SEP 2019 09:58
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  25 SEP 2019 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1489,21 +1489,20 @@ s-ii_files/figure-beamer/unnamed-chunk-14-1.pdf>
 
 (./testing-means-ii.vrb) [39
 
-]
-Overfull \vbox (44.88687pt too high) detected at line 836
- []
+] [40
 
-[40
+
+] [41
 
 
 ]
 File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mea
-ns-ii_files/figure-beamer/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+ns-ii_files/figure-beamer/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 <use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/testing-mean
-s-ii_files/figure-beamer/unnamed-chunk-18-1.pdf>
-[41
+s-ii_files/figure-beamer/unnamed-chunk-19-1.pdf>
+[42
 
-] [42
+] [43
 
 ]
 \tf@nav=\write7
@@ -1515,24 +1514,24 @@ s-ii_files/figure-beamer/unnamed-chunk-18-1.pdf>
 \tf@snm=\write9
 \openout9 = `testing-means-ii.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 888.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 888.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 898.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 898.
 (./testing-means-ii.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 888.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 888.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 898.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 898.
 Package rerunfilecheck Info: File `testing-means-ii.out' has not changed.
 (rerunfilecheck)             Checksum: B1EABEEB550DFE9FA8F330C3642FBEF4.
  ) 
 Here is how much of TeX's memory you used:
  38253 strings out of 494894
  780213 string characters out of 6177483
- 861876 words of memory out of 5000000
+ 861932 words of memory out of 5000000
  41559 multiletter control sequences out of 15000+600000
  560889 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1881b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on testing-means-ii.pdf (42 pages).
+Output written on testing-means-ii.pdf (43 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

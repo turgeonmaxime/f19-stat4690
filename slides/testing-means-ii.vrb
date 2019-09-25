@@ -20,11 +20,21 @@
 \NormalTok{W1 <-}\StringTok{ }\NormalTok{S1 }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(n1}\OperatorTok{^-}\DecValTok{1}\OperatorTok{*}\NormalTok{S1 }\OperatorTok{+}\StringTok{ }\NormalTok{n2}\OperatorTok{^-}\DecValTok{1}\OperatorTok{*}\NormalTok{S2)}\OperatorTok{/}\NormalTok{n1}
 \NormalTok{W2 <-}\StringTok{ }\NormalTok{S2 }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(n1}\OperatorTok{^-}\DecValTok{1}\OperatorTok{*}\NormalTok{S1 }\OperatorTok{+}\StringTok{ }\NormalTok{n2}\OperatorTok{^-}\DecValTok{1}\OperatorTok{*}\NormalTok{S2)}\OperatorTok{/}\NormalTok{n2}
 
-\NormalTok{trace_square <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W1}\OperatorTok{%*%}\NormalTok{W1))}\OperatorTok{/}\NormalTok{n1 }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W2}\OperatorTok{%*%}\NormalTok{W2))}\OperatorTok{/}\NormalTok{n2}
-\NormalTok{square_trace <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W1))}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{n1 }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W2))}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{n2}
+\NormalTok{trace_square <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W1}\OperatorTok{%*%}\NormalTok{W1))}\OperatorTok{/}\NormalTok{n1 }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W2}\OperatorTok{%*%}\NormalTok{W2))}\OperatorTok{/}\NormalTok{n2}
+\NormalTok{square_trace <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W1))}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{n1 }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(W2))}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{n2}
 
-\NormalTok{nu <-}\StringTok{ }\NormalTok{(p }\OperatorTok{+}\StringTok{ }\NormalTok{p}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(trace_square }\OperatorTok{+}\StringTok{ }\NormalTok{square_trace)}
+\NormalTok{(nu <-}\StringTok{ }\NormalTok{(p }\OperatorTok{+}\StringTok{ }\NormalTok{p}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(trace_square }\OperatorTok{+}\StringTok{ }\NormalTok{square_trace))}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## [1] 88.85241
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{const <-}\StringTok{ }\NormalTok{nu}\OperatorTok{*}\NormalTok{p}\OperatorTok{/}\NormalTok{(nu }\OperatorTok{-}\StringTok{ }\NormalTok{p }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}
 \NormalTok{critical_val <-}\StringTok{ }\NormalTok{const }\OperatorTok{*}\StringTok{ }\KeywordTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{, }\DataTypeTok{df1 =}\NormalTok{ p,}
                            \DataTypeTok{df2 =}\NormalTok{ nu }\OperatorTok{-}\StringTok{ }\NormalTok{p }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}

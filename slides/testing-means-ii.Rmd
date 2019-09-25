@@ -199,7 +199,7 @@ bonf_ci
 
   - Now let's assume we have *two* independent multivariate samples of (potentially) different sizes:
     + $\mathbf{Y}_{11}, \ldots, \mathbf{Y}_{1n_1}\sim N_p(\mu_1, \Sigma)$
-    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_1}\sim N_p(\mu_2, \Sigma)$
+    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_2}\sim N_p(\mu_2, \Sigma)$
   - We are interested in testing $\mu_1 = \mu_2$.
     + Note that we assume *equal covariance* for the time being.
   - Let $\mathbf{\bar{Y}}_1, \mathbf{\bar{Y}}_2$ be their respective sample means, and let $S_1, S_2$, their respective sample covariances.
@@ -289,7 +289,7 @@ points(x = mu_hat_diff[1],
 
   - Now let's turn our attention to the case where the covariance matrices are **not** equal:
     + $\mathbf{Y}_{11}, \ldots, \mathbf{Y}_{1n_1}\sim N_p(\mu_1, \Sigma_1)$
-    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_1}\sim N_p(\mu_2, \Sigma_2)$
+    + $\mathbf{Y}_{21}, \ldots, \mathbf{Y}_{2n_2}\sim N_p(\mu_2, \Sigma_2)$
   - Recall that in the univariate case, the test statistic that is typically used is called *Welch's t-statistic*.
     + The general idea is to adjust the degrees of freedom of the $t$-distribution.
     + **Note**: This is actually the default test used by `t.test`!
@@ -345,11 +345,16 @@ ellipse2 <- circle %*% t(solve(transf)) +
 W1 <- S1 %*% solve(n1^-1*S1 + n2^-1*S2)/n1
 W2 <- S2 %*% solve(n1^-1*S1 + n2^-1*S2)/n2
 
-trace_square <- sum(diag(W1%*%W1))/n1 + sum(diag(W2%*%W2))/n2
-square_trace <- sum(diag(W1))^2/n1 + sum(diag(W2))^2/n2
+trace_square <- sum(diag(W1%*%W1))/n1 + 
+  sum(diag(W2%*%W2))/n2
+square_trace <- sum(diag(W1))^2/n1 + 
+  sum(diag(W2))^2/n2
 
-nu <- (p + p^2)/(trace_square + square_trace)
+(nu <- (p + p^2)/(trace_square + square_trace))
+```
 
+
+```{r}
 const <- nu*p/(nu - p - 1)
 critical_val <- const * qf(0.95, df1 = p,
                            df2 = nu - p - 1)
