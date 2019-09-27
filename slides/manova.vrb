@@ -1,0 +1,66 @@
+\frametitle{Example (cont'd)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S_low <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(Y_low)}
+\NormalTok{S_high <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(Y_high)}
+\NormalTok{S_pool <-}\StringTok{ }\NormalTok{W}\OperatorTok{/}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}
+
+\KeywordTok{c}\NormalTok{(}\StringTok{"pool"}\NormalTok{ =}\StringTok{ }\KeywordTok{log}\NormalTok{(}\KeywordTok{det}\NormalTok{(S_pool)),}
+  \StringTok{"low"}\NormalTok{ =}\StringTok{ }\KeywordTok{log}\NormalTok{(}\KeywordTok{det}\NormalTok{(S_low)),}
+  \StringTok{"high"}\NormalTok{ =}\StringTok{ }\KeywordTok{log}\NormalTok{(}\KeywordTok{det}\NormalTok{(S_high)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      pool       low      high
+## -2.370911 -2.949096 -2.013061
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(heplots)}
+\NormalTok{(boxm_res <-}\StringTok{ }\KeywordTok{boxM}\NormalTok{(Y, rate))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##
+##  Box's M-test for Homogeneity of Covariance Matrices
+##
+## data:  Y
+## Chi-Sq (approx.) = 4.0175, df = 6, p-value = 0.6743
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# You can plot the log generalized variances}
+\CommentTok{# The plot function adds 95% CI}
+\KeywordTok{plot}\NormalTok{(boxm_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files/figure-beamer/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Finally you can also plot the ellipses}
+\CommentTok{# as a way to compare the covariances}
+\KeywordTok{covEllipses}\NormalTok{(Y, rate, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{, }
+            \DataTypeTok{label.pos =} \StringTok{'bottom'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files/figure-beamer/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Or all pairwise comparisons together}
+\KeywordTok{covEllipses}\NormalTok{(Y, rate, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{, }
+            \DataTypeTok{label.pos =} \StringTok{'bottom'}\NormalTok{, }
+            \DataTypeTok{variables =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files/figure-beamer/unnamed-chunk-10-1.pdf}
+
