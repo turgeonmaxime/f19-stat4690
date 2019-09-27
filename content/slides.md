@@ -22,7 +22,8 @@ type: docs
     + Notes on [quadratic forms and ellipses](quadratic_forms_ellipses.pdf)
   - [Tests for Multivariate Means II](testing-means-ii.pdf)
     + [R code](testing-means-ii.R)
-  - Multivariate Analysis of Variance
+  - [Multivariate Analysis of Variance](manova.pdf)
+    + [R code](manova.R)
   - Multivariate Linear Regression
   - Principal Component Analysis
   - Factor Analysis

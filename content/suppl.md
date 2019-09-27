@@ -22,4 +22,13 @@ In this course, we will use R as the main computational tool. Below are some res
     + [Data transformation](https://442r58kc8ke1y38f62ssb208-wpengine.netdna-ssl.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
     + [Data visualization](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
     + [Rmarkdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+    
+## Other useful textbooks
 
+Here is a list of other textbooks that provide further (or complementary) details to Johnson & Wichern.
+
+  - Rencher (1998). *Multivariate Statistical Inference and Applications*.
+  - Anderson (2003). *An Introduction to Multivariate Statistical Analysis*.
+  - Timm (2002). *Applied Multivariate Analysis*.
+  - Muirhead (1982). *Aspects of Multivariate Statistical Theory*.
+    + This one is a classic text, but it is much more advanced than the other textbooks.
