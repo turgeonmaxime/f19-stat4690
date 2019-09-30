@@ -1,9 +1,12 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  30 SEP 2019 10:09
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  30 SEP 2019 10:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova.tex
-(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova.tex
+**/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-li
+near-regression.tex
+
+(/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-lin
+ear-regression.tex
 LaTeX2e <2018-12-01>
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2019/07/23 v3.56 A class for typesetting presentations
@@ -1120,65 +1123,7 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \fb@frh=\dimen298
 \FrameRule=\dimen299
 \FrameSep=\dimen300
-) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
-\LTleft=\skip76
-\LTright=\skip77
-\LTpre=\skip78
-\LTpost=\skip79
-\LTchunksize=\count353
-\LTcapwidth=\dimen301
-\LT@head=\box82
-\LT@firsthead=\box83
-\LT@foot=\box84
-\LT@lastfoot=\box85
-\LT@cols=\count354
-\LT@rows=\count355
-\c@LT@tables=\count356
-\c@LT@chunks=\count357
-\LT@p@ftn=\toks49
-) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen302
-\lightrulewidth=\dimen303
-\cmidrulewidth=\dimen304
-\belowrulesep=\dimen305
-\belowbottomsep=\dimen306
-\aboverulesep=\dimen307
-\abovetopsep=\dimen308
-\cmidrulesep=\dimen309
-\cmidrulekern=\dimen310
-\defaultaddspace=\dimen311
-\@cmidla=\count358
-\@cmidlb=\count359
-\@aboverulesep=\dimen312
-\@belowrulesep=\dimen313
-\@thisruleclass=\count360
-\@lastruleclass=\count361
-\@thisrulewidth=\dimen314
-) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen315
-\captionmargin@=\dimen316
-\captionwidth=\dimen317
-\caption@tempdima=\dimen318
-\caption@indent=\dimen319
-\caption@parindent=\dimen320
-\caption@hangindent=\dimen321
-)
-\c@caption@flags=\count362
-\c@ContinuedFloat=\count363
-Package caption Info: beamer document class.
-Package caption Info: hyperref package is loaded.
-Package caption Info: Hyperref support is turned off
-(caption)             because hyperref has stopped early.
-Package caption Info: longtable package is loaded.
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
-Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
-)) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
 Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
 Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
@@ -1192,39 +1137,58 @@ Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the
 page
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count364
+\c@checkoddpage=\count353
 ))
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2019/08/03 v3.1.4b (3.1.4b)
-) (./manova.aux)
-\openout1 = `manova.aux'.
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen301
+\captionmargin@=\dimen302
+\captionwidth=\dimen303
+\caption@tempdima=\dimen304
+\caption@indent=\dimen305
+\caption@parindent=\dimen306
+\caption@hangindent=\dimen307
+)
+\c@caption@flags=\count354
+\c@ContinuedFloat=\count355
+Package caption Info: beamer document class.
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+) (./multivariate-linear-regression.aux)
+\openout1 = `multivariate-linear-regression.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 176.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 176.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 170.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 170.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    ... okay on input line 170.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1260,21 +1224,21 @@ LaTeX Font Info:    ... okay on input line 176.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box86
-Package hyperref Info: Link coloring OFF on input line 176.
+\AtBeginShipoutBox=\box82
+Package hyperref Info: Link coloring OFF on input line 170.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count365
+\c@section@level=\count356
 )
-LaTeX Info: Redefining \ref on input line 176.
-LaTeX Info: Redefining \pageref on input line 176.
-LaTeX Info: Redefining \nameref on input line 176.
-(./manova.out) (./manova.out)
+LaTeX Info: Redefining \ref on input line 170.
+LaTeX Info: Redefining \pageref on input line 170.
+LaTeX Info: Redefining \nameref on input line 170.
+(./multivariate-linear-regression.out) (./multivariate-linear-regression.out)
 \@outlinefile=\write6
-\openout6 = `manova.out'.
+\openout6 = `multivariate-linear-regression.out'.
 
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
@@ -1303,77 +1267,59 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-No file manova.nav.
-
-Overfull \vbox (16.67491pt too high) detected at line 181
+(./multivariate-linear-regression.nav)
+Overfull \vbox (16.67491pt too high) detected at line 175
  []
 
 [1
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 219.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 216.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 219.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 216.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 219
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 216
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 219
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 216
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 219.
+(Font)              <12> on input line 216.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 219.
+(Font)              <8> on input line 216.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 219.
-LaTeX Font Info:    Try loading font information for U+msa on input line 219.
+(Font)              <6> on input line 216.
+LaTeX Font Info:    Try loading font information for U+msa on input line 216.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 219.
+LaTeX Font Info:    Try loading font information for U+msb on input line 216.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \vbox (24.88095pt too high) detected at line 219
- []
-
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 216.
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 216.
 [2
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 326.
-
-Overfull \hbox (18.28363pt too wide) detected at line 326
-[] [] [][] \OT1/lmr/m/n/12 = [] \OML/lmm/m/it/12 n[] [][] \OT1/lmr/m/n/12 + [] 
-[] [][] \OML/lmm/m/it/12 :
- []
-
-
-Package fontspec Warning: \addfontfeature(s) ignored on line 326; it cannot be
-(fontspec)                used with a font that wasn't selected by a fontspec
-(fontspec)                command.
-(fontspec)                 
-(fontspec)                 The current font is "\TU/lmss/m/it/12 ".
-(fontspec)                  The requested feature is "Numbers={Monospaced}". 
-
-[3
+] [3
 
 ] [4
 
 
 ] [5
-
 
 ] [6
 
@@ -1385,25 +1331,22 @@ Package fontspec Warning: \addfontfeature(s) ignored on line 326; it cannot be
 
 
 ]
-Overfull \hbox (27.93468pt too wide) detected at line 408
+Overfull \hbox (9.3674pt too wide) detected at line 365
 []
  []
-
-
-Package fontspec Warning: \addfontfeature(s) ignored on line 408; it cannot be
-(fontspec)                used with a font that wasn't selected by a fontspec
-(fontspec)                command.
-(fontspec)                 
-(fontspec)                 The current font is "\TU/lmss/m/it/12 ".
-(fontspec)                  The requested feature is "Numbers={Monospaced}". 
 
 [9
 
 ] [10
 
 
-] [11
+]
+\openout4 = `multivariate-linear-regression.vrb'.
 
+(./multivariate-linear-regression.vrb
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 6.
+) [11
 
 ] [12
 
@@ -1411,17 +1354,7 @@ Package fontspec Warning: \addfontfeature(s) ignored on line 408; it cannot be
 ] [13
 
 
-]
-\openout4 = `manova.vrb'.
-
-(./manova.vrb
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 7.
-File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_file
-s/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files
-/figure-beamer/unnamed-chunk-6-1.pdf>
-) [14
+] [14
 
 ] [15
 
@@ -1429,8 +1362,30 @@ s/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 ] [16
 
 
-] [17
+]
+\openout4 = `multivariate-linear-regression.vrb'.
 
+(./multivariate-linear-regression.vrb
+Overfull \hbox (7.88988pt too wide) in paragraph at lines 17--17
+[]\TU/lmtt/m/n/12 ##                  tear        gloss       opacity[] 
+ []
+
+
+Overfull \hbox (7.81812pt too wide) in paragraph at lines 17--17
+[]\TU/lmtt/m/n/12 ## tear    -9.489298e-16 2.959810e-15 -4.720135e-15[] 
+ []
+
+
+Overfull \hbox (7.8541pt too wide) in paragraph at lines 17--17
+[]\TU/lmtt/m/n/12 ## gloss   -1.424461e-15 1.109357e-15 -1.150262e-14[] 
+ []
+
+
+Overfull \hbox (7.8181pt too wide) in paragraph at lines 17--17
+[]\TU/lmtt/m/n/12 ## opacity -7.268852e-16 1.211209e-15  1.648459e-16[] 
+ []
+
+) [17
 
 ] [18
 
@@ -1441,18 +1396,24 @@ s/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 ] [20
 
 
-]
-\openout4 = `manova.vrb'.
-
-(./manova.vrb) [21
+] [21
 
 ] [22
 
 
 ] [23
 
-] [24
 
+]
+\openout4 = `multivariate-linear-regression.vrb'.
+
+(./multivariate-linear-regression.vrb
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariat
+e-linear-regression_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (typ
+e pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate
+-linear-regression_files/figure-beamer/unnamed-chunk-6-1.pdf>
+) [24
 
 ] [25
 
@@ -1462,38 +1423,16 @@ s/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 
 ] [27
 
-]
-\openout4 = `manova.vrb'.
 
-(./manova.vrb
-Overfull \hbox (32.61008pt too wide) in paragraph at lines 33--33
-[]\TU/lmtt/m/n/12 ##  Box[]s M-test for Homogeneity of Covariance Matrices[] 
- []
-
-
-Overfull \hbox (26.40604pt too wide) in paragraph at lines 33--33
-[]\TU/lmtt/m/n/12 ## Chi-Sq (approx.) = 4.0175, df = 6, p-value = 0.6743[] 
- []
-
-File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_file
-s/figure-beamer/unnamed-chunk-8-1.pdf Graphic file (type pdf)
-<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files
-/figure-beamer/unnamed-chunk-8-1.pdf>
-File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_file
-s/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (type pdf)
-<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files
-/figure-beamer/unnamed-chunk-9-1.pdf>
-File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_file
-s/figure-beamer/unnamed-chunk-10-1.pdf Graphic file (type pdf)
-<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manova_files
-/figure-beamer/unnamed-chunk-10-1.pdf>
-) [28
+] [28
 
 ] [29
 
 
-] [30
+]
+\openout4 = `multivariate-linear-regression.vrb'.
 
+(./multivariate-linear-regression.vrb) [30
 
 ] [31
 
@@ -1504,42 +1443,55 @@ s/figure-beamer/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 ] [33
 
 
-] [34
+]
+Overfull \vbox (1.68507pt too high) detected at line 759
+ []
+
+[34
 
 
-] [35
+]
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariat
+e-linear-regression_files/figure-beamer/unnamed-chunk-9-1.pdf Graphic file (typ
+e pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate
+-linear-regression_files/figure-beamer/unnamed-chunk-9-1.pdf>
+[35
 
+]
+\openout4 = `multivariate-linear-regression.vrb'.
 
-] [36
+(./multivariate-linear-regression.vrb) [36
 
 ]
 \tf@nav=\write7
-\openout7 = `manova.nav'.
+\openout7 = `multivariate-linear-regression.nav'.
 
 \tf@toc=\write8
-\openout8 = `manova.toc'.
+\openout8 = `multivariate-linear-regression.toc'.
 
 \tf@snm=\write9
-\openout9 = `manova.snm'.
+\openout9 = `multivariate-linear-regression.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 728.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 728.
-(./manova.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 728.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 728.
-Package rerunfilecheck Info: File `manova.out' has not changed.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 790.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 790.
+(./multivariate-linear-regression.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 790.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 790.
+Package rerunfilecheck Info: File `multivariate-linear-regression.out' has not 
+changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 38397 strings out of 494894
- 781288 string characters out of 6177483
- 867194 words of memory out of 5000000
- 41702 multiletter control sequences out of 15000+600000
- 560873 words of font info for 66 fonts, out of 8000000 for 9000
+ 38275 strings out of 494894
+ 779046 string characters out of 6177483
+ 858277 words of memory out of 5000000
+ 41584 multiletter control sequences out of 15000+600000
+ 560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,92p,1871b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,13n,92p,1895b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on manova.pdf (36 pages).
+Output written on multivariate-linear-regression.pdf (36 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

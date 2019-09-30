@@ -209,7 +209,7 @@ fit %>%
   - Last lecture, when comparing two multivariate means, and again today, we talked about **homoscedasticity** as an important assumption.
   - This is a *testable* assumption, i.e. we can devise a corresponding hypothesis test.
   - Our null hypothesis: $H_0: \Sigma_1=\cdots=\Sigma_g$, where $\Sigma_\ell$ is the covariance matrix for population $\ell$.
-  - In this course, we will discuss *Box' M-test*
+  - In this course, we will discuss *Box's M-test*
     + This test is based on a comparison of generalized variances.
   - Under the normality assumption, the likelihood ratio statistic for the null hypothesis above is
   $$\Lambda = \prod_{\ell = 1}^g \left(\frac{\lvert S_\ell\rvert}{\lvert S_{pool}\rvert}\right)^{(n_\ell-1)/2}.$$
