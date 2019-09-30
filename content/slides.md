@@ -24,6 +24,8 @@ type: docs
     + [R code](testing-means-ii.R)
   - [Multivariate Analysis of Variance](manova.pdf)
     + [R code](manova.R)
-  - Multivariate Linear Regression
+  - [Multivariate Linear Regression](multivariate-linear-regression.pdf)
+    + [R code](multivariate-linear-regression.R)
   - Principal Component Analysis
   - Factor Analysis
+  - Canonical Correlation Analysis
