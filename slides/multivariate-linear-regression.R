@@ -144,7 +144,8 @@ fit <- lm(cbind(tear, gloss, opacity) ~ rate,
           data = Plastic)
 
 new_x <- data.frame(rate = factor("High", 
-                                  levels = c("Low", "High")))
+                                  levels = c("Low", 
+                                             "High")))
 (prediction <- predict(fit, newdata = new_x))
 
 
@@ -153,7 +154,8 @@ X <- model.matrix(fit)
 S <- crossprod(resid(fit))/(nrow(Plastic) - ncol(X))
 new_x <- model.matrix(~rate, new_x)
 
-quad_form <- drop(new_x %*% solve(crossprod(X)) %*% t(new_x))
+quad_form <- drop(new_x %*% solve(crossprod(X)) %*% 
+                    t(new_x))
 
 # Estimation covariance
 (est_cov <- S * quad_form) 
@@ -164,12 +166,12 @@ quad_form <- drop(new_x %*% solve(crossprod(X)) %*% t(new_x))
 
 ## ------------------------------------------------------------------------
 # Estimation CIs
-cbind(drop(prediction) - 1.96*diag(est_cov),
-      drop(prediction) + 1.96*diag(est_cov))
+cbind(drop(prediction) - 1.96*sqrt(diag(est_cov)),
+      drop(prediction) + 1.96*sqrt(diag(est_cov)))
 
 # Forecasting CIs
-cbind(drop(prediction) - 1.96*diag(fct_cov),
-      drop(prediction) + 1.96*diag(fct_cov))
+cbind(drop(prediction) - 1.96*sqrt(diag(fct_cov)),
+      drop(prediction) + 1.96*sqrt(diag(fct_cov)))
 
 
 ## ---- warning = FALSE----------------------------------------------------
@@ -234,7 +236,7 @@ logLik.mlm <- function(object, ...) {
   
   df <- prod(dim(coef(object))) + 
     choose(ncol(Sigma_ML) + 1, 2)
-  attr(ans, c("nobs", "df")) <- c(nrow(resids), df)
+  attr(ans, "df") <- df
   class(ans) <- "logLik"
   return(ans)
 }

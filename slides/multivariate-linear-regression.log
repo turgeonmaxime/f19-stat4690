@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  2 OCT 2019 10:21
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  2 OCT 2019 11:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1540,7 +1540,7 @@ e pdf)
 
 
 ]
-Overfull \hbox (9.52013pt too wide) detected at line 1041
+Overfull \hbox (9.52013pt too wide) detected at line 1043
 []
  []
 
@@ -1623,7 +1623,7 @@ Overfull \hbox (29.21423pt too wide) in alignment at lines 41--48
 (./multivariate-linear-regression.vrb) [67
 
 ]
-Overfull \vbox (16.61998pt too high) detected at line 1319
+Overfull \vbox (16.61998pt too high) detected at line 1321
  []
 
 [68
@@ -1685,11 +1685,11 @@ pe pdf)
 \tf@snm=\write9
 \openout9 = `multivariate-linear-regression.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1495.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1495.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1497.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1497.
 (./multivariate-linear-regression.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1495.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1495.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1497.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1497.
 
 Package rerunfilecheck Info: File `multivariate-linear-regression.out' has not 
 changed.
