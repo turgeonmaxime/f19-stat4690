@@ -1,0 +1,59 @@
+\frametitle{Example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(openintro)}
+\NormalTok{model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(startPr, totalPr) }\OperatorTok{~}\StringTok{ }
+\StringTok{              }\NormalTok{nBids }\OperatorTok{+}\StringTok{ }\NormalTok{cond }\OperatorTok{+}\StringTok{ }\NormalTok{sellerRate }\OperatorTok{+}\StringTok{ }
+\StringTok{              }\NormalTok{wheels }\OperatorTok{+}\StringTok{ }\NormalTok{stockPhoto, }
+            \DataTypeTok{data =}\NormalTok{ marioKart)}
+
+\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(model)}
+\NormalTok{P <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(X)) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X)}
+\NormalTok{lev_values <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(P)}
+
+\KeywordTok{hist}\NormalTok{(lev_values, }\DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-linear-regression_files/figure-beamer/unnamed-chunk-20-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(HSB)}
+\NormalTok{resids <-}\StringTok{ }\KeywordTok{residuals}\NormalTok{(model)}
+\NormalTok{S <-}\StringTok{ }\KeywordTok{crossprod}\NormalTok{(resids)}\OperatorTok{/}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\KeywordTok{ncol}\NormalTok{(X))}
+
+\NormalTok{S_inv <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(S)}
+
+\NormalTok{const <-}\StringTok{ }\NormalTok{lev_values}\OperatorTok{/}\NormalTok{((}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{lev_values)}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\KeywordTok{ncol}\NormalTok{(X))}
+\NormalTok{cook_values <-}\StringTok{ }\NormalTok{const }\OperatorTok{*}\StringTok{ }\KeywordTok{diag}\NormalTok{(resids }\OperatorTok{%*%}\StringTok{ }\NormalTok{S_inv }
+                            \OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(resids))}
+
+\KeywordTok{hist}\NormalTok{(cook_values, }\DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/multivariate-linear-regression_files/figure-beamer/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Cut-off value}
+\NormalTok{(cutoff <-}\StringTok{ }\KeywordTok{qchisq}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\KeywordTok{ncol}\NormalTok{(S)}\OperatorTok{*}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\KeywordTok{ncol}\NormalTok{(X))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1187.333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which}\NormalTok{(cook_values }\OperatorTok{>}\StringTok{ }\NormalTok{cutoff)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## named integer(0)
+\end{verbatim}
+
