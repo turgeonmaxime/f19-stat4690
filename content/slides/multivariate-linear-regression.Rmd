@@ -510,6 +510,22 @@ AIC(full_model)
 AIC(rate_model)
 ```
 
+## Example of model selection {.allowframebreaks}
+
+```{r}
+# Model selection
+lhs <- "cbind(tear, gloss, opacity) ~"
+rhs_form <- c("1", "rate", "additive", 
+              "rate+additive", "rate*additive")
+
+purrr::map_df(rhs_form, function(rhs) {
+  form <- formula(paste(lhs, rhs))
+  fit <- lm(form, data = Plastic)
+  return(data.frame(model = rhs, aic = AIC(fit),
+                    stringsAsFactors = FALSE))
+})
+```
+
 
 ## Multivariate Influence Measures {.allowframebreaks}
 
@@ -585,3 +601,33 @@ which(cook_values > cutoff)
   \item The projection of the confidence region onto each variable generally leads to confidence intervals that are too large.
   \end{itemize}
 \end{enumerate}
+
+## Multivariate Regression and MANOVA {.allowframebreaks}
+
+  - Recall from our lecture on MANOVA: assume the data comes from $g$ populations:
+    $$\begin{matrix}
+    \mathbf{Y}_{11},&\ldots,& \mathbf{Y}_{1n_1}\\
+    \vdots&\ddots&\vdots\\
+    \mathbf{Y}_{g1},&\ldots,& \mathbf{Y}_{gn_g}\end{matrix},$$
+    where $\mathbf{Y}_{\ell1},\ldots, \mathbf{Y}_{\ell n_\ell}\sim N_p(\mu_\ell, \Sigma)$.
+  - We obtain an equivalent model if we set
+  $$\mathbb{Y} = \begin{pmatrix}\mathbf{Y}_{11}\\\vdots\\\mathbf{Y}_{1n_1}\\\vdots\\\mathbf{Y}_{g1}\\\vdots\\\mathbf{Y}_{gn_g}\end{pmatrix},\quad \mathbb{X} = \begin{pmatrix} 1 & 1 & 0 & \cdots & 0\\
+  \vdots & \vdots & \vdots & \ddots & \vdots\\
+  1 & 1 & 0 & \cdots & 0\\
+  1 & 0 & 1 & \cdots & 0\\
+  \vdots & \vdots & \vdots & \ddots & \vdots\\
+  1 & 0 & 1 & \cdots & 0\\
+  1 & 0 & 0 & \cdots & 0\\
+  \vdots & \vdots & \vdots & \ddots & \vdots\\
+  1 & 0 & 0 & \cdots & 0\end{pmatrix}.$$
+  - Here, $\mathbb{Y}$ is $n\times p$ and $\mathbb{X}$ is $n\times g$.
+    + The first column of $\mathbb{X}$ is all ones.
+    + The $(i,\ell+1)$ entry of $\mathbb{X}$ is 1 iff the $i$-th row belongs to the $\ell$-th group.
+    + **Note**: It is common to have a different constraint on the parameters $\tau_\ell$ in regression; here, we assume that $\tau_g=0$.
+  - In other words, we model group membership using a single categorial covariate and therefore $g-1$ dummy variables.
+  
+  \vspace{1cm}
+  
+  - More complicated designs for MANOVA can also be expressed in terms of linear regression:
+    + For example, for two-way MANOVA, we would have two categorical variables. We would also need to include an interaction term to get all combinations of the two treatments.
+    + In general, fractional factorial designs can be expressed as a linear regression with a carefully selected series of dummy variables.
