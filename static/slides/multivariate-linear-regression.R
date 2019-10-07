@@ -278,7 +278,7 @@ hist(lev_values, 50)
 
 
 ## ------------------------------------------------------------------------
-n <- nrow(HSB)
+n <- nrow(marioKart)
 resids <- residuals(model)
 S <- crossprod(resids)/(n - ncol(X))
 

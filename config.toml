@@ -2,9 +2,9 @@ baseURL = "https://turgeonmaxime.github.io/f19-stat4690/"
 languageCode = "en-us"
 title = "STAT 4690 - Fall 2019"
 theme = "book"
+ignoreFiles = ["_files$", "_cache$"]
 
 [params]
 BookMenuBundle = "/menu"
 BookToC = false
-ignoreFiles = [ "content/slides/*_cache/" ]
 BookSearch = false

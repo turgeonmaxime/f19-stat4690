@@ -23,8 +23,8 @@ knitr::opts_chunk$set(cache=FALSE)
 
   - **PCA**: Principal Component Analysis
   - Dimension reduction method: 
-    + Let $\mathbf{Y} = (Y_1, \ldots, Y_p)$ be a random vector with covariance matrix $\Sigma$. We are looking for a transformation $h: \mathbb{R}^p \to \mathbb{R}^k$, with $k\ll p$ such that $f(\mathbf{Y})$ retains "as much information as possible" about $\mathbf{Y}$.
-  - In PCA, we are looking for a **linear transformation** $f(y) = w^Ty$ with **maximal variance** (where $\|w\|=1$)
+    + Let $\mathbf{Y} = (Y_1, \ldots, Y_p)$ be a random vector with covariance matrix $\Sigma$. We are looking for a transformation $h: \mathbb{R}^p \to \mathbb{R}^k$, with $k\ll p$ such that $h(\mathbf{Y})$ retains "as much information as possible" about $\mathbf{Y}$.
+  - In PCA, we are looking for a **linear transformation** $h(y) = w^Ty$ with **maximal variance** (where $\|w\|=1$)
   - More generally, we are looking for $k$ linear transformations $w_1, \ldots, w_k$ such that $w_j^T\mathbf{Y}$ has maximal variance and is uncorrelated with $w_1^T\mathbf{Y},\ldots,w_{j-1}^T\mathbf{Y}$.
   - First, note that $\mathrm{Var}(w^T\mathbf{Y}) = w^T\Sigma w$. So our optimisation problem is
   $$ \max_w w^T\Sigma w, \quad\mbox{with } w^Tw = 1.$$
@@ -54,8 +54,8 @@ Let $\lambda_1\geq\cdots\geq\lambda_p$ be the eigenvalues of $\Sigma$, with corr
     + $\mathbf{Z}_i = w_i^T\mathbf{Y}$ is called the $i$-th **principal component** of $\mathbf{Y}$.
     + $w_i$ is the $i$-th vector of **loadings**.
   - Note that we can take $k=p$, in which case we do not reduce the dimension of $\mathbf{Y}$, but we *transform* it into a random vector with uncorrelated components.
-  - We have
-  $$\sum_{i=1}^p \lambda_i = \sum_{i=1}^p \mathrm{Var}(w_i^T\mathbf{Y}) = \sum_{i=1}^p \mathrm{Var}(\mathbf{Y}).$$
+  - Let $\Sigma = P\Lambda  P^T$ be the eigendecomposition of $\Sigma$. We have
+  $$\sum_{i=1}^p \mathrm{Var}(w_i^T\mathbf{Y}) = \sum_{i=1}^p \lambda_i = \mathrm{tr}(\Lambda) = \mathrm{tr}(\Sigma) = \sum_{i=1}^p \mathrm{Var}(Y_i).$$
   - Therefore, each linear transformation $w_i^T\mathbf{Y}$ contributes $\lambda_i/\sum_j \lambda_j$ as percentage of the overall variance.
   - **Selecting $k$**: One common strategy is to select a threshold (e.g. $c = 0.9$) such that
   $$\frac{\sum_{i=1}^{{\color{blue}k}} \lambda_i}{\sum_{i=1}^p \lambda_i} \geq c.$$
