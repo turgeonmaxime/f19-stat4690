@@ -20,7 +20,7 @@
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(HSB)}
+\NormalTok{n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(marioKart)}
 \NormalTok{resids <-}\StringTok{ }\KeywordTok{residuals}\NormalTok{(model)}
 \NormalTok{S <-}\StringTok{ }\KeywordTok{crossprod}\NormalTok{(resids)}\OperatorTok{/}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\KeywordTok{ncol}\NormalTok{(X))}
 
@@ -44,7 +44,7 @@
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1187.333
+## [1] 273.3336
 \end{verbatim}
 
 \begin{Shaded}

@@ -534,7 +534,7 @@ purrr::map_df(rhs_form, function(rhs) {
   and we noted that $\hat{\mathbb{Y}} = P\mathbb{Y}$.
   - Looking at one row at a time, we can see that
   \begin{align*}
-  \mathbf{Y}_i &= \sum_{j=1}^n P_{ij}\mathbf{Y}_j\\
+  \mathbf{\hat{Y}}_i &= \sum_{j=1}^n P_{ij}\mathbf{Y}_j\\
   &= P_{ii}\mathbf{Y}_i + \sum_{j\neq i} P_{ij}\mathbf{Y}_i,
   \end{align*}
   where $P_{ij}$ is the $(i,j)$-th entry of $P$.
@@ -568,7 +568,7 @@ hist(lev_values, 50)
 ```
 
 ```{r}
-n <- nrow(HSB)
+n <- nrow(marioKart)
 resids <- residuals(model)
 S <- crossprod(resids)/(n - ncol(X))
 
