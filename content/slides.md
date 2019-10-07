@@ -26,6 +26,7 @@ type: docs
     + [R code](manova.R)
   - [Multivariate Linear Regression](multivariate-linear-regression.pdf)
     + [R code](multivariate-linear-regression.R)
-  - Principal Component Analysis
+  - [Principal Component Analysis](principal-component-analysis.pdf)
+    + [R code](principal-component-analysis.R)
   - Factor Analysis
   - Canonical Correlation Analysis

@@ -1,0 +1,255 @@
+---
+title: "Principal Component Analysis"
+draft: false
+source: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+  - \usepackage{xcolor}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE)
+```
+
+## Population PCA {.allowframebreaks}
+
+  - **PCA**: Principal Component Analysis
+  - Dimension reduction method: 
+    + Let $\mathbf{Y} = (Y_1, \ldots, Y_p)$ be a random vector with covariance matrix $\Sigma$. We are looking for a transformation $h: \mathbb{R}^p \to \mathbb{R}^k$, with $k\ll p$ such that $f(\mathbf{Y})$ retains "as much information as possible" about $\mathbf{Y}$.
+  - In PCA, we are looking for a **linear transformation** $f(y) = w^Ty$ with **maximal variance** (where $\|w\|=1$)
+  - More generally, we are looking for $k$ linear transformations $w_1, \ldots, w_k$ such that $w_j^T\mathbf{Y}$ has maximal variance and is uncorrelated with $w_1^T\mathbf{Y},\ldots,w_{j-1}^T\mathbf{Y}$.
+  - First, note that $\mathrm{Var}(w^T\mathbf{Y}) = w^T\Sigma w$. So our optimisation problem is
+  $$ \max_w w^T\Sigma w, \quad\mbox{with } w^Tw = 1.$$
+  - From the theory of Lagrange multipliers, we can look at the *unconstrained* problem 
+  $$ \max_{w,\lambda} w^T\Sigma w - \lambda (w^Tw - 1).$$
+  - Write $\phi(w, \lambda)$ for the function we are trying to optimise. We have
+  \begin{align*}
+  \frac{\partial}{\partial w} \phi(w, \lambda) &= \frac{\partial}{\partial w}w^T\Sigma w - \lambda (w^Tw - 1)\\
+  &= 2\Sigma w - 2\lambda w;\\
+  \frac{\partial}{\partial \lambda} \phi(w, \lambda) &= w^Tw - 1.
+  \end{align*}
+  - From the first partial derivative, we conclude that
+  $$ \Sigma w = \lambda w.$$
+  - From the second partial derivative, we conclude that $w\neq 0$; in other words, $w$ is an eigenvector of $\Sigma$ with eigenvalue $\lambda$.
+  - Moreover, at this stationary point of $\phi(w, \lambda)$, we have
+  $$\mathrm{Var}(w^T\mathbf{Y})=w^T\Sigma w = w^T(\lambda w) = \lambda w^Tw = \lambda.$$
+  - In other words, to maximise the variance $\mathrm{Var}(w^T\mathbf{Y})$, we need to choose $\lambda$ to be the *largest* eigenvalue of $\Sigma$.
+  - By induction, and using the extra constraints $w_i^Tw_j = 0$, we can show that all other linear transformations are given by eigenvectors of $\Sigma$.
+  
+### PCA Theorem
+
+Let $\lambda_1\geq\cdots\geq\lambda_p$ be the eigenvalues of $\Sigma$, with corresponding unit-norm eigenvectors $w_1,\ldots, w_p$. To reduce the dimension of $\mathbf{Y}$ from $p$ to $k$ such that every component of $W^T\mathbf{Y}$ is uncorrelated and each direction has maximal variance, we can take $W=\begin{pmatrix} w_1&\cdots&w_k\end{pmatrix}$, whose $j$-th column is $w_j$.
+
+## Properties of PCA {.allowframebreaks}
+
+  - Some vocabulary:
+    + $\mathbf{Z}_i = w_i^T\mathbf{Y}$ is called the $i$-th **principal component** of $\mathbf{Y}$.
+    + $w_i$ is the $i$-th vector of **loadings**.
+  - Note that we can take $k=p$, in which case we do not reduce the dimension of $\mathbf{Y}$, but we *transform* it into a random vector with uncorrelated components.
+  - We have
+  $$\sum_{i=1}^p \lambda_i = \sum_{i=1}^p \mathrm{Var}(w_i^T\mathbf{Y}) = \sum_{i=1}^p \mathrm{Var}(\mathbf{Y}).$$
+  - Therefore, each linear transformation $w_i^T\mathbf{Y}$ contributes $\lambda_i/\sum_j \lambda_j$ as percentage of the overall variance.
+  - **Selecting $k$**: One common strategy is to select a threshold (e.g. $c = 0.9$) such that
+  $$\frac{\sum_{i=1}^{{\color{blue}k}} \lambda_i}{\sum_{i=1}^p \lambda_i} \geq c.$$
+  
+## Scree plot
+
+  - A **scree plot** is a plot with the sequence $1,\ldots,p$ on the x-axis, and the sequence $\lambda_1, \ldots, \lambda_p$ on the y-axis.
+  - Another common strategy for selecting $k$ is to choose the point where the curve starts to flatten out.
+    + **Note**: This inflection point does not necessarily exist, and it may be hard to identify.
+
+---
+
+```{r echo = FALSE}
+C <- chol(S <- toeplitz(.9 ^ (0:31))) # Cov.matrix and its root
+set.seed(17)
+X <- matrix(rnorm(32000), 1000, 32)
+Z <- X %*% C  ## ==>  cov(Z) ~=  C'C = S
+pZ <- prcomp(Z, tol = 0.1)
+screeplot(pZ, type = 'lines', main = '')
+```
+
+## Correlation matrix
+
+  - When the observations are on the different scale, it is typically more appropriate to normalise the components of $\mathbf{Y}$ before doing PCA.
+    + The variance depends on the units, and therefore without normalising, the component with the "smallest" units (e.g. centimeters vs. meters) will be driving most of the overall variance.
+  - In other words, instead of using $\Sigma$, we can use the (population) correlation matrix $R$.
+  - **Note**: The loadings and components we obtain from $\Sigma$ are **not** equivalent to the ones obtained from $R$.
+
+## Sample PCA
+
+  - In general, we do not the population covariance matrix $\Sigma$.
+  - Therefore, in practice, we estimate the loadings $w_i$ through the eigenvectors of the sample covariance matrix $S_n$. 
+  - As with the population version of PCA, if the units are different, we should normalise the components or use the sample correlation matrix.
+
+## Example {.allowframebreaks}
+
+```{r}
+C <- chol(S <- matrix(c(1, 0.5, 0.1,
+                        0.5, 1, 0.5,
+                        0.1, 0.5, 1), 
+                      ncol = 3)) 
+
+set.seed(17)
+X <- matrix(rnorm(300), 100, 3)
+Z <- X %*% C  ## ==>  cov(Z) ~=  C'C = S
+pca <- prcomp(Z)
+```
+
+```{r}
+summary(pca)
+```
+
+```{r}
+screeplot(pca, type = 'l')
+```
+
+## Example 2 {.allowframebreaks}
+
+```{r}
+pca <- prcomp(USArrests, scale = TRUE)
+```
+
+```{r}
+summary(pca)
+```
+
+```{r}
+screeplot(pca, type = 'l')
+```
+
+
+<!-- # Applications of PCA -->
+
+<!-- ## Feature Extraction {.allowframebreaks} -->
+
+<!-- ```{r message = FALSE} -->
+<!-- library(ElemStatLearn) -->
+<!-- library(tidyverse) -->
+<!-- train <- subset(prostate, train == TRUE,  -->
+<!--                 select = -train) -->
+<!-- test  <- subset(prostate, train == FALSE,  -->
+<!--                 select = -train) -->
+
+<!-- # First model: Linear regression -->
+<!-- lr_model <- lm(lpsa ~ ., data = train) -->
+<!-- lr_pred <- predict(lr_model, newdata = test) -->
+<!-- (lr_mse <- mean((test$lpsa - lr_pred)^2)) -->
+
+<!-- # PCA -->
+<!-- decomp <- train %>%  -->
+<!--   subset(select = -lpsa) %>%  -->
+<!--   as.matrix() %>%  -->
+<!--   prcomp -->
+<!-- summary(decomp)$importance[,1:3] -->
+
+<!-- screeplot(decomp, type = 'lines') -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- # Second model: PCs for predictors -->
+<!-- train_pc <- train -->
+<!-- train_pc$PC1 <- decomp$x[,1] -->
+<!-- pc_model <- lm(lpsa ~ PC1, data = train_pc) -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- test_pc <- as.data.frame(predict(decomp, test)) -->
+<!-- pc_pred <- predict(pc_model, -->
+<!--                    newdata = test_pc) -->
+<!-- (pc_mse <- mean((test$lpsa - pc_pred)^2)) -->
+<!-- ``` -->
+
+<!-- ## Feature Selection {.allowframebreaks} -->
+
+<!-- ```{r} -->
+<!-- contribution <- decomp$rotation[,"PC1"] -->
+<!-- round(contribution, 3)[1:6] -->
+<!-- round(contribution, 3)[7:8] -->
+
+<!-- (keep <- names(which(abs(contribution) > 0.01))) -->
+
+<!-- fs_model <- lm(lpsa ~ ., data = train[,c(keep, "lpsa")]) -->
+<!-- fs_pred <- predict(fs_model, newdata = test) -->
+<!-- (fs_mse <- mean((test$lpsa - fs_pred)^2)) -->
+<!-- ``` -->
+
+<!-- ```{r, message = FALSE} -->
+<!-- model_plot <- data.frame( -->
+<!--   "obs" = test$lpsa, -->
+<!--   "LR" = lr_pred, -->
+<!--   "PC" = pc_pred, -->
+<!--   "FS" = fs_pred -->
+<!-- ) %>%  -->
+<!--   gather(Model, pred, -obs) -->
+<!-- ``` -->
+
+
+<!-- ```{r, message = FALSE} -->
+<!-- ggplot(model_plot,  -->
+<!--        aes(pred, obs, colour = Model)) + -->
+<!--   geom_point() + -->
+<!--   theme_minimal() + -->
+<!--   geom_abline(slope = 1, intercept = 0) +  -->
+<!--   theme(legend.position = 'top') + -->
+<!--   xlab("Predicted") + ylab("Observed") -->
+<!-- ``` -->
+
+<!-- ## Data Visualization {.allowframebreaks} -->
+
+<!-- ```{r mnist, cache = TRUE} -->
+<!-- library(dslabs) -->
+
+<!-- mnist <- read_mnist() -->
+
+<!-- dim(mnist$train$images) -->
+<!-- dim(mnist$test$images) -->
+
+<!-- head(mnist$train$labels) -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- matrix(mnist$train$images[1,], ncol = 28) %>%  -->
+<!--   image(col = gray.colors(12, rev = TRUE), -->
+<!--         axes = FALSE) -->
+<!-- ``` -->
+
+<!-- ```{r cache = TRUE} -->
+<!-- decomp <- prcomp(mnist$train$images) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- screeplot(decomp, type = 'lines',  -->
+<!--           npcs = 20, main = "") -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- decomp$x[,1:2] %>%  -->
+<!--   as.data.frame() %>%  -->
+<!--   mutate(label = factor(mnist$train$labels)) %>%  -->
+<!--   ggplot(aes(PC1, PC2, colour = label)) + -->
+<!--   geom_point(alpha = 0.5) + -->
+<!--   theme_minimal() -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # And on the test set -->
+<!-- decomp %>%  -->
+<!--   predict(newdata = mnist$test$images) %>%  -->
+<!--   as.data.frame() %>%  -->
+<!--   mutate(label = factor(mnist$test$labels)) %>%  -->
+<!--   ggplot(aes(PC1, PC2, colour = label)) + -->
+<!--   geom_point(alpha = 0.5) + -->
+<!--   theme_minimal() -->
+<!-- ``` -->
