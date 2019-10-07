@@ -249,6 +249,20 @@ AIC(full_model)
 AIC(rate_model)
 
 
+## ------------------------------------------------------------------------
+# Model selection
+lhs <- "cbind(tear, gloss, opacity) ~"
+rhs_form <- c("1", "rate", "additive", 
+              "rate+additive", "rate*additive")
+
+purrr::map_df(rhs_form, function(rhs) {
+  form <- formula(paste(lhs, rhs))
+  fit <- lm(form, data = Plastic)
+  return(data.frame(model = rhs, aic = AIC(fit),
+                    stringsAsFactors = FALSE))
+})
+
+
 ## ---- message = FALSE----------------------------------------------------
 library(openintro)
 model <- lm(cbind(startPr, totalPr) ~ 
