@@ -80,7 +80,7 @@ screeplot(pZ, type = 'lines', main = '')
 ## Correlation matrix
 
   - When the observations are on the different scale, it is typically more appropriate to normalise the components of $\mathbf{Y}$ before doing PCA.
-    + The variance depends on the units, and therefore without normalising, the component with the "smallest" units (e.g. centimeters vs. meters) will be driving most of the overall variance.
+    + The variance depends on the units, and therefore without normalising, the component with the "smallest" units (e.g. centimeters vs. meters) could be driving most of the overall variance.
   - In other words, instead of using $\Sigma$, we can use the (population) correlation matrix $R$.
   - **Note**: The loadings and components we obtain from $\Sigma$ are **not** equivalent to the ones obtained from $R$.
 
@@ -90,18 +90,18 @@ screeplot(pZ, type = 'lines', main = '')
   - Therefore, in practice, we estimate the loadings $w_i$ through the eigenvectors of the sample covariance matrix $S_n$. 
   - As with the population version of PCA, if the units are different, we should normalise the components or use the sample correlation matrix.
 
-## Example {.allowframebreaks}
+## Example 1 {.allowframebreaks}
 
 ```{r}
-C <- chol(S <- matrix(c(1, 0.5, 0.1,
-                        0.5, 1, 0.5,
-                        0.1, 0.5, 1), 
-                      ncol = 3)) 
+library(mvtnorm)
+Sigma <- matrix(c(1, 0.5, 0.1,
+                  0.5, 1, 0.5,
+                  0.1, 0.5, 1),
+                ncol = 3) 
 
 set.seed(17)
-X <- matrix(rnorm(300), 100, 3)
-Z <- X %*% C  ## ==>  cov(Z) ~=  C'C = S
-pca <- prcomp(Z)
+X <- rmvnorm(100, sigma = Sigma)
+pca <- prcomp(X)
 ```
 
 ```{r}
@@ -127,129 +127,272 @@ screeplot(pca, type = 'l')
 ```
 
 
-<!-- # Applications of PCA -->
+# Applications of PCA
 
-<!-- ## Feature Extraction {.allowframebreaks} -->
+## Training and testing {.allowframebreaks}
 
-<!-- ```{r message = FALSE} -->
-<!-- library(ElemStatLearn) -->
-<!-- library(tidyverse) -->
-<!-- train <- subset(prostate, train == TRUE,  -->
-<!--                 select = -train) -->
-<!-- test  <- subset(prostate, train == FALSE,  -->
-<!--                 select = -train) -->
+  - Recall: **Mean Squared Error**
+  $$ MSE = \frac{1}{n}\sum_{i=1}^n(Y_i - \hat{Y}_i)^2,$$
+  where $Y_i,\hat{Y}_i$ are the *observed* and *predicted* values.
+  - It is good practice to separate your dataset in two:
+    + **Training** dataset, that is used to build and fit your model (e.g. choose covariates, estimate regression coefficients).
+    + **Testing** dataset, that it used to compute the MSE or other performance metrics.
+  - PCA can be used for predictive model building in (univariate) linear regression:
+    + **Feature extraction**: Perform PCA on the covariates, extract the first $k$ PCs, and use them as predictors in your model.
+    + **Feature selection**: Perform PCA on the covariates, look at the first PC, find the covariates whose loadings are the largest (in absolute value), and only use those covariates as predictors.
 
-<!-- # First model: Linear regression -->
-<!-- lr_model <- lm(lpsa ~ ., data = train) -->
-<!-- lr_pred <- predict(lr_model, newdata = test) -->
-<!-- (lr_mse <- mean((test$lpsa - lr_pred)^2)) -->
+## Feature Extraction {.allowframebreaks}
 
-<!-- # PCA -->
-<!-- decomp <- train %>%  -->
-<!--   subset(select = -lpsa) %>%  -->
-<!--   as.matrix() %>%  -->
-<!--   prcomp -->
-<!-- summary(decomp)$importance[,1:3] -->
+```{r message = FALSE}
+library(ElemStatLearn)
+library(tidyverse)
+train <- subset(prostate, train == TRUE,
+                select = -train)
+test  <- subset(prostate, train == FALSE,
+                select = -train)
 
-<!-- screeplot(decomp, type = 'lines') -->
-<!-- ``` -->
+# First model: Linear regression
+lr_model <- lm(lpsa ~ ., data = train)
+lr_pred <- predict(lr_model, newdata = test)
+(lr_mse <- mean((test$lpsa - lr_pred)^2))
 
+# PCA
+decomp <- train %>%
+  subset(select = -lpsa) %>%
+  as.matrix() %>%
+  prcomp
+summary(decomp)$importance[,1:3]
 
-<!-- ```{r} -->
-<!-- # Second model: PCs for predictors -->
-<!-- train_pc <- train -->
-<!-- train_pc$PC1 <- decomp$x[,1] -->
-<!-- pc_model <- lm(lpsa ~ PC1, data = train_pc) -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- test_pc <- as.data.frame(predict(decomp, test)) -->
-<!-- pc_pred <- predict(pc_model, -->
-<!--                    newdata = test_pc) -->
-<!-- (pc_mse <- mean((test$lpsa - pc_pred)^2)) -->
-<!-- ``` -->
-
-<!-- ## Feature Selection {.allowframebreaks} -->
-
-<!-- ```{r} -->
-<!-- contribution <- decomp$rotation[,"PC1"] -->
-<!-- round(contribution, 3)[1:6] -->
-<!-- round(contribution, 3)[7:8] -->
-
-<!-- (keep <- names(which(abs(contribution) > 0.01))) -->
-
-<!-- fs_model <- lm(lpsa ~ ., data = train[,c(keep, "lpsa")]) -->
-<!-- fs_pred <- predict(fs_model, newdata = test) -->
-<!-- (fs_mse <- mean((test$lpsa - fs_pred)^2)) -->
-<!-- ``` -->
-
-<!-- ```{r, message = FALSE} -->
-<!-- model_plot <- data.frame( -->
-<!--   "obs" = test$lpsa, -->
-<!--   "LR" = lr_pred, -->
-<!--   "PC" = pc_pred, -->
-<!--   "FS" = fs_pred -->
-<!-- ) %>%  -->
-<!--   gather(Model, pred, -obs) -->
-<!-- ``` -->
+screeplot(decomp, type = 'lines')
+```
 
 
-<!-- ```{r, message = FALSE} -->
-<!-- ggplot(model_plot,  -->
-<!--        aes(pred, obs, colour = Model)) + -->
-<!--   geom_point() + -->
-<!--   theme_minimal() + -->
-<!--   geom_abline(slope = 1, intercept = 0) +  -->
-<!--   theme(legend.position = 'top') + -->
-<!--   xlab("Predicted") + ylab("Observed") -->
-<!-- ``` -->
-
-<!-- ## Data Visualization {.allowframebreaks} -->
-
-<!-- ```{r mnist, cache = TRUE} -->
-<!-- library(dslabs) -->
-
-<!-- mnist <- read_mnist() -->
-
-<!-- dim(mnist$train$images) -->
-<!-- dim(mnist$test$images) -->
-
-<!-- head(mnist$train$labels) -->
-<!-- ``` -->
+```{r}
+# Second model: PCs for predictors
+train_pc <- train
+train_pc$PC1 <- decomp$x[,1]
+pc_model <- lm(lpsa ~ PC1, data = train_pc)
+```
 
 
-<!-- ```{r} -->
-<!-- matrix(mnist$train$images[1,], ncol = 28) %>%  -->
-<!--   image(col = gray.colors(12, rev = TRUE), -->
-<!--         axes = FALSE) -->
-<!-- ``` -->
+```{r}
+test_pc <- as.data.frame(predict(decomp, test))
+pc_pred <- predict(pc_model,
+                   newdata = test_pc)
+(pc_mse <- mean((test$lpsa - pc_pred)^2))
+```
 
-<!-- ```{r cache = TRUE} -->
-<!-- decomp <- prcomp(mnist$train$images) -->
-<!-- ``` -->
+## Feature Selection {.allowframebreaks}
 
-<!-- ```{r} -->
-<!-- screeplot(decomp, type = 'lines',  -->
-<!--           npcs = 20, main = "") -->
-<!-- ``` -->
+```{r}
+contribution <- decomp$rotation[,"PC1"]
+round(contribution, 3)[1:6]
+round(contribution, 3)[7:8]
 
-<!-- ```{r} -->
-<!-- decomp$x[,1:2] %>%  -->
-<!--   as.data.frame() %>%  -->
-<!--   mutate(label = factor(mnist$train$labels)) %>%  -->
-<!--   ggplot(aes(PC1, PC2, colour = label)) + -->
-<!--   geom_point(alpha = 0.5) + -->
-<!--   theme_minimal() -->
-<!-- ``` -->
+(keep <- names(which(abs(contribution) > 0.01)))
 
-<!-- ```{r} -->
-<!-- # And on the test set -->
-<!-- decomp %>%  -->
-<!--   predict(newdata = mnist$test$images) %>%  -->
-<!--   as.data.frame() %>%  -->
-<!--   mutate(label = factor(mnist$test$labels)) %>%  -->
-<!--   ggplot(aes(PC1, PC2, colour = label)) + -->
-<!--   geom_point(alpha = 0.5) + -->
-<!--   theme_minimal() -->
-<!-- ``` -->
+fs_model <- lm(lpsa ~ ., data = train[,c(keep, "lpsa")])
+fs_pred <- predict(fs_model, newdata = test)
+(fs_mse <- mean((test$lpsa - fs_pred)^2))
+```
+
+```{r, message = FALSE}
+model_plot <- data.frame(
+  "obs" = test$lpsa,
+  "LR" = lr_pred,
+  "PC" = pc_pred,
+  "FS" = fs_pred
+) %>%
+  gather(Model, pred, -obs)
+```
+
+
+```{r, message = FALSE}
+ggplot(model_plot,
+       aes(pred, obs, colour = Model)) +
+  geom_point() +
+  theme_minimal() +
+  geom_abline(slope = 1, intercept = 0) +
+  theme(legend.position = 'top') +
+  xlab("Predicted") + ylab("Observed")
+```
+
+## Comments
+
+  - The full model performed better than the ones we created with PCA
+    + It had a lower MSE
+  - On the other hand, if we had multicollinearity issues, or too many covariates ($p > n$), the PCA models could outperform the full model.
+  - However, note that PCA does not use the association between the covariates and the outcome, so it will never be the most efficient way of building a model.
+
+## Data Visualization {.allowframebreaks}
+
+```{r mnist, cache = TRUE}
+library(dslabs)
+
+mnist <- read_mnist()
+
+dim(mnist$train$images)
+dim(mnist$test$images)
+
+head(mnist$train$labels)
+```
+
+
+```{r}
+matrix(mnist$train$images[1,], ncol = 28) %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE)
+```
+
+```{r cache = TRUE}
+decomp <- prcomp(mnist$train$images)
+```
+
+```{r}
+screeplot(decomp, type = 'lines',
+          npcs = 20, main = "")
+```
+
+```{r}
+decomp$x[,1:2] %>%
+  as.data.frame() %>%
+  mutate(label = factor(mnist$train$labels)) %>%
+  ggplot(aes(PC1, PC2, colour = label)) +
+  geom_point(alpha = 0.5) +
+  theme_minimal()
+```
+
+```{r}
+# And on the test set
+decomp %>%
+  predict(newdata = mnist$test$images) %>%
+  as.data.frame() %>%
+  mutate(label = factor(mnist$test$labels)) %>%
+  ggplot(aes(PC1, PC2, colour = label)) +
+  geom_point(alpha = 0.5) +
+  theme_minimal()
+```
+
+```{r}
+par(mfrow = c(2, 2))
+for (i in seq_len(4)) {
+  matrix(decomp$rotation[,i], ncol = 28) %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = paste0("PC", i))
+}
+```
+
+```{r}
+# Approximation with 90 PCs
+approx_mnist <- decomp$rotation[, seq_len(90)] %*% 
+  decomp$x[1, seq_len(90)]
+par(mfrow = c(1, 2))
+
+matrix(mnist$train$images[1,], ncol = 28) %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Original")
+matrix(approx_mnist, ncol = 28) %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Approx")
+```
+
+
+## Additional comments about sample PCA {.allowframebreaks}
+
+  - Let $\mathbf{Y}_1, \ldots, \mathbf{Y}_n$ be a sample from a distribution with covariance matrix $\Sigma$. Write $\mathbb{Y}$ for the $n\times p$ matrix whose $i$-th row is $\mathbf{Y}_i$.
+  - Let $S_n$ be the sample covariance matrix, and write $W_k$ for the matrix whose columns are the first $k$ eigenvectors of $S_n$. 
+  - You can define the matrix of $k$ principal components as
+  $$ \mathbb{Z} = \mathbb{Y} W_k.$$
+  - On the other hand, it is much more common to define it as
+  $$\mathbb{Z} = \tilde{\mathbb{Y}} W_k,$$
+  where $\tilde{\mathbb{Y}}$ is the centered version of $\mathbb{Y}$ (i.e. the sample mean has been subtracted from each row).
+    + This leads to sample principal components with mean zero.
+  
+## Example 1 (revisited) {.allowframebreaks}
+
+```{r}
+library(mvtnorm)
+Sigma <- matrix(c(1, 0.5, 0.1,
+                  0.5, 1, 0.5,
+                  0.1, 0.5, 1),
+                ncol = 3) 
+mu <- c(1, 2, 2)
+```
+
+
+```{r}
+set.seed(17)
+X <- rmvnorm(100, mean = mu,
+             sigma = Sigma)
+pca <- prcomp(X)
+
+colMeans(X)
+colMeans(pca$x)
+```
+
+```{r}
+# On the other hand
+pca <- prcomp(X, center = FALSE)
+colMeans(pca$x)
+```
+
+## Geometric interpretation of PCA {.allowframebreaks}
+
+  - The definition of PCA as a linear combination that maximises variance is due to Hotelling (1933).
+  - But PCA was actually introduced earlier by Pearson (1901)
+    + *On Lines and Planes of Closest Fit to Systems of Points in Space*
+  - He defined PCA as the **best approximation of the data by a linear manifold**
+  - Let's suppose we have a lower dimension representation of $\mathbb{Y}$, denoted by a $n\times k$ matrix $\mathbb{Z}$.
+  - We want to *reconstruct* $\mathbb{Y}$ using an affine transformation 
+  $$ f(z) = \mu + W_k z,$$
+  where $W_k$ is a $p\times k$ matrix.
+  - We want to find $\mu, W_k, \mathbf{Z}_i$ that minimises the **reconstruction error**:
+  $$ \min_{\mu, W_k, \mathbf{Z}_i} \sum_{i=1}^n \| \mathbf{Y}_i - \mu - W_k \mathbf{Z}_i \|^2.$$
+  - First, treating $W_k$ constant and minimising over $\mu, \mathbf{Z}_i$, we find
+  \begin{align*}
+  \hat{\mu} &= \mathbf{\bar{Y}},\\
+  \hat{\mathbf{Z}}_i &= W_k^T(\mathbf{Y}_i - \mathbf{\bar{Y}}).
+  \end{align*}
+  - Putting these quantities into the reconstruction error, we get
+  $$ \min_{W_k} \sum_{i=1}^n \| (\mathbf{Y}_i - \mathbf{\bar{Y}}) - W_k W_k^T(\mathbf{Y}_i - \mathbf{\bar{Y}}) \|^2.$$
+
+### Eckart–Young theorem
+
+The reconstruction error is minimised by taking $W_k$ to be the matrix whose columns are the first $k$ eigenvectors of the sampling covariance matrix $S_n$.
+
+Equivalently, we can take the matrix whose columns are the first $k$ *right singular vectors* or the centered data matrix $\tilde{\mathbb{Y}}.$
+
+## Example {.allowframebreaks}
+
+```{r}
+set.seed(1234)
+# Random measurement error
+sigma <- 5
+
+# Exact relationship between 
+# Celsius and Fahrenheit
+temp_c <- seq(-40, 40, by = 1)
+temp_f <- 1.8*temp_c + 32
+```
+
+
+```{r}
+# Add measurement error
+temp_c_noise <- temp_c + rnorm(n = length(temp_c), 
+                               sd = sigma)
+temp_f_noise <- temp_f + rnorm(n = length(temp_f), 
+                               sd = sigma)
+```
+
+
+```{r}
+# Linear model
+(fit <- lm(temp_f_noise ~ temp_c_noise))
+confint(fit)
+
+# PCA
+pca <- prcomp(cbind(temp_c_noise, temp_f_noise))
+pca$rotation
+pca$rotation[2,"PC1"]/pca$rotation[1,"PC1"]
+```
+
