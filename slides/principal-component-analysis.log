@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  7 OCT 2019 12:16
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  9 OCT 2019 10:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1267,7 +1267,8 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(./principal-component-analysis.nav)
+No file principal-component-analysis.nav.
+
 Overfull \vbox (16.67491pt too high) detected at line 176
  []
 
@@ -1398,6 +1399,213 @@ mponent-analysis_files/figure-beamer/unnamed-chunk-7-1.pdf>
 ] [18
 
 
+] [19
+
+] [20
+
+] [21
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb
+Overfull \hbox (14.06985pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ##                             PC1      PC2      PC3[] 
+ []
+
+
+Overfull \hbox (14.03407pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Standard deviation     29.40597 7.211721 1.410789[] 
+ []
+
+
+Overfull \hbox (14.0341pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Proportion of Variance  0.93844 0.056440 0.002160[] 
+ []
+
+
+Overfull \hbox (13.9981pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Cumulative Proportion   0.93844 0.994890 0.997050[] 
+ []
+
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-8-1.pdf Graphic file (type 
+pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-8-1.pdf>
+) [22
+
+] [23
+
+
+] [24
+
+
+] [25
+
+
+] [26
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb
+Overfull \hbox (1.70999pt too wide) in paragraph at lines 13--13
+[]\TU/lmtt/m/n/12 ##  lcavol lweight     age    lbph     svi     lcp[] 
+ []
+
+
+Overfull \hbox (1.70998pt too wide) in paragraph at lines 13--13
+[]\TU/lmtt/m/n/12 ##   0.021   0.001   0.075  -0.001   0.007   0.032[] 
+ []
+
+
+Overfull \hbox (26.43001pt too wide) in paragraph at lines 34--34
+[]\TU/lmtt/m/n/12 ## [1] "lcavol"  "age"     "lcp"     "gleason" "pgg45"[] 
+ []
+
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-13-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-13-1.pdf>
+) [27
+
+] [28
+
+
+] [29
+
+
+] [30
+
+
+] [31
+
+
+] [32
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-14-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-14-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-16-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-16-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-17-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-17-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-18-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-18-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-19-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-19-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-20-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-20-1.pdf>
+) [33
+
+] [34
+
+
+] [35
+
+
+] [36
+
+
+] [37
+
+
+] [38
+
+
+] [39
+
+
+] [40
+
+
+] [41
+
+
+] [42
+
+
+] [43
+
+
+] [44
+
+
+] [45
+
+
+] [46
+
+] [47
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb) [48
+
+] [49
+
+
+] [50
+
+
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 905.
+[51
+
+] [52
+
+
+] [53
+
+
+] [54
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb) [55
+
+] [56
+
+
+] [57
+
+
+] [58
+
+
+] [59
+
+
 ]
 \tf@nav=\write7
 \openout7 = `principal-component-analysis.nav'.
@@ -1408,25 +1616,25 @@ mponent-analysis_files/figure-beamer/unnamed-chunk-7-1.pdf>
 \tf@snm=\write9
 \openout9 = `principal-component-analysis.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 437.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 437.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 990.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 990.
 (./principal-component-analysis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 437.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 437.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 990.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 990.
 Package rerunfilecheck Info: File `principal-component-analysis.out' has not ch
 anged.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
+(rerunfilecheck)             Checksum: 452061AA1328F307507815736D32EFC6.
  ) 
 Here is how much of TeX's memory you used:
- 38244 strings out of 494894
- 779137 string characters out of 6177483
- 857219 words of memory out of 5000000
- 41562 multiletter control sequences out of 15000+600000
- 560865 words of font info for 65 fonts, out of 8000000 for 9000
+ 38288 strings out of 494894
+ 784294 string characters out of 6177483
+ 863683 words of memory out of 5000000
+ 41586 multiletter control sequences out of 15000+600000
+ 560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,13n,92p,1893b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,13n,92p,1893b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on principal-component-analysis.pdf (18 pages).
+Output written on principal-component-analysis.pdf (59 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

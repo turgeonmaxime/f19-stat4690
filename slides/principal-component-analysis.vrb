@@ -1,0 +1,78 @@
+\frametitle{Example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\CommentTok{# Random measurement error}
+\NormalTok{sigma <-}\StringTok{ }\DecValTok{5}
+
+\CommentTok{# Exact relationship between }
+\CommentTok{# Celsius and Fahrenheit}
+\NormalTok{temp_c <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{40}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DataTypeTok{by =} \DecValTok{1}\NormalTok{)}
+\NormalTok{temp_f <-}\StringTok{ }\FloatTok{1.8}\OperatorTok{*}\NormalTok{temp_c }\OperatorTok{+}\StringTok{ }\DecValTok{32}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Add measurement error}
+\NormalTok{temp_c_noise <-}\StringTok{ }\NormalTok{temp_c }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{length}\NormalTok{(temp_c), }
+                               \DataTypeTok{sd =}\NormalTok{ sigma)}
+\NormalTok{temp_f_noise <-}\StringTok{ }\NormalTok{temp_f }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{length}\NormalTok{(temp_f), }
+                               \DataTypeTok{sd =}\NormalTok{ sigma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Linear model}
+\NormalTok{(fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp_f_noise }\OperatorTok{~}\StringTok{ }\NormalTok{temp_c_noise))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##
+## Call:
+## lm(formula = temp_f_noise ~ temp_c_noise)
+##
+## Coefficients:
+##  (Intercept)  temp_c_noise
+##       34.256         1.662
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  2.5 %   97.5 %
+## (Intercept)  32.152891 36.35921
+## temp_c_noise  1.577228  1.74711
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# PCA}
+\NormalTok{pca <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(temp_c_noise, temp_f_noise))}
+\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    PC1        PC2
+## temp_c_noise 0.5012360 -0.8653106
+## temp_f_noise 0.8653106  0.5012360
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation[}\DecValTok{2}\NormalTok{,}\StringTok{"PC1"}\NormalTok{]}\OperatorTok{/}\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation[}\DecValTok{1}\NormalTok{,}\StringTok{"PC1"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.726354
+\end{verbatim}
+
