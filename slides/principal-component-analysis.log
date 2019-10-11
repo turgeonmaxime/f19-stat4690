@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.7.30)  9 OCT 2019 10:10
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  11 OCT 2019 10:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1161,34 +1161,41 @@ Package caption Info: beamer document class.
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup6
+\symboldletters=\mathgroup7
+\symboldsymbols=\mathgroup8
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 207.
 ) (./principal-component-analysis.aux)
 \openout1 = `principal-component-analysis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 171.
-LaTeX Font Info:    ... okay on input line 171.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 171.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 171.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 172.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 172.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    ... okay on input line 172.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1225,7 +1232,7 @@ LaTeX Font Info:    ... okay on input line 171.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box82
-Package hyperref Info: Link coloring OFF on input line 171.
+Package hyperref Info: Link coloring OFF on input line 172.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1233,9 +1240,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count356
 )
-LaTeX Info: Redefining \ref on input line 171.
-LaTeX Info: Redefining \pageref on input line 171.
-LaTeX Info: Redefining \nameref on input line 171.
+LaTeX Info: Redefining \ref on input line 172.
+LaTeX Info: Redefining \pageref on input line 172.
+LaTeX Info: Redefining \nameref on input line 172.
 (./principal-component-analysis.out) (./principal-component-analysis.out)
 \@outlinefile=\write6
 \openout6 = `principal-component-analysis.out'.
@@ -1269,48 +1276,48 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 No file principal-component-analysis.nav.
 
-Overfull \vbox (16.67491pt too high) detected at line 176
+Overfull \vbox (16.67491pt too high) detected at line 177
  []
 
 [1
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 255.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 256.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 255.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 256.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 255
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 256
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 255
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 256
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 255.
+(Font)              <10.95> on input line 256.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 255.
+(Font)              <8> on input line 256.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 255.
-LaTeX Font Info:    Try loading font information for U+msa on input line 255.
+(Font)              <6> on input line 256.
+LaTeX Font Info:    Try loading font information for U+msa on input line 256.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 255.
+LaTeX Font Info:    Try loading font information for U+msb on input line 256.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 255.
+(Font)              <12> on input line 256.
 [2
 
 ] [3
@@ -1577,7 +1584,7 @@ mponent-analysis_files/figure-beamer/unnamed-chunk-20-1.pdf>
 
 ]
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 905.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 906.
 [51
 
 ] [52
@@ -1606,6 +1613,130 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
 ] [59
 
 
+] [60
+
+] [61
+
+
+] [62
+
+
+] [63
+
+] [64
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-27-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-27-1.pdf>
+
+Overfull \hbox (14.06985pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ##                             PC1      PC2      PC3[] 
+ []
+
+
+Overfull \hbox (14.03407pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Standard deviation     45.78445 7.281664 3.677815[] 
+ []
+
+
+Overfull \hbox (14.0221pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Proportion of Variance  0.96776 0.024480 0.006240[] 
+ []
+
+
+Overfull \hbox (13.97409pt too wide) in paragraph at lines 39--39
+[]\TU/lmtt/m/n/12 ## Cumulative Proportion   0.96776 0.992240 0.998490[] 
+ []
+
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-29-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-29-1.pdf>
+) [65
+
+] [66
+
+
+] [67
+
+
+] [68
+
+
+] [69
+
+
+] [70
+
+
+]
+\openout4 = `principal-component-analysis.vrb'.
+
+(./principal-component-analysis.vrb
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-32-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-32-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-35-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-35-1.pdf>
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-c
+omponent-analysis_files/figure-beamer/unnamed-chunk-36-1.pdf Graphic file (type
+ pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-co
+mponent-analysis_files/figure-beamer/unnamed-chunk-36-1.pdf>
+) [71
+
+] [72
+
+
+] [73
+
+
+] [74
+
+
+] [75
+
+
+] [76
+
+
+] [77
+
+
+] [78
+
+
+] [79
+
+
+]
+Overfull \hbox (32.80104pt too wide) detected at line 1282
+[] [] \OML/lmm/m/it/12 > ^^_[]\OT1/lmr/m/n/12 ((\OML/lmm/m/it/12 p \OT1/lmr/m/n
+/12 + 1)(\OML/lmm/m/it/12 p \OMS/lmsy/m/n/12 ^^@ \OT1/lmr/m/n/12 2)\OML/lmm/m/i
+t/12 =\OT1/lmr/m/n/12 2)\OML/lmm/m/it/12 :
+ []
+
+[80
+
+] [81
+
+
+] [82
+
+
 ]
 \tf@nav=\write7
 \openout7 = `principal-component-analysis.nav'.
@@ -1616,25 +1747,26 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
 \tf@snm=\write9
 \openout9 = `principal-component-analysis.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 990.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 990.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1287.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1287.
 (./principal-component-analysis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 990.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 990.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1287.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1287.
+
 Package rerunfilecheck Info: File `principal-component-analysis.out' has not ch
 anged.
 (rerunfilecheck)             Checksum: 452061AA1328F307507815736D32EFC6.
  ) 
 Here is how much of TeX's memory you used:
- 38288 strings out of 494894
- 784294 string characters out of 6177483
- 863683 words of memory out of 5000000
- 41586 multiletter control sequences out of 15000+600000
- 560881 words of font info for 67 fonts, out of 8000000 for 9000
+ 38396 strings out of 494894
+ 787681 string characters out of 6176713
+ 866338 words of memory out of 5000000
+ 41680 multiletter control sequences out of 15000+600000
+ 563514 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1893b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on principal-component-analysis.pdf (59 pages).
+Output written on principal-component-analysis.pdf (82 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

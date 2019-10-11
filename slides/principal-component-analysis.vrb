@@ -1,78 +1,92 @@
-\frametitle{Example}
+\frametitle{Simulations}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
-\CommentTok{# Random measurement error}
-\NormalTok{sigma <-}\StringTok{ }\DecValTok{5}
+\NormalTok{B <-}\StringTok{ }\DecValTok{1000}\NormalTok{; n <-}\StringTok{ }\DecValTok{100}\NormalTok{; p <-}\StringTok{ }\DecValTok{3}
 
-\CommentTok{# Exact relationship between }
-\CommentTok{# Celsius and Fahrenheit}
-\NormalTok{temp_c <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{40}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DataTypeTok{by =} \DecValTok{1}\NormalTok{)}
-\NormalTok{temp_f <-}\StringTok{ }\FloatTok{1.8}\OperatorTok{*}\NormalTok{temp_c }\OperatorTok{+}\StringTok{ }\DecValTok{32}
+\NormalTok{results <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_df}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(B), }\ControlFlowTok{function}\NormalTok{(b) \{}
+\NormalTok{    X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(p}\OperatorTok{*}\NormalTok{n, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))), }
+                \DataTypeTok{ncol =}\NormalTok{ p, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{    tmp <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(}\KeywordTok{cov}\NormalTok{(X), }\DataTypeTok{symmetric =} \OtherTok{TRUE}\NormalTok{, }
+                 \DataTypeTok{only.values =} \OtherTok{TRUE}\NormalTok{)}
+    \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{ev1 =}\NormalTok{ tmp}\OperatorTok{$}\NormalTok{values[}\DecValTok{1}\NormalTok{],}
+           \DataTypeTok{ev2 =}\NormalTok{ tmp}\OperatorTok{$}\NormalTok{values[}\DecValTok{2}\NormalTok{],}
+           \DataTypeTok{ev3 =}\NormalTok{ tmp}\OperatorTok{$}\NormalTok{values[}\DecValTok{3}\NormalTok{])}
+\NormalTok{\})}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Add measurement error}
-\NormalTok{temp_c_noise <-}\StringTok{ }\NormalTok{temp_c }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{length}\NormalTok{(temp_c), }
-                               \DataTypeTok{sd =}\NormalTok{ sigma)}
-\NormalTok{temp_f_noise <-}\StringTok{ }\NormalTok{temp_f }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{length}\NormalTok{(temp_f), }
-                               \DataTypeTok{sd =}\NormalTok{ sigma)}
+\NormalTok{results }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{gather}\NormalTok{(ev, value) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(value, }\DataTypeTok{fill =}\NormalTok{ ev)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{),}
+             \DataTypeTok{linetype =} \StringTok{'dashed'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# Linear model}
-\NormalTok{(fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp_f_noise }\OperatorTok{~}\StringTok{ }\NormalTok{temp_c_noise))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##
-## Call:
-## lm(formula = temp_f_noise ~ temp_c_noise)
-##
-## Coefficients:
-##  (Intercept)  temp_c_noise
-##       34.256         1.662
-\end{verbatim}
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-component-analysis_files/figure-beamer/unnamed-chunk-32-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{confint}\NormalTok{(fit)}
+\NormalTok{results }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(mean)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                  2.5 %   97.5 %
-## (Intercept)  32.152891 36.35921
-## temp_c_noise  1.577228  1.74711
+## # A tibble: 1 x 3
+##     ev1   ev2   ev3
+##   <dbl> <dbl> <dbl>
+## 1  3.09  1.95 0.963
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# PCA}
-\NormalTok{pca <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(temp_c_noise, temp_f_noise))}
-\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation}
+\NormalTok{p <-}\StringTok{ }\DecValTok{2}
+\NormalTok{results <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_df}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(B), }\ControlFlowTok{function}\NormalTok{(b) \{}
+\NormalTok{  X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(p}\OperatorTok{*}\NormalTok{n, }\DataTypeTok{sd =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)), }\DataTypeTok{ncol =}\NormalTok{ p,}
+              \DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  tmp <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(}\KeywordTok{cov}\NormalTok{(X), }\DataTypeTok{symmetric =} \OtherTok{TRUE}\NormalTok{)}
+
+  \KeywordTok{tibble}\NormalTok{(}
+    \DataTypeTok{xend =}\NormalTok{ tmp}\OperatorTok{$}\NormalTok{vectors[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{],}
+    \DataTypeTok{yend =}\NormalTok{ tmp}\OperatorTok{$}\NormalTok{vectors[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}
+\NormalTok{  )}
+\NormalTok{\})}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-##                    PC1        PC2
-## temp_c_noise 0.5012360 -0.8653106
-## temp_f_noise 0.8653106  0.5012360
-\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation[}\DecValTok{2}\NormalTok{,}\StringTok{"PC1"}\NormalTok{]}\OperatorTok{/}\NormalTok{pca}\OperatorTok{$}\NormalTok{rotation[}\DecValTok{1}\NormalTok{,}\StringTok{"PC1"}\NormalTok{]}
+\NormalTok{results }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_segment}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xend =}\NormalTok{ xend, }\DataTypeTok{yend =}\NormalTok{ yend),}
+               \DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{y =} \DecValTok{0}\NormalTok{, }\DataTypeTok{colour =} \StringTok{'grey60'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_segment}\NormalTok{(}\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{xend =} \DecValTok{0}\NormalTok{,}
+               \DataTypeTok{y =} \DecValTok{0}\NormalTok{, }\DataTypeTok{yend =} \DecValTok{1}\NormalTok{,}
+               \DataTypeTok{colour =} \StringTok{'blue'}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{expand_limits}\NormalTok{(}\DataTypeTok{y =} \DecValTok{0}\NormalTok{, }\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## [1] 1.726354
-\end{verbatim}
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-component-analysis_files/figure-beamer/unnamed-chunk-35-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Or looking at angles}
+\NormalTok{results }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{transmute}\NormalTok{(}\DataTypeTok{theta =} \KeywordTok{atan2}\NormalTok{(yend, xend)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(theta)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =}\NormalTok{ pi}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/principal-component-analysis_files/figure-beamer/unnamed-chunk-36-1.pdf}
 
