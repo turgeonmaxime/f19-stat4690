@@ -13,6 +13,7 @@ header-includes:
   - \usetikzlibrary{calc}
   - \usepackage{caption}
   - \usepackage{xcolor}
+  - \usepackage{bm}
 ---
 
 ```{r,setup, include=FALSE}
@@ -395,4 +396,166 @@ pca <- prcomp(cbind(temp_c_noise, temp_f_noise))
 pca$rotation
 pca$rotation[2,"PC1"]/pca$rotation[1,"PC1"]
 ```
+
+## Large sample inference {.allowframebreaks}
+
+  - If we impose distributional assumption on the data $\mathbf{Y}$, we can derive the sampling distributions of the sample principal components.
+  - Assume $\mathbf{Y} \sim N_p(\mu, \Sigma)$, with $\Sigma$ positive definite. Let $\lambda_1 > \cdots > \lambda_p$ be the eigenvalues of $\Sigma$; in particular we assume they are *distinct*. Finally let $w_1,\ldots, w_p$ be the corresponding eigenvectors.
+  - Given a random sample of size $n$, let $S_n$ be the sample covariance matrix, $\hat{\lambda}_1, \ldots, \hat{\lambda}_p$ its eigenvalues, and $\hat{w}_1,\ldots, \hat{w}_p$ the corresponding eigenvectors.
+  - Define $\Lambda$ to be the diagonal matrix whose entries are $\lambda_1, \ldots, \lambda_p$, and define
+  $$ \Omega_i = \lambda_i \sum_{k=1, k\neq i}^p \frac{\lambda_k}{(\lambda_k - \lambda_i)^2} w_k w_k^T.$$
+  
+### Asymptotic results
+
+  1. Write $\bm{\lambda} = (\lambda_1, \ldots, \lambda_p)$ and similarly for $\hat{\bm{\lambda}}$. As $n\to\infty$, we have
+  $$ \sqrt{n}\left(\hat{\bm{\lambda}} - \bm{\lambda} \right) \to N_p(0, 2\Lambda^2).$$
+  2. As $n\to\infty$, we have
+  $$ \sqrt{n}\left(\hat{w}_i - w_i \right) \to N_p(0, \Omega_i).$$
+  3. Each $\hat{\lambda}_i$ is distributed independently of $\hat{w}_i$. 
+  
+## Comments {.allowframebreaks}
+
+  - These results **only** apply to principal components derived from the covariance matrix.
+    + Some asymptotic results are available for those derived from the correlation matrix, but we will not cover them in class.
+  - Asymptotically, all eigenvalues of $S_n$ are independent.
+  - You can get a confidence interval for $\lambda_i$ as follows:
+  $$\frac{\hat{\lambda}_i}{(1 + z_{\alpha/2}\sqrt{2/n})}\leq \lambda_i \leq \frac{\hat{\lambda}_i}{(1 - z_{\alpha/2}\sqrt{2/n})}.$$
+    + Use Bonferroni correction if you want CIs that are simulateously valid for all eigenvalues.
+  - The matrices $\Omega_i$ have rank $p-1$, and therefore they are *singular*.
+  - The entries of $\hat{w}_i$ are correlated, and this correlation depends on the *separation* between the eigenvalues.
+    + Good separation $\Longrightarrow$ smaller correlation
+    
+## Example {.allowframebreaks}
+
+```{r, message = FALSE}
+library(dslabs)
+library(ggridges)
+
+# Data on Breast Cancer
+as.data.frame(brca$x) %>% 
+  gather(variable, measurement) %>% 
+  mutate(variable = reorder(variable, measurement, 
+                            median)) %>% 
+  ggplot(aes(x = measurement, y = variable)) + 
+  geom_density_ridges() + theme_ridges() +
+  coord_cartesian(xlim = c(0, 250))
+```
+
+```{r}
+# Remove some variables
+rem_index <- which(colnames(brca$x) %in%
+                     c("area_worst", "area_mean",
+                       "perimeter_worst", 
+                       "perimeter_mean"))
+dataset <- brca$x[,-rem_index]
+decomp <- prcomp(dataset)
+summary(decomp)$importance[,1:3]
+```
+
+```{r}
+screeplot(decomp, type = 'l')
+```
+
+```{r}
+# Let's put a CI around the first eigenvalue
+first_ev <- decomp$sdev[1]^2
+n <- nrow(dataset)
+
+# Recall that TV = 2166
+c("LB" = first_ev/(1+qnorm(0.975)*sqrt(2/n)),
+  "Est." = first_ev,
+  "UP" = first_ev/(1-qnorm(0.975)*sqrt(2/n)))
+```
+
+## Simulations {.allowframebreaks}
+
+```{r}
+B <- 1000; n <- 100; p <- 3
+
+results <- purrr::map_df(seq_len(B), function(b) {
+    X <- matrix(rnorm(p*n, sd = sqrt(c(1, 2, 3))), 
+                ncol = p, byrow = TRUE)
+    tmp <- eigen(cov(X), symmetric = TRUE, 
+                 only.values = TRUE)
+    tibble(ev1 = tmp$values[1],
+           ev2 = tmp$values[2],
+           ev3 = tmp$values[3])
+})
+```
+
+```{r}
+results %>% 
+  gather(ev, value) %>% 
+  ggplot(aes(value, fill = ev)) + 
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  geom_vline(xintercept = c(1, 2, 3),
+             linetype = 'dashed')
+```
+
+```{r}
+results %>% 
+  summarise_all(mean)
+```
+
+```{r}
+p <- 2
+results <- purrr::map_df(seq_len(B), function(b) {
+  X <- matrix(rnorm(p*n, sd = c(1, 2)), ncol = p,
+              byrow = TRUE)
+  tmp <- eigen(cov(X), symmetric = TRUE)
+  
+  tibble(
+    xend = tmp$vectors[1,1],
+    yend = tmp$vectors[2,1]
+  )
+})
+```
+
+```{r}
+results %>% 
+  ggplot() +
+  geom_segment(aes(xend = xend, yend = yend),
+               x = 0, y = 0, colour = 'grey60') +
+  geom_segment(x = 0, xend = 0,
+               y = 0, yend = 1,
+               colour = 'blue', size = 2) +
+  expand_limits(y = 0, x = c(-1, 1)) +
+  theme_minimal()
+```
+
+```{r, message = FALSE}
+# Or looking at angles
+results %>% 
+  transmute(theta = atan2(yend, xend)) %>% 
+  ggplot(aes(theta)) +
+  geom_histogram() +
+  theme_minimal() + 
+  geom_vline(xintercept = pi/2)
+```
+
+## Test for structured covariance {.allowframebreaks}
+
+  - The asymptotic results above assumed distinct eigenvalues.
+  - But we may be interested in *structured* covariance matrices; for example:
+  $$\Sigma_0 = \sigma^2\begin{pmatrix}
+  1 & \rho & \cdots & \rho \\
+  \rho & 1 & \cdots & \rho \\
+  \vdots & \vdots & \ddots & \vdots \\
+  \rho & \rho & \cdots & 1 \\
+  \end{pmatrix}.$$
+  - This is called an **exchangeable** correlation structure.
+  - Assuming $\rho > 0$, the eigenvalues of $\Sigma_0$ are
+  \begin{align*}
+  \lambda_1 &= \sigma^2(1 + (p-1)\rho),\\
+  \lambda_2 &= \sigma^2(1- \rho), \\
+  \vdots &\qquad \vdots\\
+  \lambda_p &= \sigma^2(1-\rho).
+  \end{align*}
+  - Let's assume $\sigma^2 = 1$. We are interested in testing whether the correlation matrix is equal to $\Sigma_1$.
+  - Let $\bar{r}_k = \frac{1}{p-1}\sum_{i=1, i\neq k}^p r_{ik}$ be the average of the off-diagonal value of the $k$-th column of the sample correlation matrix.
+  - Let $\bar{r} = \frac{2}{p(p-1)}\sum_{i<j} r_{ij}$ be the average of all off-diagonal elements (we are only looking at entries below the diagonal).
+  - Finally, let $\hat{\gamma} = \frac{(p-1)^2[1 - (1 - \bar{r})^2]}{p - (p- 2)(1 - \bar{r})^2}$.
+  - We reject the null hypothesis that the correlation matrix is equal to $\Sigma_0$  if
+  $$\frac{(n - 1)}{(1- \bar{r})^2}\left[\sum_{i<j} (r_{ij} - \bar{r})^2 - \hat{\gamma}\sum_{k = 1}^p(\bar{r}_k - \bar{r})^2\right] > \chi^2_\alpha((p+1)(p-2)/2).$$
 

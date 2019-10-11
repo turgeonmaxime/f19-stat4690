@@ -235,3 +235,108 @@ pca <- prcomp(cbind(temp_c_noise, temp_f_noise))
 pca$rotation
 pca$rotation[2,"PC1"]/pca$rotation[1,"PC1"]
 
+
+## ---- message = FALSE----------------------------------------------------
+library(dslabs)
+library(ggridges)
+
+# Data on Breast Cancer
+as.data.frame(brca$x) %>% 
+  gather(variable, measurement) %>% 
+  mutate(variable = reorder(variable, measurement, 
+                            median)) %>% 
+  ggplot(aes(x = measurement, y = variable)) + 
+  geom_density_ridges() + theme_ridges() +
+  coord_cartesian(xlim = c(0, 250))
+
+
+## ------------------------------------------------------------------------
+# Remove some variables
+rem_index <- which(colnames(brca$x) %in%
+                     c("area_worst", "area_mean",
+                       "perimeter_worst", 
+                       "perimeter_mean"))
+dataset <- brca$x[,-rem_index]
+decomp <- prcomp(dataset)
+summary(decomp)$importance[,1:3]
+
+
+## ------------------------------------------------------------------------
+screeplot(decomp, type = 'l')
+
+
+## ------------------------------------------------------------------------
+# Let's put a CI around the first eigenvalue
+first_ev <- decomp$sdev[1]^2
+n <- nrow(dataset)
+
+# Recall that TV = 2166
+c("LB" = first_ev/(1+qnorm(0.975)*sqrt(2/n)),
+  "Est." = first_ev,
+  "UP" = first_ev/(1-qnorm(0.975)*sqrt(2/n)))
+
+
+## ------------------------------------------------------------------------
+B <- 1000; n <- 100; p <- 3
+
+results <- purrr::map_df(seq_len(B), function(b) {
+    X <- matrix(rnorm(p*n, sd = sqrt(c(1, 2, 3))), 
+                ncol = p, byrow = TRUE)
+    tmp <- eigen(cov(X), symmetric = TRUE, 
+                 only.values = TRUE)
+    tibble(ev1 = tmp$values[1],
+           ev2 = tmp$values[2],
+           ev3 = tmp$values[3])
+})
+
+
+## ------------------------------------------------------------------------
+results %>% 
+  gather(ev, value) %>% 
+  ggplot(aes(value, fill = ev)) + 
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  geom_vline(xintercept = c(1, 2, 3),
+             linetype = 'dashed')
+
+
+## ------------------------------------------------------------------------
+results %>% 
+  summarise_all(mean)
+
+
+## ------------------------------------------------------------------------
+p <- 2
+results <- purrr::map_df(seq_len(B), function(b) {
+  X <- matrix(rnorm(p*n, sd = c(1, 2)), ncol = p,
+              byrow = TRUE)
+  tmp <- eigen(cov(X), symmetric = TRUE)
+  
+  tibble(
+    xend = tmp$vectors[1,1],
+    yend = tmp$vectors[2,1]
+  )
+})
+
+
+## ------------------------------------------------------------------------
+results %>% 
+  ggplot() +
+  geom_segment(aes(xend = xend, yend = yend),
+               x = 0, y = 0, colour = 'grey60') +
+  geom_segment(x = 0, xend = 0,
+               y = 0, yend = 1,
+               colour = 'blue', size = 2) +
+  expand_limits(y = 0, x = c(-1, 1)) +
+  theme_minimal()
+
+
+## ---- message = FALSE----------------------------------------------------
+# Or looking at angles
+results %>% 
+  transmute(theta = atan2(yend, xend)) %>% 
+  ggplot(aes(theta)) +
+  geom_histogram() +
+  theme_minimal() + 
+  geom_vline(xintercept = pi/2)
+
