@@ -340,3 +340,126 @@ results %>%
   theme_minimal() + 
   geom_vline(xintercept = pi/2)
 
+
+## ------------------------------------------------------------------------
+# Keep only mean measurements
+rem_index2 <- grep("mean", colnames(brca$x),
+                   invert = TRUE)
+dataset <- brca$x[,-c(rem_index,
+                      rem_index2)]
+R <- cor(dataset)
+
+pairs(dataset)
+
+
+## ------------------------------------------------------------------------
+# Overall mean
+r_bar <- mean(R[upper.tri(R, diag = FALSE)])
+
+# Column specific means
+r_cols <- (colSums(R) - 1)/(nrow(R) - 1)
+
+# Extra quantities
+p <- ncol(dataset)
+n <- nrow(dataset)
+gamma_hat <- (p - 1)^2*(1 - (1 - r_bar)^2)/
+  (p - (p - 2)*(1 - r_bar)^2)
+
+
+## ------------------------------------------------------------------------
+# Test statistic
+Tstat <- sum((R[upper.tri(R, 
+                          diag = FALSE)] - r_bar)^2) - 
+  gamma_hat*sum((r_cols - r_bar)^2)
+Tstat <- (n-1)*Tstat/(1-r_bar)^2
+
+Tstat > qchisq(0.95, 0.5*(p+1)*(p-2))
+
+
+## ------------------------------------------------------------------------
+decomp <- prcomp(dataset)
+
+summary(decomp)$importance[,seq_len(3)]
+screeplot(decomp, type = 'l')
+
+
+## ------------------------------------------------------------------------
+permute_data <- function(data) {
+  p <- ncol(data)
+  data_perm <- data
+  for (i in seq_len(p)) {
+    ind_sc <- sample(nrow(data))
+    data_perm[,i] <- data[ind_sc, i]
+  }
+  return(data_perm)
+}
+
+
+## ------------------------------------------------------------------------
+set.seed(123)
+B <- 1000
+alpha <- 0.05
+results <- matrix(NA, ncol = B, 
+                  nrow = ncol(dataset))
+
+results[,1] <- decomp$sdev
+results[,-1] <- replicate(B - 1, {
+  data_perm <- permute_data(dataset)
+  prcomp(data_perm)$sdev
+})
+
+
+## ------------------------------------------------------------------------
+cutoff <- apply(results, 1, function(row) {
+  mean(row >= row[1])
+})
+which(cutoff < alpha)
+
+
+## ------------------------------------------------------------------------
+# Continuing with our example on breast cancer
+decomp <- prcomp(dataset)
+
+# Extract PCs and loadings
+PCs <- decomp$x[, 1:2]
+loadings <- decomp$rotation[, 1:2]
+
+# Extract data on tumour type
+colour <- ifelse(brca$y == "B", "black", 'blue')
+
+
+## ------------------------------------------------------------------------
+par(mfrow = c(1,2))
+plot(PCs, pch = 19, col = colour)
+plot(loadings, type = 'n')
+text(loadings, 
+     labels = colnames(dataset),
+     col = 'red')
+arrows(0, 0, 0.9 * loadings[, 1], 
+       0.9 * loadings[, 2], 
+       col = 'red', 
+       length = 0.1)
+
+
+## ---- echo = -1, message = FALSE, warning = FALSE------------------------
+par(mfrow = c(1, 1))
+# Or both on the same plot
+plot(PCs, pch = 19, col = colour)
+text(loadings, 
+     labels = colnames(dataset),
+     col = 'red')
+arrows(0, 0, 0.9 * loadings[, 1], 
+       0.9 * loadings[, 2], 
+       col = 'red', 
+       length = 0.1)
+
+
+## ------------------------------------------------------------------------
+# The biplot function rescales for us
+biplot(decomp)
+
+
+## ------------------------------------------------------------------------
+# With scaled data
+biplot(prcomp(dataset, scale = TRUE))
+

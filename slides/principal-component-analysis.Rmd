@@ -361,7 +361,7 @@ colMeans(pca$x)
 
 The reconstruction error is minimised by taking $W_k$ to be the matrix whose columns are the first $k$ eigenvectors of the sampling covariance matrix $S_n$.
 
-Equivalently, we can take the matrix whose columns are the first $k$ *right singular vectors* or the centered data matrix $\tilde{\mathbb{Y}}.$
+Equivalently, we can take the matrix whose columns are the first $k$ *right singular vectors* or the centered data matrix $\tilde{\mathbb{Y}}$.
 
 ## Example {.allowframebreaks}
 
@@ -559,3 +559,183 @@ results %>%
   - We reject the null hypothesis that the correlation matrix is equal to $\Sigma_0$  if
   $$\frac{(n - 1)}{(1- \bar{r})^2}\left[\sum_{i<j} (r_{ij} - \bar{r})^2 - \hat{\gamma}\sum_{k = 1}^p(\bar{r}_k - \bar{r})^2\right] > \chi^2_\alpha((p+1)(p-2)/2).$$
 
+## Example {.allowframebreaks}
+
+```{r}
+# Keep only mean measurements
+rem_index2 <- grep("mean", colnames(brca$x),
+                   invert = TRUE)
+dataset <- brca$x[,-c(rem_index,
+                      rem_index2)]
+R <- cor(dataset)
+
+pairs(dataset)
+```
+
+
+```{r}
+# Overall mean
+r_bar <- mean(R[upper.tri(R, diag = FALSE)])
+
+# Column specific means
+r_cols <- (colSums(R) - 1)/(nrow(R) - 1)
+
+# Extra quantities
+p <- ncol(dataset)
+n <- nrow(dataset)
+gamma_hat <- (p - 1)^2*(1 - (1 - r_bar)^2)/
+  (p - (p - 2)*(1 - r_bar)^2)
+```
+
+
+```{r}
+# Test statistic
+Tstat <- sum((R[upper.tri(R, 
+                          diag = FALSE)] - r_bar)^2) - 
+  gamma_hat*sum((r_cols - r_bar)^2)
+Tstat <- (n-1)*Tstat/(1-r_bar)^2
+
+Tstat > qchisq(0.95, 0.5*(p+1)*(p-2))
+```
+
+## Selecting the number of PCs {.allowframebreaks}
+
+  - We already discussed two strategies for selecting the number of principal components:
+    + Look at the scree plot and find where the curve starts to be flat;
+    + Retain as many PCs as required to explain the desired proportion of variance.
+    
+    \vspace{1in}
+  - There is a **vast** literature on different strategies for selecting the number of components. Two good references:
+    + Peres-Neto *et al*. (2005) *How many principal components? stopping rules for determining the number of non-trivial axes revisited*
+    + Jolliffe (2012) *Principal Component Analysis* (2nd ed)
+  - We will discuss one more technique based on resampling.
+  - The idea is to try to estimate the distribution of eigenvalues if there was no correlation between the variables.
+
+### Algorithm
+
+  1. Permute the observations of each column **independently**.
+  2. Perform PCA on the permuted data.
+  3. Repeat $B$ times and collect the eigenvalues $\hat{\lambda}_1^{(b)}, \ldots, \hat{\lambda}_p^{(b)}$.
+  4. Keep the components whose observed $\hat{\lambda}_i$ is greater than $(1-\alpha)$% of the values $\hat{\lambda}_i^{(b)}$ obtained through permutations.
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+decomp <- prcomp(dataset)
+
+summary(decomp)$importance[,seq_len(3)]
+screeplot(decomp, type = 'l')
+```
+
+```{r}
+permute_data <- function(data) {
+  p <- ncol(data)
+  data_perm <- data
+  for (i in seq_len(p)) {
+    ind_sc <- sample(nrow(data))
+    data_perm[,i] <- data[ind_sc, i]
+  }
+  return(data_perm)
+}
+```
+
+```{r}
+set.seed(123)
+B <- 1000
+alpha <- 0.05
+results <- matrix(NA, ncol = B, 
+                  nrow = ncol(dataset))
+
+results[,1] <- decomp$sdev
+results[,-1] <- replicate(B - 1, {
+  data_perm <- permute_data(dataset)
+  prcomp(data_perm)$sdev
+})
+```
+
+
+```{r}
+cutoff <- apply(results, 1, function(row) {
+  mean(row >= row[1])
+})
+which(cutoff < alpha)
+```
+
+## Biplots {.allowframebreaks}
+
+  - In our example with the MNIST dataset, we plotted the first principal component against the second component.
+    + This gave us a sense of how much discriminatory ability each PC gave us.
+    + E.g. the first PC separated 1s from 0s
+  - What was missing from that plot was how the PCs were related to the original variables.
+  - A **biplot** is a graphical display of both the original observations and original variables *together* on one scatterplot.
+    + The prefix "bi" refers to two modalities (i.e. observations and variables), not to two dimensions.
+  - One approach to biplots relies on the Eckart-Young theorem:
+    + The "best" 2-dimensional representation of the data passes through the plane containing the first two eigenvectors of the sample covariance matrix.
+    
+### Construction
+
+  - Let $\tilde{\mathbb{Y}}$ be the $n\times p$ matrix of centered data, and let $w_1, \ldots, w_p$ be the $p$ eigenvectors of $\tilde{\mathbb{Y}}^T\tilde{\mathbb{Y}}$.
+  - For each row $\mathbf{Y}_i$ of $\mathbb{Y}$, add the point $\left(w_1^T\mathbf{Y}_i, w_2^T\mathbf{Y}_i\right)$ to the plot.
+  - The $j$-th column of $\mathbb{Y}$ is represented by an arrow from the origin to the point $(w_{1j}, w_{2j})$.
+  - It may be necessary to rescale the PCs and/or the loadings in order to see the relationship better.
+
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# Continuing with our example on breast cancer
+decomp <- prcomp(dataset)
+
+# Extract PCs and loadings
+PCs <- decomp$x[, 1:2]
+loadings <- decomp$rotation[, 1:2]
+
+# Extract data on tumour type
+colour <- ifelse(brca$y == "B", "black", 'blue')
+```
+
+
+```{r}
+par(mfrow = c(1,2))
+plot(PCs, pch = 19, col = colour)
+plot(loadings, type = 'n')
+text(loadings, 
+     labels = colnames(dataset),
+     col = 'red')
+arrows(0, 0, 0.9 * loadings[, 1], 
+       0.9 * loadings[, 2], 
+       col = 'red', 
+       length = 0.1)
+```
+
+```{r, echo = -1, message = FALSE, warning = FALSE}
+par(mfrow = c(1, 1))
+# Or both on the same plot
+plot(PCs, pch = 19, col = colour)
+text(loadings, 
+     labels = colnames(dataset),
+     col = 'red')
+arrows(0, 0, 0.9 * loadings[, 1], 
+       0.9 * loadings[, 2], 
+       col = 'red', 
+       length = 0.1)
+```
+
+```{r}
+# The biplot function rescales for us
+biplot(decomp)
+```
+
+```{r}
+# With scaled data
+biplot(prcomp(dataset, scale = TRUE))
+```
+
+## Summary of graphical displays
+
+  - When we plot the first PC against the second PC, we are looking for similarity between *observations*.
+  - When we plot the first loading against the second loading, we are looking for similarity between *variables*.
+    + Orthogonal loadings $\Longrightarrow$ Uncorrelated variables
+    + Obtuse angle between loadings $\Longrightarrow$ Negative correlation
+  - A **biplot** combines both pieces of information.
+    + You can think of it as a projection of the $p$-dimensional scatter plot (points and axes) onto a 2-dimensional plane.
+  - A **scree plot** displays the amount of variation in each principal component.
