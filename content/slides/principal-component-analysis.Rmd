@@ -420,7 +420,7 @@ pca$rotation[2,"PC1"]/pca$rotation[1,"PC1"]
   - Asymptotically, all eigenvalues of $S_n$ are independent.
   - You can get a confidence interval for $\lambda_i$ as follows:
   $$\frac{\hat{\lambda}_i}{(1 + z_{\alpha/2}\sqrt{2/n})}\leq \lambda_i \leq \frac{\hat{\lambda}_i}{(1 - z_{\alpha/2}\sqrt{2/n})}.$$
-    + Use Bonferroni correction if you want CIs that are simulateously valid for all eigenvalues.
+    + Use Bonferroni correction if you want CIs that are simultaneously valid for all eigenvalues.
   - The matrices $\Omega_i$ have rank $p-1$, and therefore they are *singular*.
   - The entries of $\hat{w}_i$ are correlated, and this correlation depends on the *separation* between the eigenvalues.
     + Good separation $\Longrightarrow$ smaller correlation

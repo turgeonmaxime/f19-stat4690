@@ -28,5 +28,6 @@ type: docs
     + [R code](multivariate-linear-regression.R)
   - [Principal Component Analysis](principal-component-analysis.pdf)
     + [R code](principal-component-analysis.R)
+  - [Introduction to Statistical Genetics](statistical-genetics.pdf)
   - Factor Analysis
   - Canonical Correlation Analysis
