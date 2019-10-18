@@ -49,6 +49,7 @@ knitr::opts_chunk$set(cache=TRUE)
 
   - Explains how DNA leads to proteins
   - DNA $\Longrightarrow$ RNA $\Longrightarrow$ Protein
+    + **Transcription** and **translation**
     + $(T, C, G, A) \Longrightarrow (U, C, G, A)$
     + Codon (i.e. triple) $\Longrightarrow$ Amino acid
   - **Gene**: sequence of nucleotides that encodes a protein
@@ -168,8 +169,82 @@ Sabatti *et al*. "Genome-wide association analysis of metabolic traits in a birt
   - PCA can also be used to estimate under population substructures in your data.
     + E.g. Cryptic relatedness
 
-<!-- # Adjusting for Unwanted Variation -->
+# Adjusting for Unwanted Variation
 
+## Gene expression studies {.allowframebreaks}
+
+  - As for SNP data, gene expression is nowadays measured using one of two high-throughput technology:
+    + Micro-arrays
+    + Next-generation sequencing
+  - What is measured in these experiments is the (relative) **abundance** of RNA products.
+    + It can be hard to measure protein products (but see proteomics)
+    + We may also be interested in other gene products
+  - You can think of micro-array data as *continuous*; sequencing data as *counts*
+  - There are essentially two type of analyses:
+    + Association between gene expression and SNP (i.e. eQTL)
+    + Association between gene expression and phenotype
+  - You can think of these two approaches as related to *transcription* and *translation*, respectively.
+  
+## Sources of variation
+
+  - Leek & Storey are interested in the second type (i.e. GE and phenotype).
+  - Their model starts by identifying three main sources of variation:
+    + **Modeled** variation: This is the variation coming from the variables you measured and included in your model. The phenotype of interest goes here.
+    + **Unmodeled** variation: This is the variation coming from variables that you may or may not have measured, but in any case they are not included in the model. These variables typically affect more than one gene.
+    + **Random** variation: This is the gene-specific *error* term, and it is assumed to be independent between genes.
+    
+## Two models {.allowframebreaks}
+
+  - Let $X_{ij}$ be the gene expression value at gene $i$ from individual $j$.
+    + **Note**: The indices are in the opposite order of what we typically see!
+  - Let $Y_j$ be the primary variable of interest for individual $j$.
+  - Let $\mathbf{G}_{\ell} = (G_{\ell 1}, \ldots, G_{\ell n})$ be the $\ell$-th unmodeled source of variation.
+  - Following their breakdown of sources of variation, they posit two models:
+    1. The first one only contains the primary variable:
+    $$ X_{ij} = \mu_i + f_i(Y_j) + \varepsilon_{ij},$$
+    where $\mu_i$ is a gene-specific mean, $f_i$ is a gene-specific function modeling the relationship between $X_{ij}$ and $Y_j$, and $\varepsilon_{ij}$ is an error term with mean zero.
+    2. The second one also contains the variables $\mathbf{G}_{\ell}$:
+    $$ X_{ij} = \mu_i + f_i(Y_j) + \sum_{\ell = 1}^L\gamma_{\ell i} G_{\ell j} + \tilde{\varepsilon}_{ij},$$
+    where $\gamma_{\ell i}$ are the linear regression coefficients for the variables $\mathbf{G}_{\ell}$, and $\tilde{\varepsilon_{ij}}$ is a different error term, also with mean zero.
+    
+## A few comments {.allowframebreaks}
+
+  - In the models above, there is only one variable of interest, but the approach can easily be extended to incorporate more variables of interest.
+  - The functions $f_i$ are there for *generality.* This could be the identity function (i.e. simple linear regression), they could be a gene-specific transformation of the variable of interest (e.g. $\log$), or they could be something more complex like a spline or fractional polynomial..
+  - The variables $\mathbf{G}_{\ell}$ are typically unobserved, and therefore we cannot estimate them from the data without adding any constraint.
+    + We could replace them and their coefficients $\gamma_{\ell i}$ by an orthogonal transformation and still get the same model.
+  - The constraint we will add is that they are *orthogonal*. 
+  - The (latent) variables we will estimate are called **surrogate variables**.
+  
+## SVA algorithm
+
+  1. Fit the first model (i.e. without $\mathbf{G}_{\ell}$) to get estimate $\hat{\mu}_i$ and $\hat{f}_i(Y_{j})$.
+  2. Create the residual matrix $\mathbb{R}$, where the $(i,j)$-th entry is $R_{ij} = X_{ij} - \hat{\mu}_i - \hat{f}_i(Y_{j})$.
+  3. Perform PCA on $\mathbb{R}$ and retain the first $k$ principal components using an algorithm of your choice (SVA suggests using a resampling technique).
+  4. Refit the first model but add the estimated principal components as new covariates.
+  
+## Why go through all this trouble? {.allowframebreaks}
+
+  - In the previous paper we discussed, the authors extracted the information on the confounders using PCA directly on the data.
+    + This worked well because the major source of variation in SNP data was due to population substructure
+  - In gene expression studies, the variable of interests are also driving a good proportion of the variation.
+    + Therefore, we need to be able to distinguish between the variation we care about and the variation we do not care about.
+  - By modeling this extra variation, we achieve two main goals:
+    + Increase the variation explained and therefore power.
+    + Adjust for confounding by unmodeled sources of variation.
+    
+## Beyond gene expression {.allowframebreaks}
+
+  - It is often very convenient to measure gene expression using whole blood samples.
+  - However, whole blood is a mixture of cells:
+    + Lymphocytes
+    + Monocytes
+    + Neutrophils
+  - Each cell type has a different gene expression signature, so we observe a mixture.
+  - **Crucially**, the mixture weights can be correlated with the variable of interest
+    + E.g. to fight certain diseases, your blood cell type proportions will change.
+  - It turns out this is also an issue for DNA methylation experiments.
+  - SVA has been shown to be effective when trying to correct for cell-type composition bias in DNA methylation experiments (McGregor *et al*, Genome biology, 2016)
 
 <!-- # Multiple Testing -->
 
