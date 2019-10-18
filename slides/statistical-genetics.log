@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  18 OCT 2019 09:37
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  18 OCT 2019 10:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1107,7 +1107,81 @@ Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 ))
 Package hyperref Info: Option `breaklinks' set `true' on input line 55.
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2019/01/15
+Style option: `fancyvrb' v3.2a <2019/01/15> (tvz)
+\FV@CodeLineNo=\count350
+\FV@InFile=\read3
+\FV@TabBox=\box81
+\c@FancyVerbLine=\count351
+\FV@StepNumber=\count352
+\FV@OutFile=\write5
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip75
+\fb@frw=\dimen297
+\fb@frh=\dimen298
+\FrameRule=\dimen299
+\FrameSep=\dimen300
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
+\LTleft=\skip76
+\LTright=\skip77
+\LTpre=\skip78
+\LTpost=\skip79
+\LTchunksize=\count353
+\LTcapwidth=\dimen301
+\LT@head=\box82
+\LT@firsthead=\box83
+\LT@foot=\box84
+\LT@lastfoot=\box85
+\LT@cols=\count354
+\LT@rows=\count355
+\c@LT@tables=\count356
+\c@LT@chunks=\count357
+\LT@p@ftn=\toks49
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen302
+\lightrulewidth=\dimen303
+\cmidrulewidth=\dimen304
+\belowrulesep=\dimen305
+\belowbottomsep=\dimen306
+\aboverulesep=\dimen307
+\abovetopsep=\dimen308
+\cmidrulesep=\dimen309
+\cmidrulekern=\dimen310
+\defaultaddspace=\dimen311
+\@cmidla=\count358
+\@cmidlb=\count359
+\@aboverulesep=\dimen312
+\@belowrulesep=\dimen313
+\@thisruleclass=\count360
+\@lastruleclass=\count361
+\@thisrulewidth=\dimen314
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen315
+\captionmargin@=\dimen316
+\captionwidth=\dimen317
+\caption@tempdima=\dimen318
+\caption@indent=\dimen319
+\caption@parindent=\dimen320
+\caption@hangindent=\dimen321
+)
+\c@caption@flags=\count362
+\c@ContinuedFloat=\count363
+Package caption Info: beamer document class.
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+Package caption Info: longtable package is loaded.
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
+)) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
 Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
 Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
@@ -1121,58 +1195,39 @@ Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the
 page
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count350
+\c@checkoddpage=\count364
 ))
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2019/08/03 v3.1.4b (3.1.4b)
-) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
-(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen297
-\captionmargin@=\dimen298
-\captionwidth=\dimen299
-\caption@tempdima=\dimen300
-\caption@indent=\dimen301
-\caption@parindent=\dimen302
-\caption@hangindent=\dimen303
-)
-\c@caption@flags=\count351
-\c@ContinuedFloat=\count352
-Package caption Info: beamer document class.
-Package caption Info: hyperref package is loaded.
-Package caption Info: Hyperref support is turned off
-(caption)             because hyperref has stopped early.
 ) (./statistical-genetics.aux)
 \openout1 = `statistical-genetics.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 130.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 176.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 176.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    ... okay on input line 176.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1208,21 +1263,21 @@ LaTeX Font Info:    ... okay on input line 130.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring OFF on input line 130.
+\AtBeginShipoutBox=\box86
+Package hyperref Info: Link coloring OFF on input line 176.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count353
+\c@section@level=\count365
 )
-LaTeX Info: Redefining \ref on input line 130.
-LaTeX Info: Redefining \pageref on input line 130.
-LaTeX Info: Redefining \nameref on input line 130.
+LaTeX Info: Redefining \ref on input line 176.
+LaTeX Info: Redefining \pageref on input line 176.
+LaTeX Info: Redefining \nameref on input line 176.
 (./statistical-genetics.out) (./statistical-genetics.out)
-\@outlinefile=\write5
-\openout5 = `statistical-genetics.out'.
+\@outlinefile=\write6
+\openout6 = `statistical-genetics.out'.
 
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dicti
@@ -1252,51 +1307,51 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 (./statistical-genetics.nav)
-Overfull \vbox (16.67491pt too high) detected at line 135
+Overfull \vbox (16.67491pt too high) detected at line 181
  []
 
 [1
 
 ]
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 179.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 225.
 [2
 
 ] [3
 
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 181.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 227.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 181.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 227.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 181
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 227
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 181
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 227
 .
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 181.
+(Font)              <12> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 181.
+(Font)              <8> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 181.
-LaTeX Font Info:    Try loading font information for U+msa on input line 181.
+(Font)              <6> on input line 227.
+LaTeX Font Info:    Try loading font information for U+msa on input line 227.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 181.
+LaTeX Font Info:    Try loading font information for U+msb on input line 227.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [4
@@ -1305,11 +1360,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 251.
+(Font)              <10.95> on input line 297.
 [6
 
 ]
-Overfull \vbox (3.2065pt too high) detected at line 294
+Overfull \vbox (3.2065pt too high) detected at line 340
  []
 
 [7
@@ -1342,7 +1397,7 @@ File: ../../static/images/price_pop_strat.png Graphic file (type bmp)
 File: ../../static/images/europe_pca.jpg Graphic file (type bmp)
 <../../static/images/europe_pca.jpg>
 
-Overfull \vbox (9.09485pt too high) detected at line 533
+Overfull \vbox (9.09485pt too high) detected at line 579
  []
 
 [18
@@ -1351,7 +1406,7 @@ Overfull \vbox (9.09485pt too high) detected at line 533
 File: ../../static/images/finland_mds.png Graphic file (type bmp)
 <../../static/images/finland_mds.png>
 
-Overfull \vbox (25.64217pt too high) detected at line 546
+Overfull \vbox (25.64217pt too high) detected at line 592
  []
 
 [19
@@ -1366,7 +1421,7 @@ Overfull \vbox (25.64217pt too high) detected at line 546
 
 
 ]
-Overfull \vbox (2.23679pt too high) detected at line 659
+Overfull \vbox (2.23679pt too high) detected at line 705
  []
 
 [24
@@ -1393,34 +1448,74 @@ Overfull \vbox (2.23679pt too high) detected at line 659
 ] [33
 
 
+] [34
+
+] [35
+
+] [36
+
+
 ]
-\tf@nav=\write6
-\openout6 = `statistical-genetics.nav'.
+File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/statistical
+-genetics_files/figure-beamer/unnamed-chunk-1-1.pdf Graphic file (type pdf)
+<use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/statistical-
+genetics_files/figure-beamer/unnamed-chunk-1-1.pdf>
+[37
 
-\tf@toc=\write7
-\openout7 = `statistical-genetics.toc'.
+] [38
 
-\tf@snm=\write8
-\openout8 = `statistical-genetics.snm'.
+] [39
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 844.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 844.
+
+] [40
+
+] [41
+
+] [42
+
+]
+\openout4 = `statistical-genetics.vrb'.
+
+(./statistical-genetics.vrb
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+) [43
+
+] [44
+
+
+] [45
+
+
+]
+\tf@nav=\write7
+\openout7 = `statistical-genetics.nav'.
+
+\tf@toc=\write8
+\openout8 = `statistical-genetics.toc'.
+
+\tf@snm=\write9
+\openout9 = `statistical-genetics.snm'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1111.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1111.
 (./statistical-genetics.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 844.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 844.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1111.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1111.
+
 Package rerunfilecheck Info: File `statistical-genetics.out' has not changed.
-(rerunfilecheck)             Checksum: DAC8CC75CBE5DF40487DE71BB4E0D75A.
+(rerunfilecheck)             Checksum: 6FCFF0BD198D83ED7A6CCD78ED555465.
  ) 
 Here is how much of TeX's memory you used:
- 37877 strings out of 494894
- 773225 string characters out of 6176713
- 845725 words of memory out of 5000000
- 41210 multiletter control sequences out of 15000+600000
- 560857 words of font info for 64 fonts, out of 8000000 for 9000
+ 38562 strings out of 494894
+ 783569 string characters out of 6176713
+ 859633 words of memory out of 5000000
+ 41868 multiletter control sequences out of 15000+600000
+ 560873 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1885b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on statistical-genetics.pdf (33 pages).
+Output written on statistical-genetics.pdf (45 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '

@@ -246,5 +246,100 @@ Sabatti *et al*. "Genome-wide association analysis of metabolic traits in a birt
   - It turns out this is also an issue for DNA methylation experiments.
   - SVA has been shown to be effective when trying to correct for cell-type composition bias in DNA methylation experiments (McGregor *et al*, Genome biology, 2016)
 
-<!-- # Multiple Testing -->
+# Multiple Testing
+
+## Multiple tests in statistical genetics {.allowframebreaks}
+
+  - A typical statistical genetics study goes as follows:
+    + We collected data using high-throughput technologies.
+    + We have hundreds of thousands (or even millions) of genomic measurements on hundreds or thousands of individuals.
+    + For all these measurements, we test for association with a variable of interest.
+  - In other words, if we have a million measurements, we perform a million tests and compute a million p-values.
+  - But in those tests, if we set the significance level at $\alpha = 0.05$, we expect 50,000 p-values to be significant **even if the variable of interest is associated with no genomic measurement whatsoever**.
+
+---
+
+```{r echo=FALSE}
+x <- seq_len(100)
+y <- 1 - (1 - 0.05)^x
+
+plot(x, y, type = 'l',
+     xlab = "Number of tests",
+     ylab = "Probability of at least one false positive",
+     ylim = c(0, 1))
+abline(h = 0.05, lty = 2)
+```
+
+## Counting Type I and II errors {.allowframebreaks}
+
+  - Let $m$ be the number of hypothesis tests. Let $m_0$ be the number of null hypotheses that are true. Let $R$ be the number of rejected hypotheses.
+  
+|              | $H_0$ true | $H_0$ false | Total   |
+|--------------|:----------:|:-----------:|:-------:|
+| Not rejected | $U$        | $T$         | $m - R$ |
+| Rejected     | $V$        | $S$         | $R$     |
+|              | $m_0$      | $m-m_0$     | $m$     |
+
+  - In the table above, all capital letters represent random variables.
+  - $V$ is the number of Type I errors
+  - Therefore, if we want to control the Type I error rate with multiple tests, we want to control $V$. 
+  - There are different ways of doing this:
+    + **Family-wise error rate**: We want to control $P(V > 0)$.
+    + **False Discovery rate**: We want to control the expected value of $V/R$ ($R$ is the number of "discoveries")
+    
+## Bonferroni correction
+
+  - We talked about Bonferroni CIs earlier in this course.
+    + We adjusted the significance level $\alpha$ to $\alpha/m$.
+  - This Bonferroni correction controls the FWER at level $\alpha$.
+  - The main criticism about this type of correction is that it is *conservative*:
+    + If we have dependence between the tests, our true Type I error rate will be lower than $\alpha$.
+    + In general, to control the FWER, we pay a price in terms of Type II errors, and therefore we get lower power.
+    
+## Effective number of independent tests
+
+  - One way to improve the classical Bonferroni correction is to adjust the significance level to $\alpha/\tilde{m}$, with $\tilde{m} < m$.
+    + But we still want to control the FWER at $\alpha$, so we cannot make $\tilde{m}$ too small.
+  - The idea is that, when we have dependence between two tests, we are potentially performing 1.5 tests.
+    + This is the *effective number of independent tests*.
+    
+## Example
+
+  - Assume we have two covariates $X_1,X_2$ that are positively correlated $\rho=0.5$. 
+  - If I test $X_1$ against an outcome $Y$ and reject the null hypothesis, am I
+    + More likely to reject $X_2$ against $Y$ than before doing the test?
+    + Less likely?
+    + Equally likely?
+    
+## Simulation {.allowframebreaks}
+
+```{r}
+library(mvtnorm)
+n <- 25
+B <- 1000
+alpha <- 0.05
+
+Sigma <- matrix(c(1, 0.5, 0.5, 1), 
+                ncol = 2)
+```
+
+
+```{r}
+results <- replicate(B, {
+  X <- rmvnorm(n, sigma = Sigma)
+  Y <- rnorm(n)
+  
+  test1 <- t.test(X[,1], Y)
+  test2 <- t.test(X[,2], Y)
+  
+  return(c("test1" = test1$p.value,
+           "test2" = test2$p.value))
+})
+```
+
+
+```{r}
+rowMeans(results < alpha)
+table(colSums(results < alpha))/B
+```
 
