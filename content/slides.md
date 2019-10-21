@@ -29,5 +29,6 @@ type: docs
   - [Principal Component Analysis](principal-component-analysis.pdf)
     + [R code](principal-component-analysis.R)
   - [Introduction to Statistical Genetics](statistical-genetics.pdf)
-  - Factor Analysis
+  - [Factor Analysis](factor-analysis.pdf)
+    + [R code](factor-analysis.R)
   - Canonical Correlation Analysis
