@@ -300,7 +300,7 @@ abline(h = 0.05, lty = 2)
 
   - One way to improve the classical Bonferroni correction is to adjust the significance level to $\alpha/\tilde{m}$, with $\tilde{m} < m$.
     + But we still want to control the FWER at $\alpha$, so we cannot make $\tilde{m}$ too small.
-  - The idea is that, when we have dependence between two tests, we are potentially performing 1.5 tests.
+  - The idea is that, when we have dependence between two tests, we are potentially performing about 1.5 tests.
     + This is the *effective number of independent tests*.
     
 ## Example
@@ -343,3 +343,51 @@ rowMeans(results < alpha)
 table(colSums(results < alpha))/B
 ```
 
+```{r}
+# Now compute FWER
+mean(colSums(results < alpha) > 0)
+mean(colSums(results < alpha/2) > 0)
+```
+
+```{r, echo=FALSE}
+m_vect <- seq(1, 2, by = 0.01)
+fwer_vect <- sapply(m_vect, function(m) mean(colSums(results < alpha/m) > 0))
+
+plot(m_vect, fwer_vect, type = 'l', xlab = "Bonferroni correction factor", ylab = "FWER",
+     ylim = c(0, 0.1))
+# Add a line for nominal FWER and nominal overall significance level (assuming independence)
+abline(h = c(alpha, 1-(1-alpha)^2), lty = 2, lwd = c(2,0.5))
+```
+
+## Multiple tests in statistical genetics Redux {.allowframebreaks}
+
+  - We want to control the FWER.
+    + Using a Bonferroni correction is very common.
+  - If I have 1 million SNPs and want to control the FWER at $\alpha = 0.05$, a naive Bonferonni would reject any null hypothesis whose p-value is smaller than $5\times 10^{-8}$
+    + This is a *huge* significance burden
+  - More importantly, it is probably too strict:
+    + SNPs are naturally correlated, due to some SNPs being inherited together more often.
+  - In other words, it is very likely that we are not performing 1 million independent tests
+  
+## Enters PCA
+
+  - Gao et al suggests looking at the eigenvalues of the SNPs correlation matrix to infer the effective number of independent tests $m_{\mathrm{eff}}$.
+    1. Compute the correlation matrix $R$ of the SNP data (i.e. independently of the outcome of interest).
+    2. Calculate its eignvalues $\lambda_1>\cdots>\lambda_p$.
+    3. Let $m_{\mathrm{eff}}$ be the smallest $m$ such that $\frac{\sum_{i=1}^m\lambda_i}{\sum_{i=1}^p\lambda_i} > C$ for a user defined $C$ (Gao et al suggests $C=0.995$).
+    4. Apply a Bonferroni correction using $m_{\mathrm{eff}}$, i.e. to control the FWER at $\alpha$, reject each individual test if the p-value is less than $\alpha/m_{\mathrm{eff}}$.
+    
+---
+
+![](../../static/images/gao_simulation.png)
+
+## Overall Summary
+
+  - PCA is a dimension reduction method.
+    + Uncorrelated linear combinations with maximal variance
+    + Linear manifold with closest fit
+  - We saw how it can be used in model building and for high-dimensional data visualization.
+  - We saw three applications from statistical genetics:
+    1. Estimate population substructure from SNP correlation matrix.
+    2. Model unwanted variation from the *residual* covariance matrix.
+    3. Estimate the effective number of independent tests from the SNP correlation matrix.
