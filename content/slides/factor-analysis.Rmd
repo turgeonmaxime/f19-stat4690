@@ -1,0 +1,89 @@
+---
+title: "Factor Analysis"
+draft: true
+source: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+## Latent variable models
+
+  - With PCA, we saw how we could reduce the dimension of data using the eigenvectors of the sample covariance matrix.
+  - Conversely, we could construe PCA has a generative model, where the principal components give rise to the observed data.
+  - **Latent Variable Models** formalise this idea:
+    + Latent (i.e. unobserved) variables $\mathbf{F}$ give rise to observed data $\mathbf{Y}$ through a *specified* model.
+    
+## Factor Analysis {.allowframebreaks}
+
+  - **Factor Analysis** is a special kind of latent variable model. 
+  - Let $\mathbf{Y}$ be a $p$-dimensional vector with mean $\mu$ and covariance matrix $\Sigma$.
+  - Let $\mathbf{F}$ be a $m$-dimensional *latent* vector.
+  - The *orthogonal factor model* is given by
+  $$\mathbf{Y} - \mu= L \mathbf{F} + \mathbf{E},$$
+  where $L$ is a $p\times m$ *matrix of factor loadings*, and $\mathbf{E}$ is a $p$-dimensional vector of *errors*.
+  - $\mathbf{F}$ are also called *common factors*; $\mathbf{E}$ are also called *specific factors*.
+  - **Note**: This is essentially a multivariate regression model, but where the covariates are unobserved.
+  
+## Assumptions {.allowframebreaks}
+
+  - The model above is generally not identifiable, since there are too many parameters.
+  - We therefore need to impose further restrictions:
+  + $E(\mathbf{F}) = 0$
+  + $\mathrm{Cov}(\mathbf{Y}) = I$
+  + $E(\mathbf{E}) = 0$
+  + $\mathrm{Cov}(\mathbf{Y}) = \Psi =\begin{pmatrix} \psi_1 & 0 & \cdots & 0 \\ 0 & \psi_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots\\0 & 0 & \cdots & \psi_p \end{pmatrix}$
+  + $\mathrm{Cov}(\mathbf{F}, \mathbf{E}) = 0$
+- In other words:
+  + Both common and specific factors have mean zero;
+  + They are uncorrelated;
+  + The common factors are mutually uncorrelated and standardised;
+  + The specific factors each affect only one observed variable.
+
+## Structured Covariance {.allowframebreaks}
+
+  - As a consequence of these assumptions, we can derive an assumption on the structure of $\Sigma = \mathrm{Cov}(\mathbf{Y})$:
+  \begin{align*}
+  \Sigma &= E\left( (\mathbf{Y} - \mu)(\mathbf{Y} - \mu)^T \right)\\
+  &= E\left( (L \mathbf{F} + \mathbf{E})(L \mathbf{F} + \mathbf{E})^T \right)\\
+  &= LE(\mathbf{F}\mathbf{F}^T)L + E(\mathbf{E}\mathbf{F}^T)L^T + LE(\mathbf{F}\mathbf{E}^T) + E(\mathbf{E}\mathbf{E}^T)\\
+  &= LIL^T + 0L^T + L0 + \Psi\\
+  &= LL^T + \Psi.
+  \end{align*}
+  - Similarly, we can show that
+  $$ \mathrm{Cov}(\mathbf{Y}, \mathbf{F}) = L.$$
+  - If we write $\ell_{ij}$ for the $(i,j)$-th element of $L$, we see that 
+  $$ \mathrm{Var}(Y_i) = \sum_{k=1}^m \ell_{ik}^2 + \psi_i.$$
+  - Crucially, these assumptions are **testable**. In other words, we can check whether they are reasonable for our data.
+  
+## Example {.allowframebreaks}
+
+  - Let's look at an example where there is no solution. 
+  - Assume $p=3$, $m=1$, with 
+  $$\Sigma = \begin{pmatrix} 1 & 0.9 & 0.7\\0.9 & 1 & 0.4\\0.7 & 0.4 & 1\end{pmatrix}.$$
+  - From our assumptions on the covariance structure, we derive a system of equations
+  $$\begin{matrix}
+  1 = \ell_{11}^2 + \psi_1 & 0.9 = \ell_{11}\ell_{21} & 0.7 = \ell_{11}\ell_{31} \\
+  & 1 = \ell_{22}^2 + \psi_2 & 0.4= \ell_{21}\ell{31}\\
+  & & 1 = \ell_{33}^2 + \psi_3
+  \end{matrix}$$
+  - From $0.7 = \ell_{11}\ell_{31}$ and $0.4= \ell_{21}\ell{31}$, we get 
+  $$ \ell_{21} = \frac{0.4}{0.7}\ell_{11}.$$
+  - But since $0.9 = \ell_{11}\ell_{21}$, we can conclude
+  that
+  $$ \ell_{11} = \pm 1.255.$$
+  - However, since the first component $Y_1$ has unit variance, $\ell_{11} = \mathrm{Corr}(Y_1, F_1)$, and therefore the correlation is out of bounds.
+  - Similarly, we get
+  $$ \psi_1 = 1 - \ell_{11}^2 = 1 - 1.575 = -0.575.$$
+  - But since $\psi_1$ is the variance of the first error term, we once again get a non-sensical solution.
