@@ -6,12 +6,13 @@ knitr::opts_chunk$set(cache=TRUE)
 library(psych)
 
 dim(bfi)
-names(bfi)
+tail(names(bfi), n = 3)
 
 
 ## ----message = FALSE-----------------------------------------------------
 library(tidyverse)
 
+# Remove demographic variable and keep complete data
 data <- bfi %>% 
   select(-gender, -education, -age) %>% 
   filter(complete.cases(.))

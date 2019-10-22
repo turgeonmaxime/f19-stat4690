@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  22 OCT 2019 16:24
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  22 OCT 2019 16:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1357,58 +1357,28 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 (./factor-analysis.vrb
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
-
-Overfull \hbox (63.50989pt too wide) in paragraph at lines 28--28
-[]\TU/lmtt/m/n/12 ##  [1] "A1"        "A2"        "A3"        "A4"        "A5"[
-] 
- []
-
-
-Overfull \hbox (63.49788pt too wide) in paragraph at lines 28--28
-[]\TU/lmtt/m/n/12 ##  [6] "C1"        "C2"        "C3"        "C4"        "C5"[
-] 
- []
-
-
-Overfull \hbox (63.50989pt too wide) in paragraph at lines 28--28
-[]\TU/lmtt/m/n/12 ## [11] "E1"        "E2"        "E3"        "E4"        "E5"[
-] 
- []
-
-
-Overfull \hbox (63.4979pt too wide) in paragraph at lines 28--28
-[]\TU/lmtt/m/n/12 ## [16] "N1"        "N2"        "N3"        "N4"        "N5"[
-] 
- []
-
-
-Overfull \hbox (63.50989pt too wide) in paragraph at lines 28--28
-[]\TU/lmtt/m/n/12 ## [21] "O1"        "O2"        "O3"        "O4"        "O5"[
-] 
- []
-
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 28.
 File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-anal
 ysis_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analy
 sis_files/figure-beamer/unnamed-chunk-3-1.pdf>
 
-Overfull \hbox (14.06985pt too wide) in paragraph at lines 60--60
+Overfull \hbox (14.06985pt too wide) in paragraph at lines 79--79
 []\TU/lmtt/m/n/12 ##                             PC1      PC2      PC3[] 
  []
 
 
-Overfull \hbox (14.03407pt too wide) in paragraph at lines 60--60
+Overfull \hbox (14.03407pt too wide) in paragraph at lines 79--79
 []\TU/lmtt/m/n/12 ## Standard deviation     3.291635 2.451538 2.030393[] 
  []
 
 
-Overfull \hbox (14.0341pt too wide) in paragraph at lines 60--60
+Overfull \hbox (14.0341pt too wide) in paragraph at lines 79--79
 []\TU/lmtt/m/n/12 ## Proportion of Variance 0.215650 0.119620 0.082050[] 
  []
 
 
-Overfull \hbox (14.0581pt too wide) in paragraph at lines 60--60
+Overfull \hbox (14.0581pt too wide) in paragraph at lines 79--79
 []\TU/lmtt/m/n/12 ## Cumulative Proportion  0.215650 0.335270 0.417320[] 
  []
 
@@ -1581,11 +1551,11 @@ sis_files/figure-beamer/unnamed-chunk-21-1.pdf>
 \tf@snm=\write9
 \openout9 = `factor-analysis.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1001.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1001.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1020.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1020.
 (./factor-analysis.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1001.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1001.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1020.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1020.
 
 Package rerunfilecheck Info: File `factor-analysis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.

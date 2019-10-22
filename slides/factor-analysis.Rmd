@@ -126,17 +126,26 @@ knitr::opts_chunk$set(cache=TRUE)
   4. Estimate $\hat{\Psi}$ with the diagonal elements of $S_n - \hat{L}\hat{L}^T$.
   
 ## Example {.allowframebreaks}
+
+  - We are going to use the `bfi` dataset in the `psych` package.
+  - Contains data on 25 personality items grouped in 5 categories:
+    + A (Agreeableness)
+    + C (Conscientiousness)
+    + E (Extraversion) 
+    + N (Neuroticism)
+    + O (Openness)
   
 ```{r}
 library(psych)
 
 dim(bfi)
-names(bfi)
+tail(names(bfi), n = 3)
 ```
 
 ```{r message = FALSE}
 library(tidyverse)
 
+# Remove demographic variable and keep complete data
 data <- bfi %>% 
   select(-gender, -education, -age) %>% 
   filter(complete.cases(.))
