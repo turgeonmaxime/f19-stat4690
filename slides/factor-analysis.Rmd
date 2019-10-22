@@ -41,9 +41,9 @@ knitr::opts_chunk$set(cache=TRUE)
   - The model above is generally not identifiable, since there are too many parameters.
   - We therefore need to impose further restrictions:
     + $E(\mathbf{F}) = 0$
-    + $\mathrm{Cov}(\mathbf{Y}) = I$
+    + $\mathrm{Cov}(\mathbf{F}) = I$
     + $E(\mathbf{E}) = 0$
-    + $\mathrm{Cov}(\mathbf{Y}) = \Psi =\begin{pmatrix} \psi_1 & 0 & \cdots & 0 \\ 0 & \psi_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots\\0 & 0 & \cdots & \psi_p \end{pmatrix}$
+    + $\mathrm{Cov}(\mathbf{E}) = \Psi =\begin{pmatrix} \psi_1 & 0 & \cdots & 0 \\ 0 & \psi_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots\\0 & 0 & \cdots & \psi_p \end{pmatrix}$
     + $\mathrm{Cov}(\mathbf{F}, \mathbf{E}) = 0$
 - In other words:
   + Both common and specific factors have mean zero;
@@ -120,7 +120,7 @@ knitr::opts_chunk$set(cache=TRUE)
 
 ### Algorithm
 
-  1. Let $\hat{\lambda}_1\>\cdots>\hat{\lambda}_p$ and $\hat{w}_1, \hat{w}_p$ be the eigenvalues and eigenvectors of the covariance matrix $S_n$.
+  1. Let $\hat{\lambda}_1\>\cdots>\hat{\lambda}_p$ and $\hat{w}_1,\ldots, \hat{w}_p$ be the eigenvalues and eigenvectors of the covariance matrix $S_n$.
   2. Select $m$ using one of the PCA criteria.
   3. Estimate $\hat{L}$ with the $p\times m$ matrix whose $i$-th column is $\sqrt{\hat{\lambda}_i} \hat{w}_i$.
   4. Estimate $\hat{\Psi}$ with the diagonal elements of $S_n - \hat{L}\hat{L}^T$.
@@ -155,15 +155,232 @@ cum_prop <- decomp %>%
   .[["importance"]] %>% 
   .["Cumulative Proportion",]
 
-which(cum_prop > 0.8)
+which(cum_prop > 0.8)[1]
 ```
 
 ```{r}
 Lhat <- decomp$rotation[,1:14] %*% 
   diag(decomp$sdev[1:14])
 Psi_hat <- diag(cov(data) - tcrossprod(Lhat))
+```
 
+
+```{r}
+# Sum squared error
 sum((cov(data) - tcrossprod(Lhat) - diag(Psi_hat))^2)
+# Compare to the total variance
+sum(diag(cov(data)))
+
+# Our FA model explains:
+sum(colSums(Lhat^2)/sum(diag(cov(data))))
+```
+
+## Comments
+
+  - In our example above, we saw that 14 factors explained 82% of the total variance.
+  - Two common default values for $m$ in statistical softwares:
+    + Number of positive eigenvalues of the sample covariance matrix.
+    + Number of eigenvalues greater than one for the sample correlation matrix.
+  - In our example, the first criterion would lead to $m=p$, which is not very helpful
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+(m <- sum(eigen(cor(data))$values > 1))
+
+Lhat <- decomp$rotation[,seq_len(m)] %*% 
+  diag(decomp$sdev[seq_len(m)])
+Psi_hat <- diag(cov(data) - tcrossprod(Lhat))
+
+# Sum squared error
+sum((cov(data) - tcrossprod(Lhat) - diag(Psi_hat))^2)
+# Compare to the total variance
 sum(diag(cov(data)))
 ```
 
+
+```{r}
+# Our FA model explains:
+sum(colSums(Lhat^2)/sum(diag(cov(data))))
+```
+
+```{r}
+# We can also  visualize the fit
+Sn <- cov(data)
+Sn_fit <- tcrossprod(Lhat) - diag(Psi_hat)
+
+library(lattice)
+levelplot(Sn - Sn_fit)
+```
+
+```{r}
+# Or if you prefer % difference
+levelplot((Sn - Sn_fit)/Sn)
+```
+
+## Estimation--Maximum Likelihood Method {.allowframebreaks}
+
+  - This estimation method assumes that both common factors $\mathbf{F}$ and specific factors $\mathbf{E}$ follow a multivariate normal distribution
+    + $\mathbf{F}\sim N_m(0, I)$
+    + $\mathbf{E}\sim N_p(0, \Psi)$
+  - From this assumption, it follows that $\mathbf{Y}$ also follows a multivariate normal distribution
+    + $\mathbf{Y}\sim N_p(\mu, LL^T + \Psi)$
+  - Therefore, we can write down the likelihood in terms of both $L$ and $\Psi$.
+  - However, because of the factor rotation problem, we need to impose a constraint in order to obtain a unique solution:
+    + $L^T\Psi^{-1}L = \Delta$ is diagonal.
+  - Given this assumption, the maximum likelihood estimates $\hat{L}$ and $\hat{\Psi}$ can be found using an iterative algorithm.
+  - We will not go into the details of the algorithm (but see Johnson & Wichern, Supplement 9A if interested).
+    + Instead, we will rely on the `R` function `stats::factanal`.
+    
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# CAREFUL: uses correlation matrix
+fa_decomp <- factanal(data, factors = m,
+                      rotation = 'none')
+
+# Uniquenesses are the diagonal elements 
+# of the matrix Psi
+Psi_mle <- fa_decomp$uniquenesses
+Lmle <- fa_decomp$loadings
+```
+
+
+```{r}
+# We get an estimate of the correlation
+R_mle <- tcrossprod(Lmle) - diag(Psi_mle)
+
+sum((cor(data) - R_mle)^2)
+
+# Our FA model explains:
+sum(colSums(Lmle^2)/ncol(data))
+```
+
+```{r}
+levelplot(cor(data) - R_mle)
+```
+
+```{r}
+# To factor the covariance matrix
+# Use psych::fa
+fa_decomp <- psych::fa(data, nfactors = m,
+                       rotate = "none",
+                       covar = TRUE,
+                       fm = "ml")
+
+# Extract estimates
+Psi_mle <- fa_decomp$uniquenesses
+Lmle <- fa_decomp$loadings
+```
+
+
+```{r}
+# We get an estimate of the covariance
+Sn_mle <- tcrossprod(Lmle) - diag(Psi_mle)
+
+sum((Sn - Sn_mle)^2)
+
+# Our FA model explains:
+sum(colSums(Lmle^2)/sum(diag(Sn)))
+```
+
+```{r}
+levelplot(Sn - Sn_mle)
+```
+
+```{r}
+# Compare MLE with PC estimate
+levelplot((Sn_fit - Sn_mle)/Sn)
+```
+
+## Comments about estimation
+
+  - There are other methods of estimating the loadings and the "uniquenesses"
+    + Ordinary Least Squares
+    + Weighted OLS
+    + Principal factor
+  - With so many choices of estimation methods, it can be hard to compare statistical softwares
+    + And you also have to read the manual in order to know what is going on...
+  - You also always have the choice between factoring the covariance or the correlation matrix
+    + Which one you choose depends on the commensurability of your variables (just like in PCA)
+  - Finally, it's always a good idea to compare the output of multiple estimation strategies
+    + If your model is a good fit, you should get a similar answer regardless of the method.
+    
+## Factor Rotation Redux {.allowframebreaks}
+
+  - As we saw earlier, any orthgonal matrix $T$ gives rise to the same factor analysis model
+  $$ \Sigma = LL^T + \Psi = LTT^TL^T + \Psi = \tilde{L}\tilde{L}^T + \Psi.$$
+  - In other words, we cannot choose $T$ to maximise the goodness of fit.
+    + We need another criterion
+  - Intuitively, to ease interpretation, we want each variable to have large loadings for one factor and negligeable loadings for the other ones.
+    + \url{https://maxturgeon.ca/f19-stat4690/factor_rotation.gif}
+  - One common analytic criterion that formalises this idea is the **varimax criterion**.
+    + Resulting loadings are called *varimax loadings*
+  - We have
+  $$ \mathrm{VARIMAX} \propto \sum_{j=1}^m \binom{\mbox{Variance of squares of scales loadings}}{\mbox{for }j\mbox{-th factor}}$$
+  - More precisely:
+    + Let $\tilde{\ell}_{ij}$ be the $(i,j)$-th entry of the matrix $\tilde{L}=LT$. In other words, $\tilde{\ell}_{ij}$ depends on $T$.
+    + Let $\tilde{h}_i^2 = \sum_{j=1}^m \tilde{\ell}_{ij}^2$.
+    + Define the scaled loadings $\tilde{\ell}^*_{ij}=\tilde{\ell}_{ij}/h_i$.
+    + The varimax criterion $V$ is given as
+    $$V = \frac{1}{p}\sum_{j=1}^m\left(\sum_{i=1}^p\tilde{\ell}^{*4}_{ij} - \frac{1}{p}\left(\sum_{i=1}^p\tilde{\ell}^{*2}_{ij}\right)^2\right).$$
+  - In `R`, you can compute the rotated loadings using the `stats::varimax` function. Alternatively, the function `stats::factanal` can compute the rotation for you as part of the factor analysis (and so does `psych::fa`).
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# Let's start with m=2 for visualization
+fa_decomp <- factanal(data, factors = 2,
+                      rotation = 'none')
+
+initial_loadings <- fa_decomp$loadings
+varimax_loadings <- varimax(initial_loadings)
+```
+
+```{r echo = FALSE}
+par(mfrow = c(1, 2))
+
+plot(initial_loadings, type = 'n',
+     xlim = c(-0.5, 0.8),
+     ylim = c(-0.6, 0.6),
+     main = "Initial")
+text(initial_loadings, label = rownames(initial_loadings))
+abline(h = 0, v = 0)
+
+plot(varimax_loadings$loadings, type = 'n',
+     xlim = c(-0.5, 0.8),
+     ylim = c(-0.6, 0.6),
+     main = "Varimax")
+text(varimax_loadings$loadings, 
+     label = rownames(varimax_loadings$loadings))
+abline(h = 0, v = 0)
+
+par(mfrow = c(1,1))
+```
+
+```{r}
+# You can extract the matrix T
+varimax_loadings$rotmat
+
+# We can also get the angle of rotation
+acos(varimax_loadings$rotmat[1,1])
+```
+
+```{r}
+# In more dimensions
+fa_decomp <- factanal(data, factors = m,
+                      rotation = 'varimax')
+
+levelplot(unclass(fa_decomp$loadings),
+          xlab = "", ylab = "")
+```
+
+## Comments
+
+  - As with estimation, there are many more rotation methods.
+    + See for example the help page `?GPArotation::rotations`
+  - One particular class of rotations are called *oblique*
+    + The matrix $T$ is no longer constrained to be orthogonal.
+  - Factor rotation is especially useful with loadings obtained through MLE
+    + Recall the constraint on $L^T\Psi^{-1}L$ being diagonal
+  - Factor rotations are also sometimes used with PCA loadings.

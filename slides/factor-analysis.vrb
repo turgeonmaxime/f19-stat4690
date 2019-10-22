@@ -1,0 +1,33 @@
+\frametitle{Comments}
+
+\begin{itemize}
+\tightlist
+\item
+  As with estimation, there are many more rotation methods.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    See for example the help page \texttt{?GPArotation::rotations}
+  \end{itemize}
+\item
+  One particular class of rotations are called \emph{oblique}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The matrix \(T\) is no longer constrained to be orthogonal.
+  \end{itemize}
+\item
+  Factor rotation is especially useful with loadings obtained through
+  MLE
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Recall the constraint on \(L^T\Psi^{-1}L\) being diagonal
+  \end{itemize}
+\item
+  Factor rotations are also sometimes used with PCA loadings.
+\end{itemize}
+
