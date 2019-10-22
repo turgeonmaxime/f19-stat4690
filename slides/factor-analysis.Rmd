@@ -293,7 +293,7 @@ levelplot(Sn - Sn_mle)
 levelplot((Sn_fit - Sn_mle)/Sn)
 ```
 
-## Comments about estimation
+## Comments about estimation {.allowframebreaks}
 
   - There are other methods of estimating the loadings and the "uniquenesses"
     + Ordinary Least Squares

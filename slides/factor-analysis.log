@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  22 OCT 2019 16:18
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  22 OCT 2019 16:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1519,11 +1519,10 @@ sis_files/figure-beamer/unnamed-chunk-17-1.pdf>
 ] [43
 
 
-]
-Overfull \vbox (68.93643pt too high) detected at line 841
- []
+] [44
 
-[44
+] [45
+
 
 ]
 \openout4 = `factor-analysis.vrb'.
@@ -1533,12 +1532,12 @@ Overfull \hbox (5.8797pt too wide) detected at line 39
 [] \OMS/lmsy/m/n/12 / [] []
  []
 
-) [45
-
-] [46
-
+) [46
 
 ] [47
+
+
+] [48
 
 
 ]
@@ -1553,10 +1552,7 @@ File: /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-anal
 ysis_files/figure-beamer/unnamed-chunk-21-1.pdf Graphic file (type pdf)
 <use /home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analy
 sis_files/figure-beamer/unnamed-chunk-21-1.pdf>
-) [48
-
-] [49
-
+) [49
 
 ] [50
 
@@ -1567,10 +1563,13 @@ sis_files/figure-beamer/unnamed-chunk-21-1.pdf>
 ] [52
 
 
+] [53
+
+
 ]
 \openout4 = `factor-analysis.vrb'.
 
-(./factor-analysis.vrb) [53
+(./factor-analysis.vrb) [54
 
 ]
 \tf@nav=\write7
@@ -1594,13 +1593,13 @@ Package rerunfilecheck Info: File `factor-analysis.out' has not changed.
 Here is how much of TeX's memory you used:
  38248 strings out of 494894
  780995 string characters out of 6176713
- 861848 words of memory out of 5000000
+ 861904 words of memory out of 5000000
  41550 multiletter control sequences out of 15000+600000
  560881 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1880b,582s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on factor-analysis.pdf (53 pages).
+Output written on factor-analysis.pdf (54 pages).
 
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light', contains ' '
 ! kpathsea:make_tex: Invalid filename `Fira Sans Light Italic', contains ' '
