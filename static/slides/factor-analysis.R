@@ -71,7 +71,7 @@ sum(colSums(Lhat^2)/sum(diag(cov(data))))
 ## ------------------------------------------------------------------------
 # We can also  visualize the fit
 Sn <- cov(data)
-Sn_fit <- tcrossprod(Lhat) - diag(Psi_hat)
+Sn_fit <- tcrossprod(Lhat) + diag(Psi_hat)
 
 library(lattice)
 levelplot(Sn - Sn_fit)
@@ -95,7 +95,7 @@ Lmle <- fa_decomp$loadings
 
 ## ------------------------------------------------------------------------
 # We get an estimate of the correlation
-R_mle <- tcrossprod(Lmle) - diag(Psi_mle)
+R_mle <- tcrossprod(Lmle) + diag(Psi_mle)
 
 sum((cor(data) - R_mle)^2)
 
@@ -122,7 +122,7 @@ Lmle <- fa_decomp$loadings
 
 ## ------------------------------------------------------------------------
 # We get an estimate of the covariance
-Sn_mle <- tcrossprod(Lmle) - diag(Psi_mle)
+Sn_mle <- tcrossprod(Lmle) + diag(Psi_mle)
 
 sum((Sn - Sn_mle)^2)
 
@@ -136,7 +136,7 @@ levelplot(Sn - Sn_mle)
 
 ## ------------------------------------------------------------------------
 # Compare MLE with PC estimate
-levelplot((Sn_fit - Sn_mle)/Sn)
+levelplot(Sn_fit - Sn_mle)
 
 
 ## ------------------------------------------------------------------------
