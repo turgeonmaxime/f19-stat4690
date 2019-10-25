@@ -15,7 +15,8 @@ header-includes:
 ---
 
 ```{r,setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(cache=TRUE,
+                      message = FALSE)
 ```
 
 ## Latent variable models
@@ -317,11 +318,11 @@ levelplot(Sn_fit - Sn_mle)
     
 ## Factor Rotation Redux {.allowframebreaks}
 
-  - As we saw earlier, any orthgonal matrix $T$ gives rise to the same factor analysis model
+  - As we saw earlier, any orthogonal matrix $T$ gives rise to the same factor analysis model
   $$ \Sigma = LL^T + \Psi = LTT^TL^T + \Psi = \tilde{L}\tilde{L}^T + \Psi.$$
   - In other words, we cannot choose $T$ to maximise the goodness of fit.
     + We need another criterion
-  - Intuitively, to ease interpretation, we want each variable to have large loadings for one factor and negligeable loadings for the other ones.
+  - Intuitively, to ease interpretation, we want each variable to have large loadings for one factor and negligible loadings for the other ones.
     + \url{https://maxturgeon.ca/f19-stat4690/factor_rotation.gif}
   - One common analytic criterion that formalises this idea is the **varimax criterion**.
     + Resulting loadings are called *varimax loadings*
@@ -394,6 +395,587 @@ levelplot(unclass(fa_decomp$loadings),
     + Recall the constraint on $L^T\Psi^{-1}L$ being diagonal
   - Factor rotations are also sometimes used with PCA loadings.
   
-<!-- ## Selecting the number of factors {.allowframebreaks} -->
+## Selecting the number of factors {.allowframebreaks}
 
-<!--   -  -->
+  - We have discussed some of these strategies already.
+  - We could select the minimum number of factors $m$ that explains a certain proportion of variance.
+    + Let $L$ be the matrix of loadings and for each factor $j$ we let 
+    $$\frac{\sum_{i=1}^p \ell_{ij}^2}{\mathrm{tr}(S_n)}$$ 
+    be the proportion of total sample variance due to the $j$-th factor.
+    + In other words, when computing the proportion of variance due to the factor model, we do not include the variance coming from the error term.
+  - We could use a scree plot approach:
+    + Fit different factor analysis models with a varying value of $m$ and plot the total proportion of variance explained as a function of $m$.
+    + You could also select $m$ using a scree plot based on the eigenvalues of $S_n$ (just as in PCA).
+  - We could also select $m$ as the number of eigenvalues of $S_n$ that are larger than the average eigenvalue.
+  - We could also select only factors that can be explained by the researcher.
+    + This requires a lot of domain-knowledge expertise.
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# First, let's look at the average eigenvalue
+decomp <- eigen(Sn, symmetric = TRUE,
+                only.values = TRUE)
+
+mean(decomp$values)
+
+sum(decomp$values > mean(decomp$values))
+```
+
+
+```{r}
+# We will go from 1 factor to 15
+prop_var_explained <- purrr::map_df(
+  seq(1, 15),  function(m) {
+    fa_decomp <- factanal(data, factors = m)
+    Lmle <- fa_decomp$loadings
+    prop <- sum(colSums(Lmle^2))/ncol(data)
+    
+    data.frame(
+      prop = prop,
+      m = m
+    )})
+```
+
+
+```{r}
+prop_var_explained %>% 
+  ggplot(aes(m, prop)) + 
+  geom_point() + 
+  geom_line() + 
+  theme_minimal() +
+  expand_limits(y = 0) +
+  geom_vline(xintercept = 6,
+             linetype = 'dotted')
+```
+
+## Information criteria
+
+  - We will discuss two more approaches.
+  - First, if we use the MLE estimation method, we can also use information criteria.
+    + Bayesian Information Criterion (BIC)
+    + empirically-derived BIC (eBIC)
+    + sample-size adjusted BIC (saBIC)
+  - These 3 criteria have been implemented in `psych::fa`.
+  - To use these criteria, fit the model with different values of $m$ and select the model with the smallest value of the criterion.
+
+## Example (cont'd) {.allowframebreaks}
+
+```{r warning=FALSE}
+inform_crit <- purrr::map_df(
+  seq(1, 15),  function(m) {
+    fa_decomp <- psych::fa(data, nfactors = m,
+                           fm = 'ml')
+    data.frame(
+      BIC = fa_decomp$BIC, eBIC = fa_decomp$EBIC,
+      SABIC = fa_decomp$SABIC, m = m
+    )})
+```
+
+```{r}
+inform_crit %>% 
+  gather(Criteria, value, -m) %>% 
+  ggplot(aes(m, value, colour = Criteria)) + 
+  geom_point() + 
+  geom_line() + 
+  theme_minimal() +
+  theme(legend.position = 'top') +
+  geom_vline(xintercept = 6,
+             linetype = 'dotted')
+```
+
+```{r}
+inform_crit %>% 
+  gather(Criteria, value, -m) %>% 
+  group_by(Criteria) %>% 
+  filter(value == min(value)) %>% 
+  select(-value) %>% 
+  spread(Criteria, m)
+```
+
+## Large sample test {.allowframebreaks}
+
+  - The second alternative approach is based on hypothesis testing.
+  - We will perform a different test for each value of $m$.
+  - For a fixed $m$, the *null hypothesis* is that the corresponding factor model
+  $$ \Sigma = LL^T + \Psi$$
+  is correct.
+  - The alternative hypothesis is that $\Sigma$ is *unstructured*.
+    + Note that the different factor models with different $m$ are not nested.
+  - Under $H_0$, the likelihood of the model is proportional to
+  $$\lvert \hat{L}\hat{L}^T + \hat{\Psi}\rvert^{-n/2}\exp\left(-\frac{1}{2}n\mathrm{tr}\left((\hat{L}\hat{L}^T + \hat{\Psi})^{-1}S_n\right)\right).$$
+  - Therefore, the likelihood ratio statistic is
+  $$-2\log\Lambda = n\log\left(\frac{\lvert \hat{L}\hat{L}^T + \hat{\Psi}\rvert}{\lvert S_n\rvert}\right).$$
+  - Under $H_0$, this follows a $\chi^2$ distribution with $\nu$ degrees of freedom, where
+  $$\nu = \frac{1}{2}\left((p-m)^2 - p - m\right).$$
+
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+m <- 6
+fa_decomp <- psych::fa(data, nfactors = m,
+                       covar = TRUE,
+                       fm = 'ml')
+```
+
+
+```{r}
+Sn <- cov(data)
+Sn_mle <- tcrossprod(fa_decomp$loadings) + 
+  diag(fa_decomp$uniquenesses)
+
+test_stat <- nrow(data) * (
+  log(det(Sn_mle)) -
+    log(det(Sn))
+)
+```
+
+
+```{r}
+p <- ncol(data)
+nu <- 0.5*((p-m)^2 - p - m)
+
+test_stat > qchisq(0.95, df = nu)
+```
+
+## Comments
+
+  - The hypothesis test approach is nor really recommended:
+    + It tends to select too many factors, especially when the sample size is large.
+  - If a factor model is good model for a given dataset, the "average eigenvalue" method should given a similar answer to the scree plot approach.
+  
+## Factor scores {.allowframebreaks}
+
+  - Recall the original model:
+  $$\mathbf{Y} - \mu= L \mathbf{F} + \mathbf{E}.$$
+  - We have discussed ways to estimate $L$ and the covariance matrix of $\mathbf{E}$, but we have not covered how to estimate $\mathbf{F}$ yet.
+  - In a typical analysis, we may be mainly interested in estimating and inspecting the loadings.
+  - But it may be useful to estimate the common factors for diagnostic purposes (e.g. model fit) or as input into a second analysis (e.g. two-stage modeling).
+  - We will discuss two estimation strategies:
+    1. Weighted Least Squares
+    2. Regression
+    
+## Weighted Least Squares Method {.allowframebreaks}
+
+  - First, assume that we know $L,\mu,\Psi$.
+  - If we regard $\mathbf{E}$ as error terms, we would want to minimise
+  $$(\mathbf{Y} - \mu - L \mathbf{F})^T(\mathbf{Y} - \mu - L \mathbf{F}).$$
+  - However, since the errors terms have unequal variance (i.e. heteroscedasticity), we may have a better performance by weighting the $j$-th term by the inverse of $\psi_j$. We therefore have a different criterion to minimise:
+  $$(\mathbf{Y} - \mu - L \mathbf{F})^T\Psi^{-1}(\mathbf{Y} - \mu - L \mathbf{F}).$$
+  - Minimising with respect to $\mathbf{F}$, we get
+  $$\hat{\mathbf{F}} = (L^T\Psi^{-1}L)^{-1}L^T\Psi^{-1}(\mathbf{Y} - \mu).$$
+  - Using this computation as a heuristic, we can replace $L,\Psi,\mu$ by $\hat{L},\hat{\Psi}, \bar{\mathbf{Y}}$, and for each observation $\mathbf{Y}_i$, we get an estimate
+  $$\hat{\mathbf{F}}_j = (\hat{L}^T\hat{\Psi}^{-1}\hat{L})^{-1}\hat{L}^T\hat{\Psi}^{-1}(\mathbf{Y}_j - \bar{\mathbf{Y}}).$$
+  - **Note**: When $\hat{L},\hat{\Psi}$ are obtained using the principal component approach, it is customary to use the *unweighted* approach, in which case the estimates $\hat{\mathbf{F}}_j$ are simply the principal components of $\mathbb{Y}$.
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r, message = FALSE}
+m <- 6
+fa_decomp <- psych::fa(data, nfactors = m,
+                       covar = TRUE,
+                       fm = 'ml')
+```
+
+
+```{r, message = FALSE}
+# Extract estimates
+InvPsi <- diag(fa_decomp$uniquenesses^-1)
+Lhat <- fa_decomp$loadings
+
+hat_mat <- solve(t(Lhat) %*% InvPsi %*% Lhat) %*%
+  t(Lhat) %*% InvPsi
+
+scores <- scale(data, center = TRUE,
+                scale = FALSE) %*% t(hat_mat)
+```
+
+
+```{r message = FALSE}
+GGally::ggpairs(as.data.frame(scores))
+```
+
+## Regression Method {.allowframebreaks}
+
+  - As before, assume that we know $L,\mu,\Psi$.
+  - Under the normality assumptions $\mathbf{F}\sim N_m(0, I)$ and $\mathbf{E}\sim N_p(0, \Psi)$, we can conclude that $(\mathbf{F}, \mathbf{E})$ and therefore $(\mathbf{Y} - \mu, \mathbf{F})$ are also jointly normal.
+  - More precisely, $(\mathbf{Y} - \mu, \mathbf{F})$ is $N_{m+p}(0, \Sigma^*)$, where
+  $$\Sigma^* = \begin{pmatrix} LL^T + \Psi & L\\L^T & I\end{pmatrix}.$$
+  - Using our result on conditional distributions (see slides on Multivariate Normal Distribution), we know that the distribution of $\mathbf{F}$ given $\mathbf{Y}$ has:
+    + Mean $L^T(LL^T + \Psi)^{-1}(\mathbf{Y} - \mu)$;
+    + Covariance $I - L^T(LL^T + \Psi)^{-1}L$.
+  - Therefore, given estimates $\hat{L},\hat{\Psi}$, we get an estimate of the scores as:
+  $$\hat{\mathbf{F}}_j = \hat{L}^T\left(\hat{L}\hat{L}^T + \hat{\Psi}\right)^{-1}(\mathbf{Y}_j - \bar{\mathbf{Y}}).$$
+  - To mitigate the effects of model misspecification, it is common to replace $\hat{L}\hat{L}^T + \hat{\Psi}$ by the sample covariance matrix $S_n$.
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r, message = FALSE}
+scores_reg <- scale(data, center = TRUE,
+                    scale = FALSE) %*% 
+  solve(Sn) %*% Lhat
+```
+
+
+```{r message = FALSE}
+GGally::ggpairs(as.data.frame(scores_reg))
+```
+
+```{r}
+# Let's look at agreement
+round(cor(scores, scores_reg), 2)
+```
+
+
+```{r}
+# Or graphically
+plot(as.vector(scores),
+     as.vector(scores_reg),
+     xlab = "WLS",
+     ylab = "Regression")
+abline(a = 0, b = 1, 
+       col='red',
+       lty = 2)
+```
+
+```{r, echo = FALSE}
+inner_join(
+  as.data.frame(scores_reg) %>% 
+    mutate(ID = row_number()) %>% 
+    gather(Factor, Score, -ID) %>% 
+    rename(Regression = Score),
+  as.data.frame(scores) %>% 
+    mutate(ID = row_number()) %>% 
+    gather(Factor, Score, -ID) %>% 
+    rename(WLS = Score),
+  by = c("ID", "Factor")
+) %>% 
+  ggplot(aes(WLS, Regression, colour = Factor)) + 
+  geom_abline(slope = 1, intercept = 0,
+              linetype = 'dashed') +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = 'lm', se = FALSE) +
+  theme_minimal() +
+  theme(legend.position = 'top')
+```
+
+## Comments
+
+  - Neither method is uniformly superior.
+    + On the other hand, the regression method uses normal theory to derive its heuristic.
+  - As for other topics we discussed earlier, there are other methods for estimating the scores
+    + Harman's method
+    + Anderson's method
+    + ten Berge's method
+  - What is important to remember is that there is no best way to estimate the scores, and different methods optimise different criteria
+    + E.g. Anderson's method looks for *uncorrelated* scores.
+    
+## Final comments on Factor Analysis {.allowframebreaks}
+
+  - The type of Factor Analysis we discussed is called **Exploratory**.
+    + **Confirmatory** FA would make strong assumptions about the nature of the latent factors and perform statistical inference.
+  - At every stage of FA, there are choices to make: estimation method, number of factors, factor rotation, score estimation.
+    + This makes FA more of an art than a science.
+  - But there are still some general principles you can follow.
+  
+### General Strategy for FA
+
+\begin{enumerate}
+  \item Perform a \emph{Principal Component} Factor Analysis.
+  \begin{itemize}
+    \item It is simple to run.
+    \item It will help you find potential outliers.
+  \end{itemize}
+  \item Perform a \emph{Maximum Likelihood} Factor Analysis.
+  \begin{itemize}
+    \item Try a varimax rotation to see if it makes sense.
+  \end{itemize}
+  \item Compare the solution of both methods to see if they generally agree.
+  \item Repeat for different values of $m$ and check if adding more factors improve interpretation of the results.
+  \item For large datasets, you can split your data, run the same model on both subsets, and compare the loadings to see if they generally agree.
+\end{enumerate}
+
+## A different example {.allowframebreaks}
+
+  - The dataset: `state.x77`. It contains general information about all 50 states.
+    + Population
+    + Income per capita
+    + Illiteracy rate
+    + Life Expectancy
+    + Murder rate
+    + High-School Graduation rate
+    + Average number of days below 0C
+    + Total area
+    
+```{r}
+state.x77[1:5,1:4]
+```
+
+```{r}
+library(GGally)
+data <- as.data.frame(state.x77)
+ggpairs(data)
+```
+
+```{r}
+# Potential outliers?
+data %>% 
+  rownames_to_column('State') %>%
+  top_n(Population, n = 2)
+
+data %>% 
+  rownames_to_column('State') %>%
+  top_n(Area, n = 2)
+```
+
+```{r}
+# 1. Principal Component Factor analysis
+decomp <- princomp(data, cor = TRUE)
+decomp
+```
+
+```{r}
+biplot(decomp)
+```
+
+
+```{r}
+m <- 3
+Lhat <- decomp$loadings[,seq_len(m)] %*% 
+  diag(decomp$sdev[seq_len(m)])
+colnames(Lhat) <- paste0("PC", 1:3)
+Psi_hat <- diag(cov(data) - tcrossprod(Lhat))
+
+# Our FA model explains:
+sum(colSums(Lhat^2))/ncol(data)
+```
+
+```{r}
+# We can also  visualize the fit
+Rn <- cor(data)
+Rn_fit <- tcrossprod(Lhat) + diag(Psi_hat)
+
+levelplot(Rn - Rn_fit)
+```
+
+```{r}
+scores_pc <- scale(data, center = TRUE,
+                    scale = TRUE) %*% 
+  solve(Rn) %*% Lhat
+```
+
+```{r}
+ggpairs(as.data.frame(scores_pc))
+```
+
+```{r}
+# What state has the outlying values?
+scores_pc %>% 
+  as.data.frame %>% 
+  rownames_to_column('State') %>%
+  filter(PC2 > 4 | PC3 < -4)
+```
+
+```{r}
+# 2. Maximum Likelihood Factor analysis
+fa_decomp <- factanal(data, factors = m)
+```
+
+
+```{r}
+# Extract estimates
+Psi_mle <- fa_decomp$uniquenesses
+Lmle <- fa_decomp$loadings
+
+# Our FA model explains:
+sum(colSums(Lmle^2))/ncol(data)
+```
+
+```{r}
+# We can also  visualize the fit
+Rn_mle <- tcrossprod(Lmle) + diag(Psi_mle)
+
+levelplot(Rn - Rn_mle)
+```
+
+```{r}
+scores_mle <- scale(data, center = TRUE,
+                    scale = TRUE) %*% 
+  solve(Rn) %*% Lmle
+```
+
+```{r}
+ggpairs(as.data.frame(scores_mle))
+```
+
+```{r}
+# 3. Compare both loadings
+round(cor(scores_pc, scores_mle), 2)
+```
+
+```{r}
+levelplot(Lhat,
+          xlab = "", ylab = "")
+```
+
+```{r}
+# Let's rotate the PC loadings
+Lhat <- varimax(Lhat)$loadings
+scores_pc <- scale(data, center = TRUE,
+                    scale = TRUE) %*% 
+  solve(Rn) %*% Lhat
+```
+
+```{r}
+# Compare both loadings again
+round(cor(scores_pc, scores_mle), 2)
+```
+
+```{r}
+levelplot(unclass(Lhat),
+          xlab = "", ylab = "")
+```
+
+```{r}
+levelplot(unclass(Lmle),
+          xlab = "", ylab = "")
+```
+
+```{r, echo = FALSE, eval = FALSE}
+inner_join(
+  as.data.frame(scores_pc) %>% 
+    mutate(ID = row_number()) %>% 
+    gather(Factor, Score, -ID) %>% 
+    rename(PC = Score) %>% 
+    mutate(Factor = stringr::str_replace(Factor, "PC", "Factor")),
+  as.data.frame(scores_mle) %>% 
+    mutate(ID = row_number()) %>% 
+    gather(Factor, Score, -ID) %>% 
+    rename(MLE = Score),
+  by = c("ID", "Factor")
+) %>% 
+  ggplot(aes(PC, MLE, colour = Factor)) + 
+  geom_abline(slope = 1, intercept = 0,
+              linetype = 'dashed') +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = 'lm', se = FALSE) +
+  theme_minimal() +
+  theme(legend.position = 'top')
+```
+
+```{r}
+# 4. Compare different m
+# Let's start with scree plot
+screeplot(decomp, type = 'l')
+```
+
+```{r warning = FALSE}
+# Then let's look at information criteria
+inform_crit <- purrr::map_df(
+  seq_len(4),  function(m) {
+    fa_decomp <- psych::fa(data, nfactors = m,
+                           fm = 'ml')
+    data.frame(
+      BIC = fa_decomp$BIC, eBIC = fa_decomp$EBIC,
+      SABIC = fa_decomp$SABIC, m = m
+    )})
+```
+
+```{r}
+inform_crit %>% 
+  gather(Criteria, value, -m) %>% 
+  ggplot(aes(m, value, colour = Criteria)) + 
+  geom_point() + 
+  geom_line() + 
+  theme_minimal() +
+  theme(legend.position = 'top')
+```
+
+```{r}
+inform_crit %>% 
+  gather(Criteria, value, -m) %>% 
+  group_by(Criteria) %>% 
+  filter(value == min(value)) %>% 
+  select(-value) %>% 
+  spread(Criteria, m)
+```
+
+```{r}
+m <- 2
+Lhat <- decomp$loadings[,seq_len(m)] %*% 
+  diag(decomp$sdev[seq_len(m)])
+colnames(Lhat) <- paste0("PC", 1:2)
+Psi_hat <- diag(cov(data) - tcrossprod(Lhat))
+
+Lhat <- varimax(Lhat)$loadings
+scores_pc <- scale(data, center = TRUE,
+                    scale = TRUE) %*% 
+  solve(Rn) %*% Lhat
+```
+
+
+```{r}
+# MLE
+fa_decomp <- factanal(data, factors = m)
+Psi_mle <- fa_decomp$uniquenesses
+Lmle <- fa_decomp$loadings
+
+scores_mle <- scale(data, center = TRUE,
+                    scale = TRUE) %*% 
+  solve(Rn) %*% Lmle
+```
+
+```{r}
+# Compare both loadings again
+round(cor(scores_pc, scores_mle), 2)
+```
+
+```{r}
+levelplot(unclass(Lhat),
+          xlab = "", ylab = "")
+```
+
+```{r}
+levelplot(unclass(Lmle),
+          xlab = "", ylab = "")
+```
+
+```{r}
+plot(scores_mle, type = 'n')
+text(scores_mle, labels = rownames(scores_mle))
+abline(h = 0, v = 0, lty = 2)
+```
+
+
+```{r}
+# Let's plot the factors on the map
+library(maps)
+states <- map_data("state")
+
+data_plot <- scores_mle %>%
+  as.data.frame() %>% 
+  rownames_to_column("region") %>% 
+  mutate(region = tolower(region)) %>% 
+  inner_join(states, by = "region")
+```
+
+
+```{r}
+ggplot(data = data_plot) + 
+  geom_polygon(aes(x = long, y = lat, 
+                   fill = Factor1, 
+                   group = group)) +
+  coord_fixed(1.3) +
+  ggthemes::theme_map() + 
+  ggtitle("First Factor")
+```
+
+```{r}
+ggplot(data = data_plot) + 
+  geom_polygon(aes(x = long, y = lat, 
+                   fill = Factor2, 
+                   group = group)) +
+  coord_fixed(1.3) +
+  ggthemes::theme_map() + 
+  ggtitle("Second Factor")
+```
