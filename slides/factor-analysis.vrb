@@ -1,33 +1,456 @@
-\frametitle{Comments}
+\frametitle{A different example}
 
 \begin{itemize}
 \tightlist
 \item
-  As with estimation, there are many more rotation methods.
+  The dataset: \texttt{state.x77}. It contains general information about
+  all 50 states.
 
   \begin{itemize}
   \tightlist
   \item
-    See for example the help page \texttt{?GPArotation::rotations}
-  \end{itemize}
-\item
-  One particular class of rotations are called \emph{oblique}
-
-  \begin{itemize}
-  \tightlist
+    Population
   \item
-    The matrix \(T\) is no longer constrained to be orthogonal.
-  \end{itemize}
-\item
-  Factor rotation is especially useful with loadings obtained through
-  MLE
-
-  \begin{itemize}
-  \tightlist
+    Income per capita
   \item
-    Recall the constraint on \(L^T\Psi^{-1}L\) being diagonal
+    Illiteracy rate
+  \item
+    Life Expectancy
+  \item
+    Murder rate
+  \item
+    High-School Graduation rate
+  \item
+    Average number of days below 0C
+  \item
+    Total area
   \end{itemize}
-\item
-  Factor rotations are also sometimes used with PCA loadings.
 \end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{state.x77[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Population Income Illiteracy Life Exp
+## Alabama          3615   3624        2.1    69.05
+## Alaska            365   6315        1.5    69.31
+## Arizona          2212   4530        1.8    70.55
+## Arkansas         2110   3378        1.9    70.66
+## California      21198   5114        1.1    71.71
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(GGally)}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(state.x77)}
+\KeywordTok{ggpairs}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-40-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Potential outliers?}
+\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rownames_to_column}\NormalTok{(}\StringTok{'State'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(Population, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        State Population Income Illiteracy Life Exp Murder HS Grad Frost
+## 1 California      21198   5114        1.1    71.71   10.3    62.6    20
+## 2   New York      18076   4903        1.4    70.55   10.9    52.7    82
+##     Area
+## 1 156361
+## 2  47831
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rownames_to_column}\NormalTok{(}\StringTok{'State'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(Area, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    State Population Income Illiteracy Life Exp Murder HS Grad Frost   Area
+## 1 Alaska        365   6315        1.5    69.31   11.3    66.7   152 566432
+## 2  Texas      12237   4188        2.2    70.90   12.2    47.4    35 262134
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Principal Component Factor analysis}
+\NormalTok{decomp <-}\StringTok{ }\KeywordTok{princomp}\NormalTok{(data, }\DataTypeTok{cor =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{decomp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## princomp(x = data, cor = TRUE)
+##
+## Standard deviations:
+##    Comp.1    Comp.2    Comp.3    Comp.4    Comp.5    Comp.6    Comp.7
+## 1.8970755 1.2774659 1.0544862 0.8411327 0.6201949 0.5544923 0.3800642
+##    Comp.8
+## 0.3364338
+##
+##  8  variables and  50 observations.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{biplot}\NormalTok{(decomp)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-43-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m <-}\StringTok{ }\DecValTok{3}
+\NormalTok{Lhat <-}\StringTok{ }\NormalTok{decomp}\OperatorTok{$}\NormalTok{loadings[,}\KeywordTok{seq_len}\NormalTok{(m)] }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{diag}\NormalTok{(decomp}\OperatorTok{$}\NormalTok{sdev[}\KeywordTok{seq_len}\NormalTok{(m)])}
+\KeywordTok{colnames}\NormalTok{(Lhat) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"PC"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\NormalTok{Psi_hat <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\KeywordTok{cov}\NormalTok{(data) }\OperatorTok{-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lhat))}
+
+\CommentTok{# Our FA model explains:}
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(Lhat}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{/}\KeywordTok{ncol}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7928445
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# We can also  visualize the fit}
+\NormalTok{Rn <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(data)}
+\NormalTok{Rn_fit <-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lhat) }\OperatorTok{+}\StringTok{ }\KeywordTok{diag}\NormalTok{(Psi_hat)}
+
+\KeywordTok{levelplot}\NormalTok{(Rn }\OperatorTok{-}\StringTok{ }\NormalTok{Rn_fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-45-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scores_pc <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(data, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{,}
+                    \DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{solve}\NormalTok{(Rn) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Lhat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggpairs}\NormalTok{(}\KeywordTok{as.data.frame}\NormalTok{(scores_pc))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-47-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# What state has the outlying values?}
+\NormalTok{scores_pc }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{as.data.frame }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rownames_to_column}\NormalTok{(}\StringTok{'State'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(PC2 }\OperatorTok{>}\StringTok{ }\DecValTok{4} \OperatorTok{|}\StringTok{ }\NormalTok{PC3 }\OperatorTok{<}\StringTok{ }\DecValTok{-4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    State        PC1      PC2       PC3
+## 1 Alaska -0.5551363 4.271092 -4.021475
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2. Maximum Likelihood Factor analysis}
+\NormalTok{fa_decomp <-}\StringTok{ }\KeywordTok{factanal}\NormalTok{(data, }\DataTypeTok{factors =}\NormalTok{ m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Extract estimates}
+\NormalTok{Psi_mle <-}\StringTok{ }\NormalTok{fa_decomp}\OperatorTok{$}\NormalTok{uniquenesses}
+\NormalTok{Lmle <-}\StringTok{ }\NormalTok{fa_decomp}\OperatorTok{$}\NormalTok{loadings}
+
+\CommentTok{# Our FA model explains:}
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(Lmle}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{/}\KeywordTok{ncol}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.671468
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# We can also  visualize the fit}
+\NormalTok{Rn_mle <-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lmle) }\OperatorTok{+}\StringTok{ }\KeywordTok{diag}\NormalTok{(Psi_mle)}
+
+\KeywordTok{levelplot}\NormalTok{(Rn }\OperatorTok{-}\StringTok{ }\NormalTok{Rn_mle)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-51-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scores_mle <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(data, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{,}
+                    \DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{solve}\NormalTok{(Rn) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Lmle}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggpairs}\NormalTok{(}\KeywordTok{as.data.frame}\NormalTok{(scores_mle))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-53-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3. Compare both loadings}
+\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(scores_pc, scores_mle), }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Factor1 Factor2 Factor3
+## PC1   -0.76    0.52   -0.41
+## PC2   -0.18    0.34    0.80
+## PC3    0.37    0.44   -0.19
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levelplot}\NormalTok{(Lhat,}
+          \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-55-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Let's rotate the PC loadings}
+\NormalTok{Lhat <-}\StringTok{ }\KeywordTok{varimax}\NormalTok{(Lhat)}\OperatorTok{$}\NormalTok{loadings}
+\NormalTok{scores_pc <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(data, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{,}
+                    \DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{solve}\NormalTok{(Rn) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Lhat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Compare both loadings again}
+\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(scores_pc, scores_mle), }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Factor1 Factor2 Factor3
+## PC1   -0.86    0.36   -0.20
+## PC2   -0.09   -0.04    0.89
+## PC3    0.02    0.67    0.13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levelplot}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(Lhat),}
+          \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-58-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levelplot}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(Lmle),}
+          \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-59-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 4. Compare different m}
+\CommentTok{# Let's start with scree plot}
+\KeywordTok{screeplot}\NormalTok{(decomp, }\DataTypeTok{type =} \StringTok{'l'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-61-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Then let's look at information criteria}
+\NormalTok{inform_crit <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map_df}\NormalTok{(}
+  \KeywordTok{seq_len}\NormalTok{(}\DecValTok{4}\NormalTok{),  }\ControlFlowTok{function}\NormalTok{(m) \{}
+\NormalTok{    fa_decomp <-}\StringTok{ }\NormalTok{psych}\OperatorTok{::}\KeywordTok{fa}\NormalTok{(data, }\DataTypeTok{nfactors =}\NormalTok{ m,}
+                           \DataTypeTok{fm =} \StringTok{'ml'}\NormalTok{)}
+    \KeywordTok{data.frame}\NormalTok{(}
+      \DataTypeTok{BIC =}\NormalTok{ fa_decomp}\OperatorTok{$}\NormalTok{BIC, }\DataTypeTok{eBIC =}\NormalTok{ fa_decomp}\OperatorTok{$}\NormalTok{EBIC,}
+      \DataTypeTok{SABIC =}\NormalTok{ fa_decomp}\OperatorTok{$}\NormalTok{SABIC, }\DataTypeTok{m =}\NormalTok{ m}
+\NormalTok{    )\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inform_crit }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{gather}\NormalTok{(Criteria, value, }\OperatorTok{-}\NormalTok{m) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(m, value, }\DataTypeTok{colour =}\NormalTok{ Criteria)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{'top'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-63-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inform_crit }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{gather}\NormalTok{(Criteria, value, }\OperatorTok{-}\NormalTok{m) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Criteria) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(value }\OperatorTok{==}\StringTok{ }\KeywordTok{min}\NormalTok{(value)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{value) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{spread}\NormalTok{(Criteria, m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##     BIC  eBIC SABIC
+##   <int> <int> <int>
+## 1     2     2     4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m <-}\StringTok{ }\DecValTok{2}
+\NormalTok{Lhat <-}\StringTok{ }\NormalTok{decomp}\OperatorTok{$}\NormalTok{loadings[,}\KeywordTok{seq_len}\NormalTok{(m)] }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{diag}\NormalTok{(decomp}\OperatorTok{$}\NormalTok{sdev[}\KeywordTok{seq_len}\NormalTok{(m)])}
+\KeywordTok{colnames}\NormalTok{(Lhat) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"PC"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{Psi_hat <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\KeywordTok{cov}\NormalTok{(data) }\OperatorTok{-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lhat))}
+
+\NormalTok{Lhat <-}\StringTok{ }\KeywordTok{varimax}\NormalTok{(Lhat)}\OperatorTok{$}\NormalTok{loadings}
+\NormalTok{scores_pc <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(data, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{,}
+                    \DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{solve}\NormalTok{(Rn) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Lhat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# MLE}
+\NormalTok{fa_decomp <-}\StringTok{ }\KeywordTok{factanal}\NormalTok{(data, }\DataTypeTok{factors =}\NormalTok{ m)}
+\NormalTok{Psi_mle <-}\StringTok{ }\NormalTok{fa_decomp}\OperatorTok{$}\NormalTok{uniquenesses}
+\NormalTok{Lmle <-}\StringTok{ }\NormalTok{fa_decomp}\OperatorTok{$}\NormalTok{loadings}
+
+\NormalTok{scores_mle <-}\StringTok{ }\KeywordTok{scale}\NormalTok{(data, }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{,}
+                    \DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }
+\StringTok{  }\KeywordTok{solve}\NormalTok{(Rn) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Lmle}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Compare both loadings again}
+\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(scores_pc, scores_mle), }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Factor1 Factor2
+## PC1    0.91   -0.33
+## PC2    0.22    0.84
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levelplot}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(Lhat),}
+          \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-68-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levelplot}\NormalTok{(}\KeywordTok{unclass}\NormalTok{(Lmle),}
+          \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-69-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(scores_mle, }\DataTypeTok{type =} \StringTok{'n'}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(scores_mle, }\DataTypeTok{labels =} \KeywordTok{rownames}\NormalTok{(scores_mle))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{0}\NormalTok{, }\DataTypeTok{v =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-70-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Let's plot the factors on the map}
+\KeywordTok{library}\NormalTok{(maps)}
+\NormalTok{states <-}\StringTok{ }\KeywordTok{map_data}\NormalTok{(}\StringTok{"state"}\NormalTok{)}
+
+\NormalTok{data_plot <-}\StringTok{ }\NormalTok{scores_mle }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{as.data.frame}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rownames_to_column}\NormalTok{(}\StringTok{"region"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{region =} \KeywordTok{tolower}\NormalTok{(region)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{inner_join}\NormalTok{(states, }\DataTypeTok{by =} \StringTok{"region"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_plot) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_polygon}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ long, }\DataTypeTok{y =}\NormalTok{ lat, }
+                   \DataTypeTok{fill =}\NormalTok{ Factor1, }
+                   \DataTypeTok{group =}\NormalTok{ group)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{coord_fixed}\NormalTok{(}\FloatTok{1.3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\NormalTok{ggthemes}\OperatorTok{::}\KeywordTok{theme_map}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"First Factor"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-72-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data_plot) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_polygon}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ long, }\DataTypeTok{y =}\NormalTok{ lat, }
+                   \DataTypeTok{fill =}\NormalTok{ Factor2, }
+                   \DataTypeTok{group =}\NormalTok{ group)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{coord_fixed}\NormalTok{(}\FloatTok{1.3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\NormalTok{ggthemes}\OperatorTok{::}\KeywordTok{theme_map}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Second Factor"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/factor-analysis_files/figure-beamer/unnamed-chunk-73-1.pdf}
 
