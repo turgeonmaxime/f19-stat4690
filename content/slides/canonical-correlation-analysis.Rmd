@@ -1,0 +1,191 @@
+---
+title: "Canonical Correlation Analysis"
+draft: true
+source: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+## Introduction
+
+## Population model {.allowframebreaks}
+
+  - Let $\mathbf{Y}$ and $\mathbf{X}$ be $p$- and $q$-dimensional random vectors, respectively.
+    + We will assume that $p\leq q$.
+  - Let $\mu_Y$ and $\mu_X$ be the mean of $\mathbf{Y}$ and $\mathbf{X}$, respectively.
+  - Let $\Sigma_Y$ and $\Sigma_X$ be the covariance matrix of $\mathbf{Y}$ and $\mathbf{X}$, respectively, and let $\Sigma_{XY} = \Sigma_{YX}^T$ be the covariance matrix $\mathrm{Cov}(\mathbf{Y}, \mathbf{X})$.
+    + Assume $\Sigma_Y$ and $\Sigma_X$ are positive definite.
+  - Note that $\Sigma_{YX}$ has $pq$ entries, corresponding to all covariances between a component of $\mathbf{Y}$ and a component of $\mathbf{X}$.
+  - **Goal of CCA**: Summarise $\Sigma_{YX}$ with $p$ numbers.
+    + These $p$ numbers will be called the *canonical correlations*.
+    
+## Dimension reduction {.allowframebreaks}
+
+  - Let $U = a^T\mathbf{Y}$ and $V = b^T\mathbf{Y}$ be linear combinations of $\mathbf{Y}$ and $\mathbf{X}$, respectively.
+  - We have:
+    + $\mathrm{Var}(U) = a^T\Sigma_Y a$
+    + $\mathrm{Var}(V) = b^T\Sigma_X b$
+    + $\mathrm{Cov}(U, V) = a^T\Sigma_{YX} b$.
+  - Therefore, we can write the correlation between $U$ and $V$ as follows:
+  $$\mathrm{Corr}(U, V) = \frac{a^T\Sigma_{YX} b}{\sqrt{a^T\Sigma_Y a}\sqrt{b^T\Sigma_X b}}.$$
+  - We are looking for vectors $a\in\mathbb{R}^p,b\in\mathbb{R}^q$ such that $\mathrm{Corr}(U, V)$ is **maximised**.
+
+## Definitions 
+
+  - The *first pair of canonical variates* is the pair of linear combinations $U_1, V_1$ with unit variance such that $\mathrm{Corr}(U_1, V_1)$ is maximised.
+  - The **$k$-th pair of canonical variates** is the pair of linear combinations $U_k, V_k$ with unit variance such that $\mathrm{Corr}(U_k, V_k)$ is maximised among all pairs that are uncorrelated with the previous $k-1$ pairs.
+  - When $U_k, V_k$ is the $k$-th pair of canonical variates, we say that $\rho_k = \mathrm{Corr}(U_k, V_k)$ is the $k$-th *canonical correlation*.
+  
+## Derivation of canonical variates {.allowframebreaks}
+
+  - Make a change of variables:
+    + $\tilde{a} = \Sigma^{1/2}_Ya$
+    + $\tilde{b} = \Sigma^{1/2}_Xb$
+  - We can then rewrite the correlation:
+  \begin{align*}
+  \mathrm{Corr}(U, V) &= \frac{a^T\Sigma_{YX} b}{\sqrt{a^T\Sigma_Y a}\sqrt{b^T\Sigma_X b}} \\
+  &= \frac{\tilde{a}^T\Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1/2}\tilde{b}}{\sqrt{\tilde{a}^T\tilde{a}}\sqrt{\tilde{b}^T\tilde{b}}}.
+  \end{align*}
+  - Let $M = \Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1/2}$. We have
+  $$ \max_{a,b}\mathrm{Corr}(a^T\mathbf{Y}, b^T\mathbf{Y}) \Longleftrightarrow \max_{\tilde{a},\tilde{b}:\|\tilde{a}\|=1,\|\tilde{b}\|=1} \tilde{a}^TM\tilde{b}$$
+  - The solution to this maximisation problem involves the **singular value decomposition** of $M$.
+  - Equivalently, it involves the **eigendecomposition** of $MM^T$, where
+  $$MM^T = \Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1}\Sigma_{XY}\Sigma_Y^{-1/2}.$$
+  
+## CCA: Main theorem
+
+  - Let $\lambda_1\geq\cdots\geq\lambda_p$ be the eigenvalues of $\Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1}\Sigma_{XY}\Sigma_Y^{-1/2}$.
+  - Let $e_1, \ldots, e_p$ be the corresponding eigenvector with unit norm.
+  - Note that $\lambda_1\geq\cdot\geq\lambda_p$ are also the $p$ largest eigenvalues of 
+  $$M^TM = \Sigma_X^{-1/2}\Sigma_{XY}\Sigma_Y^{-1}\Sigma_{YX}\Sigma_X^{-1/2}.$$
+  - Let $f_1, \ldots, f_p$ be the corresponding eigenvectors with unit norm.
+  - Then the $k$-th pair of canonical variates is given by
+  $$U_k = e_k^T\Sigma_Y^{-1/2}\mathbf{Y}, \qquad V_k = f_k^T\Sigma_X^{-1/2}\mathbf{X}.$$
+  - Moreover, we have
+  $$ \rho_k = \mathrm{Corr}(U_k, V_k) = \sqrt{\lambda_k}.$$
+
+## Some vocabulary
+
+  1. **Canonical directions**: $(e_k^T\Sigma_Y^{-1/2}, f_k^T\Sigma_X^{-1/2})$
+  2. **Canonical variates**: $(U_k, V_k)=\left(e_k^T\Sigma_Y^{-1/2}\mathbf{Y}, f_k^T\Sigma_X^{-1/2}\mathbf{X}\right)$
+  3. **Canonical correlations**: $\rho_k = \sqrt{\lambda_k}$
+  
+## Example {.allowframebreaks}
+
+```{r}
+Sigma_Y <- matrix(c(1, 0.4, 0.4, 1), ncol = 2)
+Sigma_X <- matrix(c(1, 0.2, 0.2, 1), ncol = 2)
+Sigma_YX <- matrix(c(0.5, 0.3, 0.6, 0.4), ncol = 2)
+Sigma_XY <- t(Sigma_YX)
+
+rbind(cbind(Sigma_Y, Sigma_YX),
+      cbind(Sigma_XY, Sigma_X))
+```
+```{r, message = FALSE}
+library(expm)
+sqrt_Y <- sqrtm(Sigma_Y)
+sqrt_X <- sqrtm(Sigma_X)
+M1 <- solve(sqrt_Y) %*% Sigma_YX %*% solve(Sigma_X) %*% 
+  Sigma_XY %*% solve(sqrt_Y)
+
+(decomp1 <- eigen(M1))
+```
+
+```{r}
+decomp1$vectors[,1] %*% solve(sqrt_Y)
+```
+
+```{r}
+M2 <- solve(sqrt_X) %*% Sigma_XY %*% solve(Sigma_Y) %*% 
+  Sigma_YX %*% solve(sqrt_X)
+
+decomp2 <- eigen(M2)
+decomp2$vectors[,1] %*% solve(sqrt_X)
+```
+
+```{r}
+sqrt(decomp1$values)
+```
+
+## Sample CCA
+
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# Let's generate data
+library(mvtnorm)
+Sigma <- rbind(cbind(Sigma_Y, Sigma_YX),
+               cbind(Sigma_XY, Sigma_X))
+
+YX <- rmvnorm(100, sigma = Sigma)
+Y <- YX[,1:2]
+X <- YX[,3:4]
+
+decomp <- cancor(X, Y)
+
+U <- Y %*% decomp$ycoef
+V <- X %*% decomp$xcoef
+
+diag(cor(U, V))
+decomp$cor
+```
+
+## Example {.allowframebreaks}
+
+```{r, message=FALSE}
+library(tidyverse)
+library(dslabs)
+
+X <- olive %>% 
+  select(-area, -region) %>% 
+  as.matrix
+
+Y <- olive %>% 
+  select(region) %>% 
+  model.matrix(~ region - 1, data = .)
+```
+
+
+```{r, message=FALSE}
+head(unname(Y))
+
+decomp <- cancor(X, Y)
+
+V <- X %*% decomp$xcoef
+```
+
+
+```{r, message=FALSE}
+data.frame(
+  V1 = V[,1],
+  V2 = V[,2],
+  region = olive$region
+) %>% 
+  ggplot(aes(V1, V2, colour = region)) +
+  geom_point() + 
+  theme_minimal()
+```
+
+
+## Interpreting the population canonical variables
+
+## Geometric interpretation
+
+# Large sample inference
+
+## Test of independence
+
+## Sequential inference
+
