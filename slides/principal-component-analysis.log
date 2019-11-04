@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.9)  15 OCT 2019 17:46
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.22)  4 NOV 2019 10:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1105,24 +1105,39 @@ Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
 Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+)) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2019/10/10 v2.7c Micro-typographical refinements (RS)
+\MT@toks=\toks49
+\MT@count=\count350
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen297
+LaTeX Info: Redefining \textmicrotypecontext on input line 1347.
+\MT@listname@count=\count351
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/microtype-xetex.def
+File: microtype-xetex.def 2019/10/10 v2.7c Definitions specific to xetex (RS)
+LaTeX Info: Redefining \lsstyle on input line 258.
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2019/10/10 v2.7c microtype main configuration file (RS)
 ))
 Package hyperref Info: Option `breaklinks' set `true' on input line 55.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2019/01/15
 Style option: `fancyvrb' v3.2a <2019/01/15> (tvz)
-\FV@CodeLineNo=\count350
+\FV@CodeLineNo=\count352
 \FV@InFile=\read3
 \FV@TabBox=\box81
-\c@FancyVerbLine=\count351
-\FV@StepNumber=\count352
+\c@FancyVerbLine=\count353
+\FV@StepNumber=\count354
 \FV@OutFile=\write5
 ) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip75
-\fb@frw=\dimen297
-\fb@frh=\dimen298
-\FrameRule=\dimen299
-\FrameSep=\dimen300
+\fb@frw=\dimen298
+\fb@frh=\dimen299
+\FrameRule=\dimen300
+\FrameSep=\dimen301
 ) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/oberdiek/grffile.sty
 Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
 Package grffile Info: Option `multidot' is set to `true'.
@@ -1137,7 +1152,7 @@ Package: tikzpagenodes 2012/09/16 v1.1 Special PGF/TikZ nodes for areas of the
 page
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count353
+\c@checkoddpage=\count355
 ))
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarycalc.code.tex
@@ -1147,16 +1162,16 @@ Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen301
-\captionmargin@=\dimen302
-\captionwidth=\dimen303
-\caption@tempdima=\dimen304
-\caption@indent=\dimen305
-\caption@parindent=\dimen306
-\caption@hangindent=\dimen307
+\captionmargin=\dimen302
+\captionmargin@=\dimen303
+\captionwidth=\dimen304
+\caption@tempdima=\dimen305
+\caption@indent=\dimen306
+\caption@parindent=\dimen307
+\caption@hangindent=\dimen308
 )
-\c@caption@flags=\count354
-\c@ContinuedFloat=\count355
+\c@caption@flags=\count356
+\c@ContinuedFloat=\count357
 Package caption Info: beamer document class.
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
@@ -1238,7 +1253,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count356
+\c@section@level=\count358
 )
 LaTeX Info: Redefining \ref on input line 172.
 LaTeX Info: Redefining \pageref on input line 172.
@@ -1272,10 +1287,19 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
+LaTeX Info: Redefining \microtypecontext on input line 172.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using protrusion set `basicmath'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of spacing.
+Package microtype Info: No adjustment of kerning.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-No file principal-component-analysis.nav.
-
+(./principal-component-analysis.nav)
 Overfull \vbox (16.67491pt too high) detected at line 177
  []
 
@@ -1287,6 +1311,14 @@ LaTeX Font Info:    Try loading font information for OT1+lmr on input line 256.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
+(/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
+File: mt-LatinModernRoman.cfg 2013/03/13 v1.0 microtype config. file: Latin Mod
+ern Roman (RS)
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmr' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 256.
 
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
@@ -1311,10 +1343,14 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    Try loading font information for U+msa on input line 256.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 256.
 (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/home/turgeonm/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 256.
@@ -1891,10 +1927,10 @@ anged.
 (rerunfilecheck)             Checksum: 452061AA1328F307507815736D32EFC6.
  ) 
 Here is how much of TeX's memory you used:
- 38426 strings out of 494894
- 790579 string characters out of 6176713
- 867900 words of memory out of 5000000
- 41698 multiletter control sequences out of 15000+600000
+ 39925 strings out of 494894
+ 817293 string characters out of 6176712
+ 914999 words of memory out of 5000000
+ 43169 multiletter control sequences out of 15000+600000
  563514 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  61i,13n,92p,1893b,728s stack positions out of 5000i,500n,10000p,200000b,80000s
