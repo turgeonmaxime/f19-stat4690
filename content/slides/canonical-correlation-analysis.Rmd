@@ -1,6 +1,6 @@
 ---
 title: "Canonical Correlation Analysis"
-draft: true
+draft: false
 source: true
 output: binb::metropolis
 fontsize: 12pt
@@ -19,6 +19,13 @@ knitr::opts_chunk$set(cache=TRUE)
 ```
 
 ## Introduction
+
+  - Canonical Correlation Analysis (CCA) is a dimension reduction method that is similar to PCA, but where we simultaneously reduce the dimension of **two** random vectors $\mathbf{Y}$ and $\mathbf{X}$.
+  - Instead of trying to explain overall variance, we try to explain the covariance $\mathrm{Cov}(\mathbf{Y}, \mathbf{X})$.
+    + Note that this is a measure of **association** between $\mathbf{Y}$ and $\mathbf{X}$.
+  - Examples include:
+    + Arithmetic speed and power ($\mathbf{Y}$) and reading speed and power ($\mathbf{X}$)
+    + College performance metrics ($\mathbf{Y}$) and high-school achievement metrics ($\mathbf{X}$)
 
 ## Population model {.allowframebreaks}
 
@@ -64,13 +71,13 @@ knitr::opts_chunk$set(cache=TRUE)
   - Equivalently, it involves the **eigendecomposition** of $MM^T$, where
   $$MM^T = \Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1}\Sigma_{XY}\Sigma_Y^{-1/2}.$$
   
-## CCA: Main theorem
+## CCA: Main theorem {.allowframebreaks}
 
   - Let $\lambda_1\geq\cdots\geq\lambda_p$ be the eigenvalues of $\Sigma_Y^{-1/2}\Sigma_{YX}\Sigma_X^{-1}\Sigma_{XY}\Sigma_Y^{-1/2}$.
-  - Let $e_1, \ldots, e_p$ be the corresponding eigenvector with unit norm.
-  - Note that $\lambda_1\geq\cdot\geq\lambda_p$ are also the $p$ largest eigenvalues of 
+    + Let $e_1, \ldots, e_p$ be the corresponding eigenvector with unit norm.
+  - Note that $\lambda_1\geq\cdots\geq\lambda_p$ are also the $p$ largest eigenvalues of 
   $$M^TM = \Sigma_X^{-1/2}\Sigma_{XY}\Sigma_Y^{-1}\Sigma_{YX}\Sigma_X^{-1/2}.$$
-  - Let $f_1, \ldots, f_p$ be the corresponding eigenvectors with unit norm.
+    + Let $f_1, \ldots, f_p$ be the corresponding eigenvectors with unit norm.
   - Then the $k$-th pair of canonical variates is given by
   $$U_k = e_k^T\Sigma_Y^{-1/2}\mathbf{Y}, \qquad V_k = f_k^T\Sigma_X^{-1/2}\mathbf{X}.$$
   - Moreover, we have
@@ -97,7 +104,7 @@ rbind(cbind(Sigma_Y, Sigma_YX),
 library(expm)
 sqrt_Y <- sqrtm(Sigma_Y)
 sqrt_X <- sqrtm(Sigma_X)
-M1 <- solve(sqrt_Y) %*% Sigma_YX %*% solve(Sigma_X) %*% 
+M1 <- solve(sqrt_Y) %*% Sigma_YX %*% solve(Sigma_X)%*% 
   Sigma_XY %*% solve(sqrt_Y)
 
 (decomp1 <- eigen(M1))
@@ -108,7 +115,7 @@ decomp1$vectors[,1] %*% solve(sqrt_Y)
 ```
 
 ```{r}
-M2 <- solve(sqrt_X) %*% Sigma_XY %*% solve(Sigma_Y) %*% 
+M2 <- solve(sqrt_X) %*% Sigma_XY %*% solve(Sigma_Y)%*% 
   Sigma_YX %*% solve(sqrt_X)
 
 decomp2 <- eigen(M2)
@@ -120,6 +127,25 @@ sqrt(decomp1$values)
 ```
 
 ## Sample CCA
+
+  - Let $\mathbf{Y}_1, \ldots, \mathbf{Y}_n$ and $\mathbf{X}_1, \ldots, \mathbf{X}_n$ be random samples, and arrange them in $n\times p$ and $n\times q$ matrices $\mathbb{Y},\mathbb{X}$, respectively.
+    + Note that both sample sizes are equal.
+    + Indeed, we assume that $(\mathbf{Y}_i, \mathbf{X}_i)$ are sampled jointly, i.e. on the **same** experimental unit.
+  - Let $\bar{\mathbf{Y}}$ and $\bar{\mathbf{X}}$ be the sample means.
+  - Let $S_Y$ and $S_X$ be the sample covariances.
+  - Define
+  $$S_{YX} = \frac{1}{n-1}\sum_{i=1}^n\left(\mathbf{Y}_i - \bar{\mathbf{Y}}\right)\left(\mathbf{X}_i - \bar{\mathbf{X}}\right)^T.$$
+
+## Sample CCA: Main theorem {.allowframebreaks}
+
+  - Let $\hat{\lambda}_1\geq\cdots\geq\hat{\lambda}_p$ be the eigenvalues of $S_Y^{-1/2}S_{YX}S_X^{-1}S_{XY}S_Y^{-1/2}$.
+    + Let $\hat{e}_1, \ldots, \hat{e}_p$ be the corresponding eigenvector with unit norm.
+  - Note that $\hat{\lambda}_1\geq\cdots\geq\hat{\lambda}_p$ are also the $p$ largest eigenvalues of 
+  $$S_X^{-1/2}S_{XY}S_Y^{-1}S_{YX}S_X^{-1/2}.$$
+    + Let $\hat{f}_1, \ldots, \hat{f}_p$ be the corresponding eigenvectors with unit norm.
+  - Then the $k$-th pair of *sample* canonical variates is given by
+  $$\hat{U}_k = \mathbb{Y}S_Y^{-1/2}\hat{e}_k, \qquad \hat{V}_k = \mathbb{X}S_X^{-1/2}\hat{f}_k.$$
+  - Moreover, we have that $\hat{\rho}_k = \sqrt{\hat{\lambda}_k}$ is the sample correlation of $\hat{U}_k$ and $\hat{V}_k$.
 
 ## Example (cont'd) {.allowframebreaks}
 
@@ -133,8 +159,11 @@ YX <- rmvnorm(100, sigma = Sigma)
 Y <- YX[,1:2]
 X <- YX[,3:4]
 
-decomp <- cancor(X, Y)
+decomp <- cancor(x = X, y = Y)
+```
 
+
+```{r}
 U <- Y %*% decomp$ycoef
 V <- X %*% decomp$xcoef
 
@@ -178,14 +207,66 @@ data.frame(
   theme_minimal()
 ```
 
+## Comments {.allowframebreaks}
 
-## Interpreting the population canonical variables
+  - The main difference between CCA and Multivariate Linear Regression is that CCA treats $\mathbb{Y}$ and $\mathbb{X}$ *symmetrically*.
+  - As with PCA, you can use CCA and the covariance matrix or the correlation matrix.
+    + The latter is equivalent to performing CCA on the standardised variables.
+  - Note that sample CCA involves inverting the sample covariance matrices $S_Y$ and $S_X$:
+    + This means we need to assume $p,q < n$.
+    + In general, this is what drives most of the performance (or lack thereof) of CCA.
+    + There may be gains in efficiency by directly estimating the inverse covariance.
+  - When one of the two datasets $\mathbb{Y}$ or $\mathbb{X}$ represent indicators variables for a categorical variables (cf. the olive dataset), CCA is equivalent to **Linear Discriminant Analysis**.
+    + To learn more about this method, see a course/textbook on Statistical Learning.
+  
+## Interpreting the population canonical variates {.allowframebreaks}
 
-## Geometric interpretation
+  - To help interpretating the canonical variates, let's go back to the population model.
+  - Define
+  \begin{align*}
+  A &= \begin{pmatrix}e_1^T\Sigma_Y^{-1/2} & \cdots & e_p^T\Sigma_Y^{-1/2}\end{pmatrix}^T, \\ 
+  B &= \begin{pmatrix}f_1^T\Sigma_X^{-1/2} & \cdots & f_p^T\Sigma_X^{-1/2}\end{pmatrix}^T.
+  \end{align*}
+  - In other words, both $A$ and $B$ are $p\times p$, and their *rows* are the canonical directions.
+  - Using this notation, we can get all canonical variates using one linear transformation:
+  $$\mathbf{U} = A\mathbf{Y}, \qquad \mathbf{Y} = B\mathbf{X}.$$
+  - We then have
+  $$ \mathrm{Cov}(\mathbf{U}, \mathbf{Y}) = \mathrm{Cov}(A\mathbf{Y}, \mathbf{Y}) = A\Sigma_Y.$$
+  - Since $\mathrm{Cov}(\mathbf{U}) = I_p$, we have
+  $$ \mathrm{Corr}(U_k, Y_i) = \mathrm{Cov}(U_k, \sigma_i^{-1}Y_i),$$
+  where $\sigma^2_i$ is the variance of $Y_i$.
+  - If we let $D_Y$ be the diagonal matrix whose $i$-th diagonal element is $\sigma_i = \sqrt{\mathrm{Var}(Y_i)}$, we can write
+  $$\mathrm{Corr}(\mathbf{U}, \mathbf{Y}) = A\Sigma_YD_Y^{-1}.$$
+  - Using similar computations, we get
+  \begin{align*}
+  \mathrm{Corr}(\mathbf{U}, \mathbf{Y}) = A\Sigma_YD_Y^{-1}, &\qquad \mathrm{Corr}(\mathbf{V}, \mathbf{Y}) = B\Sigma_{XY}D_Y^{-1},\\
+  \mathrm{Corr}(\mathbf{U}, \mathbf{X}) = A\Sigma_{YX}D_X^{-1}, &\qquad \mathrm{Corr}(\mathbf{V}, \mathbf{X}) = B\Sigma_XD_X^{-1}.
+  \end{align*}
+  - **These quantities** (and their sample counterparts) **give us information about the contribution of the original variables to the canonical variates**.
+  
+## Example {.allowframebreaks}
 
-# Large sample inference
+```{r}
+# Let's go back to the olive data
+decomp <- cancor(X, Y)
+V <- X %*% decomp$xcoef
+colnames(V) <- paste0("CC", seq_len(8))
 
-## Test of independence
+library(lattice)
+levelplot(cor(X, V[,1:2]))
+```
 
-## Sequential inference
+
+```{r}
+levelplot(cor(Y, V[,1:2]))
+```
+
+
+<!-- ## Geometric interpretation -->
+
+<!-- # Large sample inference -->
+
+<!-- ## Test of independence -->
+
+<!-- ## Sequential inference -->
 

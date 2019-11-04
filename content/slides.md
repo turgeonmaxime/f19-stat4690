@@ -31,4 +31,5 @@ type: docs
   - [Introduction to Statistical Genetics](statistical-genetics.pdf)
   - [Factor Analysis](factor-analysis.pdf)
     + [R code](factor-analysis.R)
-  - Canonical Correlation Analysis
+  - [Canonical Correlation Analysis](canonical-correlation-analysis.pdf)
+    + [R code](canonical-correlation-analysis.R)

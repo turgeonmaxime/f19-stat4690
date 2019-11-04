@@ -399,7 +399,7 @@ pca$rotation[2,"PC1"]/pca$rotation[1,"PC1"]
 
 ## Large sample inference {.allowframebreaks}
 
-  - If we impose distributional assumption on the data $\mathbf{Y}$, we can derive the sampling distributions of the sample principal components.
+  - If we impose distributional assumptions on the data $\mathbf{Y}$, we can derive the sampling distributions of the sample principal components.
   - Assume $\mathbf{Y} \sim N_p(\mu, \Sigma)$, with $\Sigma$ positive definite. Let $\lambda_1 > \cdots > \lambda_p$ be the eigenvalues of $\Sigma$; in particular we assume they are *distinct*. Finally let $w_1,\ldots, w_p$ be the corresponding eigenvectors.
   - Given a random sample of size $n$, let $S_n$ be the sample covariance matrix, $\hat{\lambda}_1, \ldots, \hat{\lambda}_p$ its eigenvalues, and $\hat{w}_1,\ldots, \hat{w}_p$ the corresponding eigenvectors.
   - Define $\Lambda$ to be the diagonal matrix whose entries are $\lambda_1, \ldots, \lambda_p$, and define
