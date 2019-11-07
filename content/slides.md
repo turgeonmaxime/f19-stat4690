@@ -33,6 +33,7 @@ type: docs
     + [R code](factor-analysis.R)
   - [Canonical Correlation Analysis](canonical-correlation-analysis.pdf)
     + [R code](canonical-correlation-analysis.R)
-  - Multidimensional Scaling
+  - [Multidimensional Scaling](multidimensional-scaling.pdf)
+    + [R code](multidimensional-scaling.R)
   - Kernel Methods
   - Manifold Learning
