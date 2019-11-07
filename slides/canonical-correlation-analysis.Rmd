@@ -229,7 +229,7 @@ data.frame(
     
   - Moreover, we have
     + $\mathrm{Corr}(\mathbb{Y}) = A^{-1}A^{-T}$
-    + $\mathrm{Corr}(\mathbb{Y}) = B^{-1}B^{-T}$
+    + $\mathrm{Corr}(\mathbb{X}) = B^{-1}B^{-T}$
     \vspace{1cm}
   - But recall that 
     + $\mathrm{tr}\left(\mathrm{Corr}(\mathbb{Y})\right) = p$
