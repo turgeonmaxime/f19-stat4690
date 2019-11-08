@@ -217,7 +217,7 @@ mds %>%
   \vspace{2cm}
   
   - **In other words**, we can recover the scalar products from the square distances through double centering and scaling.
-  - Moreover, since we assumed the data was centred, the matrix $S$ is proportional to the sample covariance matrix.
+  - Moreover, since we assumed the data was centred, the SVD of the matrix $S$ is related to the SVD of the sample covariance matrix.
     + In this context, up to a constant, MDS and PCA give the same results.
   - **Note**: This idea that double centering allows us to go from dissimilaries to scalar products will come back again in the next lecture on kernel methods.
   
@@ -289,7 +289,7 @@ scatterplot3d(mds$points,
   - In other words: instead of finding points in $\mathbf{R}^r$ with similar distances, his method tries to preserve the relative ordering of the dissimilarities.
     + The most dissimilar points in $\mathbb{R}^p$ should be represented by the most dissimilar points in $\mathbb{R}^r$, but the actual magnitude is irrelevant.
   - This is achieved by allowing a monotone transformation $f$ of the dissimilarities. We thus get
-  $$\mathrm{Stress}(\tilde{\Delta}; r) = \sqrt{\frac{\sum_{i=1,i<j}^n (\Delta_{ij} - f(\tilde{\Delta}_{ij}))^2}{\sum_{i=1, i<j}^n\Delta_{ij}}}.$$
+  $$\mathrm{Stress}(\tilde{\Delta}; r) = \sqrt{\frac{\sum_{i=1,i<j}^n (f(\Delta_{ij}) - \tilde{\Delta}_{ij})^2}{\sum_{i=1, i<j}^n\tilde{\Delta}_{ij}}}.$$
   
 ## Example (cont'd) {.allowframebreaks}
 
