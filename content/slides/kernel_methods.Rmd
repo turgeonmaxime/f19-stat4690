@@ -1,0 +1,272 @@
+---
+title: "Kernel_methods"
+draft: true
+source: true
+output: binb::metropolis
+fontsize: 12pt
+author: Max Turgeon
+institute: STAT 4690--Applied Multivariate Analysis
+header-includes:
+  - \usefonttheme{professionalfonts}
+  - \usepackage{graphicx}
+  - \usepackage{tikzpagenodes}
+  - \usetikzlibrary{calc}
+  - \usepackage{caption}
+  - \usepackage{bm}
+---
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+## Motivation
+
+## Example {.allowframebreaks}
+
+```{r}
+n <- 100
+# Generate uniform data
+Y <- cbind(runif(n, -1, 1),
+           runif(n, -1, 1))
+
+# Check if it falls inside ellipse
+Sigma <- matrix(c(1, 0.5, 0.5, 1),
+                ncol = 2)
+dists <- sqrt(diag(Y %*% solve(Sigma) %*%
+                     t(Y)))
+inside <- dists < 0.85
+```
+
+
+```{r}
+# Plot points
+colours <- c("red", "blue")[inside + 1]
+plot(Y, col = colours)
+```
+
+```{r}
+# Transform data
+# (X, Y) -> (X^2, Y^2, sqrt(2)*X*Y)
+Y_transf <- cbind(Y[,1]^2, Y[,2]^2,
+                  sqrt(2)*Y[,1]*Y[,2])
+```
+
+```{r}
+library(scatterplot3d)
+scatterplot3d(Y_transf, color = colours,
+              xlab = "X-axis",
+              ylab = "Y-axis",
+              zlab = "Z-axis")
+```
+
+```{r, echo = FALSE}
+scatterplot3d(Y_transf, color = colours,
+              angle = 5,
+              xlab = "X-axis",
+              ylab = "Y-axis",
+              zlab = "Z-axis")
+```
+
+```{r}
+# LDA
+decomp <- cancor(x = cbind(inside, 1 - inside),
+                 y = Y)
+decomp2 <- cancor(x = cbind(inside, 1 - inside),
+                  y = Y_transf)
+```
+
+```{r}
+par(mfrow = c(1,2))
+plot(Y %*% decomp$ycoef, col = colours,
+     xlab = "CCA1", ylab = "CC2",
+     main = "Untransformed")
+plot(Y_transf %*% decomp2$ycoef, col = colours,
+     xlab = "CCA1", ylab = "CC2",
+     main = "Transformed")
+```
+
+## Overfitting
+
+## Ridge regression {.allowframebreaks}
+
+  - Let $(Y_i, \mathbf{X}_i),i=1,\ldots,n$ be a sample of outcome with covariates.
+  - **Univariate Linear Regression**: Assume that we are interested in the linear model
+  $$ Y_i = \beta^T\mathbf{X}_i + \epsilon_i.$$
+  - The Least-Squares estimate of $\beta$ is given by
+  $$ \hat{\beta}_{LS} = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}\mathbf{Y},$$
+  where
+  \begin{align*}
+  \mathbb{X}^T &= \begin{pmatrix} \mathbf{X}_1 & \cdots & \mathbf{X}_n\end{pmatrix},\\
+  \mathbf{Y} &= (Y_1, \ldots, Y_n).\\
+  \end{align*}
+  - If the matrix $\mathbb{X}^T\mathbb{X}$ is almost singular, then the least-squares estimate will be unstable.
+  - **Solution**: Add a small quantity along its diagonal.
+    + $\mathbb{X}^T\mathbb{X} \to \mathbb{X}^T\mathbb{X} + \lambda I$
+    + Bias-Variance tradeoff
+  - The Ridge estimate of $\beta$ is given by
+  $$ \hat{\beta}_{R} = (\mathbb{X}^T\mathbb{X} + \lambda I)^{-1}\mathbb{X}^T\mathbf{Y}.$$
+  
+## Example {.allowframebreaks}
+
+```{r, cache = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+library(tidytuesdayR)
+data_raw <- tt_load_gh("2019-10-15") %>%
+  tt_read_data("big_epa_cars.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, eval = FALSE}
+library(tidyverse)
+data <- data_raw %>% 
+  mutate(
+    fuel         = paste0(fuelType1,",",fuelType2),
+    mpg_city     = paste0(city08 ,",",cityA08),
+    mpg_hw       = paste0(highway08 ,",",highwayA08),
+    c02          = paste0(co2,",",co2A),
+    trany        = 
+      gsub("Auto\\(AM-S(\\d+)\\)","Automatic \\1-spd",
+      gsub("4-spd Doubled","4-spd",
+      gsub("(variable gear ratios)","variable_gear_ratios",
+                        trany)),perl=TRUE)
+  ) %>% 
+  separate(trany,c("transmission","gears"),sep=" ") %>% 
+  mutate(gears = gsub("-spd","",gears)) %>% 
+  dplyr::select(
+    make         = make,
+    model        = model,
+    year         = year,
+    type         = VClass,
+    displacement = displ,
+    transmission,
+    gears,
+    cylinders    = cylinders,
+    drive,
+    fuel,
+    mpg_city,
+    mpg_hw,
+    c02
+  ) %>% 
+  separate_rows(fuel,mpg_city,mpg_hw,c02,sep=",") %>% 
+  filter(fuel     !="NA",
+         mpg_city !=0) %>% 
+  mutate(mpg_city  = as.numeric(mpg_city),
+         mpg_hw    = as.numeric(mpg_hw),
+         c02       = as.numeric(c02),
+         c02       = na_if(c02,-1)) %>% 
+  arrange(make,model,year)
+```
+
+```{r, message = FALSE}
+library(ElemStatLearn)
+library(tidyverse)
+
+data_train <- prostate %>% 
+  filter(train == TRUE) %>% 
+  dplyr::select(-train)
+data_test <- prostate %>% 
+  filter(train == FALSE) %>% 
+  dplyr::select(-train)
+```
+
+```{r}
+model1 <- lm(lpsa ~ ., 
+             data = data_train)
+pred1 <- predict(model1, data_test)
+
+mean((data_test$lpsa - pred1)^2)
+```
+
+```{r, message = FALSE}
+library(glmnet)
+X_train <- model.matrix(lpsa ~ . -  1, 
+             data = data_train)
+model2 <- glmnet(X_train, data_train$lpsa, 
+                 alpha = 0, lambda = 0.7)
+
+X_test <- model.matrix(lpsa ~ . -  1, 
+             data = data_test)
+pred2 <- predict(model2, X_test)
+
+mean((data_test$lpsa - pred2)^2)
+```
+
+## Dual problem {.allowframebreaks}
+
+  - The Ridge estimate actually minimises a **regularized** least-squares function:
+  $$RLS(\beta)=\frac{1}{2}\sum_{i=1}^n(Y_i - \beta^T\mathbf{X}_i)^2 + \frac{\lambda}{2}\beta^T\beta.$$
+  - If we take the derivative with respect to $\beta$, we get
+  $$\frac{\partial}{\partial\beta}RLS(\beta) = -\sum_{i=1}^n(Y_i - \beta^T\mathbf{X}_i)\mathbf{X}_i + \lambda\beta.$$
+  - Setting it equal to 0 and rearranging, we get
+  $$\beta = \frac{1}{\lambda}\sum_{i=1}^n(Y_i - \beta^T\mathbf{X}_i)\mathbf{X}_i.$$
+  - Define $a_i = \frac{1}{\lambda}(Y_i - \beta^T\mathbf{X}_i)$. We then get
+  $$ \beta = \sum_{i=1}^n a_i\mathbf{X}_i= \mathbb{X}^T\alpha,$$
+  where $\alpha = (a_1, \ldots, a_n)$.
+  - **Why?** We can now rewrite $RLS(\beta)$ as a function of $\alpha$. First note that
+  $$RLS(\beta) = \frac{1}{2}(\mathbf{Y} - \mathbb{X}\beta)^T(\mathbf{Y} - \mathbb{X}\beta)+ \frac{\lambda}{2}\beta^T\beta.$$
+  - Now we can substitute $\beta = \mathbb{X}^T\alpha$:
+  \begin{align*}
+  RLS(\alpha) &= \frac{1}{2}(\mathbf{Y} - \mathbb{X}\mathbb{X}^T\alpha)^T(\mathbf{Y} - \mathbb{X}\mathbb{X}^T\alpha)+ \frac{\lambda}{2}(\mathbb{X}^T\alpha)^T(\mathbb{X}^T\alpha)\\
+  &= \frac{1}{2}(\mathbf{Y} - (\mathbb{X}\mathbb{X}^T)\alpha)^T(\mathbf{Y} - (\mathbb{X}\mathbb{X}^T)\alpha)+ \frac{\lambda}{2}\alpha^T(\mathbb{X}\mathbb{X}^T)\alpha.
+  \end{align*}
+  - This formulation of regularised least squares in terms of $\alpha$ is called the **dual problem**.
+  - **Key observation**: $RLS(\alpha)$ depends on $X_i$ *only* through the Gram matrix $\mathbb{X}\mathbb{X}^T$.
+    + If we all we know are the dot products of the covariates $X_i$, we can still solve the ridge regression problem.
+
+## Kernel ridge regression {.allowframebreaks}
+
+  - Suppose we have a transformation $\Phi : \mathbb{R}^p\to\mathbb{R}^N$, where $N$ is typically larger than $p$ and can even be infinity.
+  - Let $K$ be the $n\times n$ matrix whose $(i,j)$-th entry is the dot product between $\Phi(\mathbf{X}_i)$ and $\Phi(\mathbf{X}_j)$:
+  $$K_{ij} = \Phi(\mathbf{X}_i)^T\Phi(\mathbf{X}_j).$$
+  - **Important observation**: This actually induces a map on pairs of points in $\mathbb{R}^p$:
+  $$ k(\mathbf{X}_i, \mathbf{X}_j) = \Phi(\mathbf{X}_i)^T\Phi(\mathbf{X}_j).$$
+  - We will call the function $k$ the **kernel function**.
+  - Now, we can use the dual formulation of ridge regression to fit a linear model betwen $Y_i$ and the transformed $\Phi(X_i)$:
+  $$Y_i = \beta^T\Phi(\mathbf{X}_i) + \epsilon_i.$$
+  - By setting the derivative of $RLS(\alpha)$ equal to zero and solving for $\alpha$, we see that
+  $$\hat{\alpha} = (K + \lambda I_n)^{-1}\mathbf{Y}.$$
+  - Note that we would need to know all the images $\Phi(\mathbf{X}_i)$ to recover $\hat{\beta}$ from $\hat{\alpha}$. On the other hand, we don't actually need $\hat{\beta}$ to obtain the *fitted* values:
+  $$\hat{\mathbf{Y}} = \Phi(\mathbb{X})\hat{\beta} = \Phi(\mathbb{X})\Phi(\mathbb{X})^T\hat{\alpha} = K\hat{\alpha}.$$
+  - To obtain the predicted value for a new covariate profile $\tilde{\mathbf{X}}$, first compute all the dot products in the feature space:
+  $$\mathbf{k} = (k(\mathbf{X}_1, \tilde{\mathbf{X}}), \ldots, k(\mathbf{X}_n, \tilde{\mathbf{X}})).$$
+  - We can then obtain the predicted value:
+  \begin{align*}
+  \tilde{Y} &= \hat{\beta}^T\Phi(\tilde{\mathbf{X}}) \\
+  &= \hat{\alpha}^T \Phi(\mathbb{X})\Phi(\tilde{\mathbf{X}})\\
+  &= \hat{\alpha}^T\mathbf{k}\\
+  &= \mathbf{k}^T(K + \lambda I_n)^{-1}\mathbf{Y}.
+  \end{align*}
+  
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+# Let's start with the identity map for Phi
+# We should get the same results as Ridge regression
+X_train <- model.matrix(lpsa ~ ., 
+                        data = data_train)
+Y_train <- data_train$lpsa
+
+# Ridge regression
+beta_hat <- solve(crossprod(X_train) + 
+                    0.7*diag(ncol(X_train))) %*%
+  t(X_train) %*% Y_train
+
+beta_hat[1:3]
+```
+
+
+```{r}
+# Dual problem
+alpha_hat <- solve(tcrossprod(X_train) + 
+                     0.7*diag(nrow(X_train))) %*% 
+  Y_train
+
+(t(X_train) %*% alpha_hat)[1:3]
+
+all.equal(beta_hat, t(X_train) %*% alpha_hat)
+```
+
+
+## Properties and examples
+
+## Kernel PCA
+
+## Kernel CCA
