@@ -1,0 +1,30 @@
+\frametitle{Comments}
+
+\begin{itemize}
+\tightlist
+\item
+  We can see that the MSE flattens out for all curves around
+  \(\lambda \approx 0.1\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Only incremental gains when reducing \(\lambda\) further.
+  \end{itemize}
+\item
+  Similarly, all curves converge to one another for different
+  \texttt{sigma}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Only incremental gain when reducing \texttt{sigma} further.
+  \end{itemize}
+\item
+  For these reasons, we could select \(\lambda = 0.01\) and
+  \texttt{sigma\ =\ 0.01} as our prediction model.
+\item
+  Note that this gives us better performance than a simple linear model
+  (for which MSE = 1.75).
+\end{itemize}
+

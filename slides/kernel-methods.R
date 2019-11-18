@@ -191,3 +191,264 @@ alpha_hat <- solve(tcrossprod(X_train) +
 
 all.equal(beta_hat, t(X_train) %*% alpha_hat)
 
+
+## ------------------------------------------------------------------------
+library(kernlab)
+# Let's use the quadratic kernel
+poly <- polydot(degree = 2)
+
+Kmat <- kernelMatrix(poly, X_train)
+Kmat[1:3, 1:3]
+
+
+## ------------------------------------------------------------------------
+alpha_poly <- solve(Kmat + 0.7*diag(nrow(X_train))) %*% 
+  Y_train
+
+
+## ------------------------------------------------------------------------
+# Let's predict the test data
+X_test <- model.matrix(lpsa ~ ., 
+                       data = data_test)
+k_pred <- kernelMatrix(poly, X_train, X_test)
+
+pred_poly <- drop(t(alpha_poly) %*% k_pred)
+mean((data_test$lpsa - pred_poly)^2)
+
+# Compare with linear kernel
+pred_lin <- drop(t(alpha_hat) %*% 
+                   tcrossprod(X_train, X_test))
+mean((data_test$lpsa - pred_lin)^2)
+
+
+## ------------------------------------------------------------------------
+# Now let's try a Gaussian kernel
+# Note: Look at documentation for
+# parametrisation
+rbf <- rbfdot(sigma = 0.05)
+Kmat <- kernelMatrix(rbf, X_train)
+
+alpha_rbf <- solve(Kmat + 0.7*diag(nrow(X_train))) %*% 
+  Y_train
+
+
+## ------------------------------------------------------------------------
+k_pred <- kernelMatrix(rbf, X_train, X_test)
+
+pred_rbf <- drop(t(alpha_rbf) %*% k_pred)
+mean((data_test$lpsa - pred_rbf)^2)
+
+
+## ------------------------------------------------------------------------
+# Can we do better by choosing a different sigma?
+n <- nrow(X_train)
+
+fit_rbf <- function(sigma) {
+  rbf <- rbfdot(sigma = sigma)
+  Kmat <- kernelMatrix(rbf, X_train)
+  alpha_rbf <- solve(Kmat + 0.7*diag(n)) %*% 
+    Y_train
+  return(list(alpha = alpha_rbf,
+              rbf = rbf))
+}
+
+
+## ------------------------------------------------------------------------
+pred_rbf <- function(fit) {
+  k_pred <- kernelMatrix(fit$rbf, X_train, 
+                         X_test)
+  pred_rbf <- drop(t(fit$alpha) %*% k_pred)
+  return(pred_rbf)
+}
+
+
+## ------------------------------------------------------------------------
+sigma_vect <- 10^seq(0, -2, by = -0.1)
+MSE <- sapply(sigma_vect,
+              function (sigma) {
+                fit_rbf <- fit_rbf(sigma)
+                pred_rbf <- pred_rbf(fit_rbf)
+                mean((data_test$lpsa - pred_rbf)^2)
+                })
+
+
+## ------------------------------------------------------------------------
+data.frame(
+  sigma = sigma_vect,
+  MSE = MSE
+) %>% 
+  ggplot(aes(sigma, MSE)) +
+  geom_line() +
+  theme_minimal() +
+  scale_x_log10()
+
+
+## ------------------------------------------------------------------------
+data.frame(
+  sigma = sigma_vect,
+  MSE = MSE
+) %>% 
+  filter(MSE == min(MSE))
+
+
+## ------------------------------------------------------------------------
+library(caret)
+
+# Blood-Brain barrier data
+data(BloodBrain)
+length(logBBB)
+dim(bbbDescr)
+
+
+## ------------------------------------------------------------------------
+# 5-fold CV with sigma = 0.05
+trainIndex <- createFolds(logBBB, k = 5)
+str(trainIndex)
+
+
+## ------------------------------------------------------------------------
+# Let's redefine our functions from earlier
+fit_rbf <- function(sigma, data_train, Y_train) {
+  rbf <- rbfdot(sigma = sigma)
+  Kmat <- kernelMatrix(rbf, data_train)
+  alpha_rbf <- solve(Kmat + 
+                       0.7*diag(nrow(data_train))) %*% 
+    Y_train
+  return(list(alpha = alpha_rbf, rbf = rbf))
+}
+
+
+## ------------------------------------------------------------------------
+pred_rbf <- function(fit, data_train, data_test) {
+  k_pred <- kernelMatrix(fit$rbf, data_train, 
+                         data_test)
+  pred_rbf <- drop(t(fit$alpha) %*% k_pred)
+  return(pred_rbf)
+}
+
+
+## ------------------------------------------------------------------------
+sapply(trainIndex, function(index){
+         data_train <- bbbDescr[-index,] %>% 
+           model.matrix( ~ ., data = .)
+         Y_train <- logBBB[-index]
+         data_test <- bbbDescr[index,] %>% 
+           model.matrix( ~ ., data = .)
+         fit_rbf <- fit_rbf(0.05, data_train, Y_train)
+         pred_rbf <- pred_rbf(fit_rbf, data_train,
+                              data_test)
+         mean((logBBB[index] - pred_rbf)^2)
+       }) -> MSEs
+
+
+## ------------------------------------------------------------------------
+MSEs
+mean(MSEs)
+
+
+## ------------------------------------------------------------------------
+# Now, we can repeat for multiple sigmas
+mse_calc <- function(sigma, data_train, data_test, 
+                     Y_train, Y_test) {
+  fit_rbf <- fit_rbf(sigma, data_train, Y_train)
+  pred_rbf <- pred_rbf(fit_rbf, data_train,
+                       data_test)
+  mean((Y_test - pred_rbf)^2)
+}
+
+
+## ------------------------------------------------------------------------
+sapply(trainIndex, function(index){
+         data_train <- bbbDescr[-index,] %>% 
+           model.matrix( ~ ., data = .)
+         Y_train <- logBBB[-index]
+         data_test <- bbbDescr[index,] %>% 
+           model.matrix( ~ ., data = .)
+         sapply(sigma_vect, mse_calc, 
+                data_train = data_train, 
+                data_test = data_test, 
+                Y_train = Y_train,
+                Y_test = logBBB[index])}) -> MSEs
+
+
+## ------------------------------------------------------------------------
+head(rowMeans(MSEs), n = 4)
+
+
+## ------------------------------------------------------------------------
+data.frame(
+  sigma = sigma_vect,
+  MSE = rowMeans(MSEs)
+) %>% 
+  ggplot(aes(sigma, MSE)) +
+  geom_line() +
+  theme_minimal() +
+  scale_x_log10()
+
+
+## ---- echo = FALSE, cache = TRUE-----------------------------------------
+lambda_vect <- 10^seq(3, -2, length.out = 20)
+sigma_vect <- 10^seq(0, -2, length.out = 20)
+
+MSEs <- sapply(lambda_vect, function(lambda) {
+  sapply(trainIndex, function(index){
+    # Create data sets
+    data_train <- bbbDescr[-index,] %>% 
+      model.matrix( ~ ., data = .)
+    Y_train <- logBBB[-index]
+    data_test <- bbbDescr[index,] %>% 
+      model.matrix( ~ ., data = .)
+    Y_test <- logBBB[index]
+    
+    # Fit model and do 5-fold CV
+    sapply(sigma_vect, function(sigma) {
+      rbf <- rbfdot(sigma = sigma)
+      Kmat <- kernelMatrix(rbf, data_train)
+      alpha_rbf <- solve(Kmat + lambda*diag(nrow(data_train))) %*% Y_train
+      k_pred <- kernelMatrix(rbf, data_train, data_test)
+      pred_rbf <- drop(t(alpha_rbf) %*% k_pred)
+      mean((Y_test - pred_rbf)^2)
+      })
+  }) -> temp
+  rowMeans(temp)
+})
+
+rownames(MSEs) <- as.character(sigma_vect)
+
+MSEs <- MSEs %>% 
+  t %>% 
+  as.data.frame() %>% 
+  bind_cols(tibble(lambda = lambda_vect))
+
+
+## ------------------------------------------------------------------------
+# We can also tune lambda (see R code)
+MSEs <- MSEs %>% 
+  gather(sigma, MSE, -lambda) %>% 
+  mutate(sigma = as.numeric(sigma)) 
+
+head(MSEs, n = 3) 
+
+MSEs %>% 
+  ggplot(aes(lambda, MSE, group = sigma)) + 
+  geom_line() +
+  theme_minimal() +
+  scale_x_log10() +
+  geom_vline(xintercept = 0.7, linetype = 'dashed')
+
+
+## ------------------------------------------------------------------------
+MSEs %>% 
+  filter(MSE == min(MSE))
+
+
+## ---- echo = FALSE, warning = FALSE--------------------------------------
+sapply(trainIndex, function(index){
+         data_train <- bbbDescr[-index,]
+         Y_train <- logBBB[-index]
+         data_test <- bbbDescr[index,]
+         fit_lm <- lm(Y_train ~ ., data = data_train)
+         pred_lm <- predict(fit_lm, data_test)
+         mean((logBBB[index] - pred_lm)^2)
+       }) -> MSEs_linear
+
