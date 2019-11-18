@@ -119,7 +119,7 @@
 \NormalTok{Lhat <-}\StringTok{ }\NormalTok{decomp}\OperatorTok{$}\NormalTok{loadings[,}\KeywordTok{seq_len}\NormalTok{(m)] }\OperatorTok{%*%}\StringTok{ }
 \StringTok{  }\KeywordTok{diag}\NormalTok{(decomp}\OperatorTok{$}\NormalTok{sdev[}\KeywordTok{seq_len}\NormalTok{(m)])}
 \KeywordTok{colnames}\NormalTok{(Lhat) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"PC"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
-\NormalTok{Psi_hat <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\KeywordTok{cov}\NormalTok{(data) }\OperatorTok{-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lhat))}
+\NormalTok{Psi_hat <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\KeywordTok{cor}\NormalTok{(data) }\OperatorTok{-}\StringTok{ }\KeywordTok{tcrossprod}\NormalTok{(Lhat))}
 
 \CommentTok{# Our FA model explains:}
 \KeywordTok{sum}\NormalTok{(}\KeywordTok{colSums}\NormalTok{(Lhat}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{/}\KeywordTok{ncol}\NormalTok{(data)}
