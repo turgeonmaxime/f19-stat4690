@@ -1,6 +1,6 @@
 ---
-title: "Kernel_methods"
-draft: true
+title: "Kernel Methods"
+draft: false
 source: true
 output: binb::metropolis
 fontsize: 12pt
@@ -16,22 +16,29 @@ header-includes:
 ---
 
 ```{r,setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(cache=FALSE)
 ```
 
 ## Motivation
 
+  - Linearity has been an important assumption for most of the multivariate methods we have discussed.
+    + Multivariate Linear Regression
+    + PCA, FA, CCA
+  - This assumption may be more realistic after a transformation of the data.
+    - E.g. Log transformation
+    - Embedding in a higher dimensional space?
+
 ## Example {.allowframebreaks}
 
 ```{r}
+set.seed(1234)
 n <- 100
 # Generate uniform data
 Y <- cbind(runif(n, -1, 1),
            runif(n, -1, 1))
 
 # Check if it falls inside ellipse
-Sigma <- matrix(c(1, 0.5, 0.5, 1),
-                ncol = 2)
+Sigma <- matrix(c(1, 0.5, 0.5, 1), ncol = 2)
 dists <- sqrt(diag(Y %*% solve(Sigma) %*%
                      t(Y)))
 inside <- dists < 0.85
@@ -68,24 +75,52 @@ scatterplot3d(Y_transf, color = colours,
 ```
 
 ```{r}
-# LDA
-decomp <- cancor(x = cbind(inside, 1 - inside),
-                 y = Y)
-decomp2 <- cancor(x = cbind(inside, 1 - inside),
-                  y = Y_transf)
+# Linear regression
+outcome <- ifelse(inside, 1, -1)
+head(outcome)
 ```
+
 
 ```{r}
-par(mfrow = c(1,2))
-plot(Y %*% decomp$ycoef, col = colours,
-     xlab = "CCA1", ylab = "CC2",
-     main = "Untransformed")
-plot(Y_transf %*% decomp2$ycoef, col = colours,
-     xlab = "CCA1", ylab = "CC2",
-     main = "Transformed")
+model1 <- lm(outcome ~ Y)
+pred1 <- sign(predict(model1))
+table(outcome, pred1) # 67%
 ```
 
-## Overfitting
+
+```{r}
+model2 <- lm(outcome ~ Y_transf)
+pred2 <- sign(predict(model2))
+table(outcome, pred2) # 92%
+```
+
+```{r, echo = FALSE}
+par(mfrow = c(1, 2))
+
+colours1 <- colours
+colours1[outcome != pred1] <- "green"
+plot(Y, col = colours1,
+     main = "No transformation")
+
+colours2 <- colours
+colours2[outcome != pred2] <- "green"
+plot(Y, col = colours2,
+     main = "With transformation")
+legend("bottomright", legend = "Mis.", col = "green", 
+       pch = 1, bg = "white")
+```
+
+## Overfitting {.allowframebreaks}
+
+  - **Overfitting** is "the production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably" (OED)
+    + In other words, a model is overfitted if it explains the *training* data very well, but does poorly on *test* data.
+  - In regression, this often happens when we have too many covariates
+    + Too many *parameters* for the sample size
+    \vspace{1cm}
+  - When embedding our covariates into a higher dimensional space, we are increasing the number of parameters.
+    + There is a danger of overfitting.
+  - **One possible solution**: Regularised (or penalised) regression.
+    + We constrain the parameter space using a penalty function.
 
 ## Ridge regression {.allowframebreaks}
 
@@ -102,19 +137,19 @@ plot(Y_transf %*% decomp2$ycoef, col = colours,
   - If the matrix $\mathbb{X}^T\mathbb{X}$ is almost singular, then the least-squares estimate will be unstable.
   - **Solution**: Add a small quantity along its diagonal.
     + $\mathbb{X}^T\mathbb{X} \to \mathbb{X}^T\mathbb{X} + \lambda I$
-    + Bias-Variance tradeoff
+    + Bias-Variance trade-off
   - The Ridge estimate of $\beta$ is given by
   $$ \hat{\beta}_{R} = (\mathbb{X}^T\mathbb{X} + \lambda I)^{-1}\mathbb{X}^T\mathbf{Y}.$$
   
 ## Example {.allowframebreaks}
 
-```{r, cache = TRUE, warning = FALSE, message = FALSE, eval = FALSE}
+```{r, cache = TRUE, warning = FALSE, message = FALSE, eval = FALSE, echo = FALSE}
 library(tidytuesdayR)
 data_raw <- tt_load_gh("2019-10-15") %>%
   tt_read_data("big_epa_cars.csv")
 ```
 
-```{r, echo = FALSE, message = FALSE, eval = FALSE}
+```{r, echo = FALSE, message = FALSE, eval = FALSE, echo = FALSE}
 library(tidyverse)
 data <- data_raw %>% 
   mutate(
@@ -176,12 +211,17 @@ mean((data_test$lpsa - pred1)^2)
 ```
 
 ```{r, message = FALSE}
+# glmnet does lasso, elastic-net and
+# ridge regression
 library(glmnet)
 X_train <- model.matrix(lpsa ~ . -  1, 
              data = data_train)
 model2 <- glmnet(X_train, data_train$lpsa, 
                  alpha = 0, lambda = 0.7)
+```
 
+
+```{r, message = FALSE}
 X_test <- model.matrix(lpsa ~ . -  1, 
              data = data_test)
 pred2 <- predict(model2, X_test)
@@ -219,7 +259,7 @@ mean((data_test$lpsa - pred2)^2)
   - **Important observation**: This actually induces a map on pairs of points in $\mathbb{R}^p$:
   $$ k(\mathbf{X}_i, \mathbf{X}_j) = \Phi(\mathbf{X}_i)^T\Phi(\mathbf{X}_j).$$
   - We will call the function $k$ the **kernel function**.
-  - Now, we can use the dual formulation of ridge regression to fit a linear model betwen $Y_i$ and the transformed $\Phi(X_i)$:
+  - Now, we can use the dual formulation of ridge regression to fit a linear model between $Y_i$ and the transformed $\Phi(X_i)$:
   $$Y_i = \beta^T\Phi(\mathbf{X}_i) + \epsilon_i.$$
   - By setting the derivative of $RLS(\alpha)$ equal to zero and solving for $\alpha$, we see that
   $$\hat{\alpha} = (K + \lambda I_n)^{-1}\mathbf{Y}.$$
@@ -243,7 +283,10 @@ mean((data_test$lpsa - pred2)^2)
 X_train <- model.matrix(lpsa ~ ., 
                         data = data_train)
 Y_train <- data_train$lpsa
+```
 
+
+```{r}
 # Ridge regression
 beta_hat <- solve(crossprod(X_train) + 
                     0.7*diag(ncol(X_train))) %*%
@@ -264,9 +307,15 @@ alpha_hat <- solve(tcrossprod(X_train) +
 all.equal(beta_hat, t(X_train) %*% alpha_hat)
 ```
 
+## Important observation
 
-## Properties and examples
+  - We assumed that we had an embedding of the data into a higher dimensional space.
+  - But our derivation only required the **dot products** of our observations in the feature space.
+  - Therefore, we don't need to explicitly define the transformation.
+  - All we need is to define a **kernel function**.
 
-## Kernel PCA
+<!-- ## Properties and examples -->
 
-## Kernel CCA
+<!-- ## Kernel PCA -->
+
+<!-- ## Kernel CCA -->
