@@ -37,4 +37,6 @@ type: docs
     + [R code](multidimensional-scaling.R)
   - [Kernel Methods](kernel-methods.pdf)
     + [R code](kernel-methods.R)
-  - Manifold Learning
+  - [Manifold Learning](manifold-learning.pdf)
+    + [R code](manifold-learning.R)
+  - PageRank Algorithm
