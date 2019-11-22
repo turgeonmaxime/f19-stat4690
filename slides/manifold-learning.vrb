@@ -1,0 +1,29 @@
+\frametitle{Example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lle_res <-}\StringTok{ }\KeywordTok{embed}\NormalTok{(data, }\StringTok{"LLE"}\NormalTok{, }\DataTypeTok{knn =} \DecValTok{50}\NormalTok{,}
+                 \DataTypeTok{ndim =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## finding neighbours
+## calculating weights
+## computing coordinates
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lle_res}\OperatorTok{@}\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{as.data.frame}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(LLE1, LLE2)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manifold-learning_files/figure-beamer/unnamed-chunk-26-1.pdf}
+
+\includegraphics{/home/turgeonm/Documents/git_repos/f19-stat4690/static/slides/manifold-learning_files/figure-beamer/unnamed-chunk-27-1.pdf}
+

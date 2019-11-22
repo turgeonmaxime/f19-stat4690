@@ -157,3 +157,113 @@ for (i in seq(0, k - 1)) {
         axes = FALSE, asp = 1, main = paste0("ISO1=", round(iso_val)))
 }
 
+
+## -----------------------------------------------------------------------------
+n <- 1000
+data_knn <- data[seq_len(n),]
+
+# Compute distances
+Delta <- dist(data_knn)
+
+# Take 5-NN to first obs.
+neighbours <- order(Delta[seq_len(n-1)])[1:5]
+
+
+## -----------------------------------------------------------------------------
+main_obs <- data_knn[1,]
+nb_data <- data_knn[neighbours,]
+
+
+## ----echo = FALSE-------------------------------------------------------------
+par(mfrow = c(2,3))
+for (i in 1:5) {
+  matrix(nb_data[i,], ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = glue::glue("NN {i}"), asp = 1)
+}
+
+
+## -----------------------------------------------------------------------------
+# Center neighbours around main obs
+nb_data_c <- sweep(nb_data, 2, main_obs)
+# Local cov matrix
+Gmat <- tcrossprod(nb_data_c)
+
+
+## -----------------------------------------------------------------------------
+# Find weights
+w_vect <- solve(Gmat, rep(1, 5))
+w_vect <- w_vect/sum(w_vect)
+
+
+## -----------------------------------------------------------------------------
+# Compare original with approx.
+approx <- drop(w_vect %*% nb_data)
+par(mfrow = c(1, 2))
+
+matrix(main_obs, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Original", asp = 1)
+matrix(approx, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Approx. (5 NN)", asp = 1)
+
+
+## ---- echo = FALSE------------------------------------------------------------
+# Take 50-NN to first obs.
+K <- 25
+neighbours <- order(Delta[1:99])[seq_len(K)]
+# Center neighbours around main obs
+nb_data <- data_knn[neighbours,]
+nb_data_c <- sweep(nb_data, 2, main_obs)
+# Local cov matrix
+Gmat <- tcrossprod(nb_data_c)
+# Find weights
+w_vect <- solve(Gmat, rep(1, K))
+w_vect <- w_vect/sum(w_vect)
+# Compare original with approx.
+approx <- drop(w_vect %*% nb_data)
+par(mfrow = c(1, 2))
+
+matrix(main_obs, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Original", asp = 1)
+matrix(approx, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = glue::glue("Approx. ({K} NN)"), asp = 1)
+
+
+## ----message = TRUE-----------------------------------------------------------
+lle_sr <- embed(cbind(X, Y, Z), "LLE", knn = 20,
+                ndim = 2)
+
+
+## -----------------------------------------------------------------------------
+lle_sr@data@data %>% 
+  plot(col = as.character(colours), pch = 19)
+
+
+## ----lle, cache = TRUE, message = TRUE----------------------------------------
+lle_res <- embed(data, "LLE", knn = 50,
+                 ndim = 2)
+
+
+## -----------------------------------------------------------------------------
+lle_res@data %>%
+  as.data.frame() %>%
+  ggplot(aes(LLE1, LLE2)) +
+  geom_point(alpha = 0.5) +
+  theme_minimal()
+
+
+## ---- echo = FALSE, eval = TRUE-----------------------------------------------
+k <- 15
+par(mfrow = c(3, 5))
+for (i in seq(0, k - 1)) {
+  index <- pmin(round(nrow(data)/(k - 1)) * i + 1, nrow(data))
+  lle_val <- sort(lle_res@data@data[, 1])[index]
+  matrix(data[lle_res@data@data[, 1] == lle_val,], ncol = 28)[ , 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, asp = 1, main = paste0("ISO1=", round(lle_val)))
+}
+
