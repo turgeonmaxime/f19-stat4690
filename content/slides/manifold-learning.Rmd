@@ -12,6 +12,7 @@ header-includes:
   - \usepackage{tikzpagenodes}
   - \usetikzlibrary{calc}
   - \usepackage{caption}
+  - \DeclareMathOperator*{\argmin}{arg\,min}
 ---
 
 ```{r,setup, include=FALSE}
@@ -282,6 +283,229 @@ Tenenbaum *et al.* Science (2000)
     + Computing the shortest path distance can be expensive with many data points
     + Doesn't work well with all manifolds (e.g. it fails when the underlying manifold has holes or many folds)
 
-<!-- ## Locally Linear Embedding -->
+# Locally Linear Embedding
 
+## Local vs. Global structure
+
+  - In Isomap, we estimated pairwise distances by constraining them to be close to the underlying manifold.
+    + But we still computed all $O(n^2)$ distances...
+  - LLE instead focuses on *local* stuctures in the data.
+  - In particular, it assumes that a linear approximation of these local structures will give a good approximation of the global (nonlinear) structure.
+  
+## Preserving local structure
+
+  - The motivation for LLE is as follows:
+    + A given point should be well approximated by a linear combination of its **neighbours**.
+    + We want those linear combinations weights to be **invariant** to rotation, scaling, and translation.
+    + Therefore, the same weights should be used if we replace the original data with a lower dimensional representation.
+    
+## Algorithm {.allowframebreaks}
+
+  - First, some notation:
+    + $\mathbf{Y}_i, i=1,\ldots, n$ are the $p$-dimensional data points.
+    + $\mathbf{X}_i, i=1, \ldots,n$ are their $k$-dimensional representation.
+    + If $\mathbf{Y}_j$ is a neighbour of $\mathbf{Y}_i$, we write $j\in \mathcal{N}(i)$.
+    + $W$ is an $n\times n$ matrix of weights such that $w_{ij}=0$ if $\mathbf{Y}_j$ is **not** a neighbour of $\mathbf{Y}_i$.
+    + We also impose a constraint that $\sum_{j=1}^n w_{ij} = 1$ for all $i$, i.e. the rows of $W$ sum to 1.
+    
+### LLE Algorithm
+
+Input: $\mathbf{Y}_i\in\mathbb{R}^p, i=1,\ldots, n$. 
+
+\vspace{-0.25cm}
+Output: $\mathbf{X}_i\in\mathbb{R}^k, i=1,\ldots, n$.
+
+  1. Estimate $W$ by minimising the *reconstruction error*:
+  $$\hat{W} = \argmin_W \sum_{i=1}^n\|\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\|^2.$$
+  2. With $\hat{W}$ fixed, estimate $\mathbf{X}_1, \ldots, \mathbf{X}_n$ by minimising the *embedding cost*:
+  $$\hat{\mathbb{X}} = \argmin_{\mathbb{X}} \sum_{i=1}^n\|\mathbf{X}_i - \sum_{j=1}^n\hat{w}_{ij}\mathbf{X}_j\|^2.$$
+
+## Reconstruction error {.allowframebreaks}
+
+  - Let $\mathcal{E}_i(W) = \|\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\|^2$.
+  - Recall that we would like invariance under rotation, scaling, and translation.
+  - Let $\alpha$ be a scalar. We have
+  \begin{align*}
+  \|\alpha\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\alpha\mathbf{Y}_j\|^2 &= \alpha^2\|\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\|^2,
+  \end{align*}
+  and therefore the minimiser of $\mathcal{E}_i(W)$ is the same after rescaling all points by $\alpha$.
+  - Next, let $T$ be a $p\times p$ orthogonal matrix. We have
+  \begin{align*}
+  &\|T\mathbf{Y}_i - \sum_{j=1}^nw_{ij}T\mathbf{Y}_j\|^2 = \left\|T\left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)\right\|^2\\
+  &\quad= \left(T\left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)\right)^T\left(T\left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)\right)\\
+  &\quad= \left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)^T T^TT\left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)\\
+  &\quad= \left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right)^T \left(\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\right) = \mathcal{E}_i(W).
+  \end{align*}
+  
+  - Finally, let $\mu\in\mathbb{R}^p$. We have 
+  \begin{align*}
+  &\|(\mathbf{Y}_i - \mu) - \sum_{j=1}^nw_{ij}(\mathbf{Y}_j - \mu)\|^2 \\
+  &\quad= \|\mathbf{Y}_i - \mu - \sum_{j=1}^nw_{ij}\mathbf{Y}_j +\sum_{j=1}^nw_{ij} \mu\|^2\\
+  &\quad= \|\mathbf{Y}_i - \mu - \sum_{j=1}^nw_{ij}\mathbf{Y}_j + \mu\sum_{j=1}^nw_{ij} \|^2\\
+  &\quad= \|\mathbf{Y}_i - \mu - \sum_{j=1}^nw_{ij}\mathbf{Y}_j + \mu \|^2\\
+  &\quad= \|\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j \|^2 = \mathcal{E}_i(W).
+  \end{align*}
+  - In other words, invariance comes from the definition of reconstruction error **and** the constraint that weights sum to 1.
+  - **How to minimise** $\mathcal{E}_i(W)$**?** Assume that the neighbours of $\mathbf{Y}_i$ are $\mathbf{Y}_{(1)}, \ldots, \mathbf{Y}_{(r)}$. We then have
+  \begin{align*}
+  \mathcal{E}_i(W) &= \|\mathbf{Y}_i - \sum_{j=1}^nw_{ij}\mathbf{Y}_j\|^2\\
+  &= \|\mathbf{Y}_i - \sum_{j=1}^rw_{i(j)}\mathbf{Y}_{(j)}\|^2\\
+  &= \left\|\sum_{j=1}^rw_{i(j)}\left(\mathbf{Y}_i - \mathbf{Y}_{(j)}\right)\right\|^2\\
+  &= \sum_{j=1}^r\sum_{k=1}^rw_{i(j)}w_{i(k)}\left(\mathbf{Y}_i - \mathbf{Y}_{(j)}\right)^T\left(\mathbf{Y}_i - \mathbf{Y}_{(k)}\right).
+  \end{align*}
+  - Let $G(i)$ be the matrix whose $(j,k)$-th entry is equal to $\left(\mathbf{Y}_i - \mathbf{Y}_{(j)}\right)^T\left(\mathbf{Y}_i - \mathbf{Y}_{(k)}\right)$. 
+  - Using the method of Lagrange multipliers, we can minimise $\mathcal{E}_i(W)$ by solving the linear system 
+  $$G\mathbf{w} = \boldsymbol{1}$$ 
+  and normalising the weights so they add up to 1.
+  - If $G$ is singular (or nearly singular), you can add a small constant to the diagonal to regularise it.
+  
+## Example {.allowframebreaks}
+
+```{r}
+n <- 1000
+data_knn <- data[seq_len(n),]
+
+# Compute distances
+Delta <- dist(data_knn)
+
+# Take 5-NN to first obs.
+neighbours <- order(Delta[seq_len(n-1)])[1:5]
+```
+
+```{r}
+main_obs <- data_knn[1,]
+nb_data <- data_knn[neighbours,]
+```
+
+```{r echo = FALSE}
+par(mfrow = c(2,3))
+for (i in 1:5) {
+  matrix(nb_data[i,], ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = glue::glue("NN {i}"), asp = 1)
+}
+```
+
+
+```{r}
+# Center neighbours around main obs
+nb_data_c <- sweep(nb_data, 2, main_obs)
+# Local cov matrix
+Gmat <- tcrossprod(nb_data_c)
+```
+
+```{r}
+# Find weights
+w_vect <- solve(Gmat, rep(1, 5))
+w_vect <- w_vect/sum(w_vect)
+```
+
+```{r}
+# Compare original with approx.
+approx <- drop(w_vect %*% nb_data)
+par(mfrow = c(1, 2))
+
+matrix(main_obs, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Original", asp = 1)
+matrix(approx, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Approx. (5 NN)", asp = 1)
+```
+
+```{r, echo = FALSE}
+# Take 50-NN to first obs.
+K <- 25
+neighbours <- order(Delta[1:99])[seq_len(K)]
+# Center neighbours around main obs
+nb_data <- data_knn[neighbours,]
+nb_data_c <- sweep(nb_data, 2, main_obs)
+# Local cov matrix
+Gmat <- tcrossprod(nb_data_c)
+# Find weights
+w_vect <- solve(Gmat, rep(1, K))
+w_vect <- w_vect/sum(w_vect)
+# Compare original with approx.
+approx <- drop(w_vect %*% nb_data)
+par(mfrow = c(1, 2))
+
+matrix(main_obs, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = "Original", asp = 1)
+matrix(approx, ncol = 28)[, 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, main = glue::glue("Approx. ({K} NN)"), asp = 1)
+```
+
+## Embedding cost {.allowframebreaks}
+
+  - Let $\Phi(\mathbb{X}) = \sum_{i=1}^n \|\mathbf{X}_i - \sum_{j=1}^nw_{ij}\mathbf{X}_j\|^2$.
+  - As we did earlier, we can rewrite this:
+  \begin{align*}
+  \sum_{i=1}^n \|\mathbf{X}_i - \sum_{j=1}^nw_{ij}\mathbf{X}_j\|^2  &= \sum_{i=1}^n \left\|\sum_{j=1}^nw_{ij}\left(\mathbf{X}_i - \mathbf{X}_j\right)\right\|^2\\
+  &= \sum_{i=1}^n \sum_{j=1}^n\sum_{k=1}^nw_{ik}\left(\mathbf{X}_i - \mathbf{X}_j\right)^T\left(\mathbf{X}_i - \mathbf{X}_k\right)\\
+  &= \sum_{i=1}^n \sum_{j=1}^n m_{ij}\mathbf{X}_i^T \mathbf{X}_j.
+  \end{align*}
+  - Above, $m_{ij}$ is the $(i,j)$-th element of the matrix $M$, where
+  $$ M = (I - W)^T(I - W).$$
+  - **Key observation**: $M$ is sparse (i.e. lots of zeroes), symmetric, and positive semidefinite.
+  - If we impose some restrictions on the projections $\mathbf{X}_{i}$ (i.e. mean zero, identity covariance matrix), we can minimise $\Phi(\mathbb{X})$ subject to these constraints using Lagrange multipliers.
+  - The smallest eigenvalue will be zero; we can discard its corresponding eigenvector.
+  - The eigenvectors corresponding to the next $k$ smallest eigenvalues give us our matrix $\mathbb{X}$ that minimises the embedding cost.
+  
+## Comments
+
+  - Since $M$ is sparse, we can compute these eigenvectors very efficiently using specialised algorithms.
+  - Since we obtained the data matrix $\mathbb{X}$ as eigenvectors of $M$, it may seem that we did a linear dimension reduction. However, the sparsity of $W$ (and therefore $M$) is what gives us our *nonlinear* dimension reduction.
+
+## Swiss roll {.allowframebreaks}
+
+```{r message = TRUE}
+lle_sr <- embed(cbind(X, Y, Z), "LLE", knn = 20,
+                ndim = 2)
+```
+
+```{r}
+lle_sr@data@data %>% 
+  plot(col = as.character(colours), pch = 19)
+```
+
+
+## Example {.allowframebreaks}
+
+```{r lle, cache = TRUE, message = TRUE}
+lle_res <- embed(data, "LLE", knn = 50,
+                 ndim = 2)
+```
+
+```{r}
+lle_res@data %>%
+  as.data.frame() %>%
+  ggplot(aes(LLE1, LLE2)) +
+  geom_point(alpha = 0.5) +
+  theme_minimal()
+```
+
+```{r, echo = FALSE, eval = TRUE}
+k <- 15
+par(mfrow = c(3, 5))
+for (i in seq(0, k - 1)) {
+  index <- pmin(round(nrow(data)/(k - 1)) * i + 1, nrow(data))
+  lle_val <- sort(lle_res@data@data[, 1])[index]
+  matrix(data[lle_res@data@data[, 1] == lle_val,], ncol = 28)[ , 28:1] %>%
+  image(col = gray.colors(12, rev = TRUE),
+        axes = FALSE, asp = 1, main = paste0("ISO1=", round(lle_val)))
+}
+```
+
+
+## Further comments
+
+  - Advantages:
+    + Preserves local structure
+    + Less computationally expensive than Isomap
+  - Disadvantages:
+    + Less accurate in preserving global structure
+    + Doesn't work well with all manifolds (e.g. it fails when the underlying manifold is nonconvex)
+    
 <!-- ## Laplacian Eigenmaps -->
