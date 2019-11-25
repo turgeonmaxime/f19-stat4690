@@ -39,4 +39,5 @@ type: docs
     + [R code](kernel-methods.R)
   - [Manifold Learning](manifold-learning.pdf)
     + [R code](manifold-learning.R)
-  - PageRank Algorithm
+  - [PageRank Algorithm](pagerank-algorithm.pdf)
+    + [R code](pagerank-algorithm.R)

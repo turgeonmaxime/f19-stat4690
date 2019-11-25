@@ -1,6 +1,6 @@
 ---
 title: "PageRank Algorithm"
-draft: true
+draft: false
 source: true
 output: binb::metropolis
 fontsize: 12pt
@@ -54,7 +54,8 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE)
   
 ```{r}
 (Lmat <- matrix(c(0, 0, 1, 0, 1, 0, 0, 0,
-                  1, 1, 0, 1, 0, 0, 0, 0), ncol = 4))
+                  1, 1, 0, 1, 0, 0, 0, 0), ncol = 4,
+                byrow = TRUE))
 ```
 
 ```{r}
@@ -70,7 +71,7 @@ plot(graph)
 ```
 
 ```{r}
-m_vect <- rowSums(Lmat)
+m_vect <- colSums(Lmat)
 # Initialize
 pr_vect <- rep(0.25, 4)
 for (i in seq_len(4)) {
@@ -108,8 +109,8 @@ decomp$values
 Re(decomp$vectors[,1])
 
 # Which is proportional to what we found
-pr_vect/0.25
-Re(decomp$vectors[,1])/max(Re(decomp$vectors[,1]))
+pr_vect
+Re(decomp$vectors[,1])/-(4/3)
 ```
 
 ## Comment
@@ -143,7 +144,7 @@ Re(decomp$vectors[,1])/max(Re(decomp$vectors[,1]))
     + You may have clusters of pages that do not link to one another.
     + You may have pages without outgoing links.
     
-## Second version of the algorithm
+## Second version of the algorithm {.allowframebreaks}
 
   - We will modify the random surfer model to create a strongly connected Markov chain.
   - They will either click randomly on a link **or** randomly jump to another page (without clicking a link.)
@@ -151,26 +152,50 @@ Re(decomp$vectors[,1])/max(Re(decomp$vectors[,1]))
   $$ P_{ij} = P(\mbox{landing on }j\mid\mbox{currently on }i) = \begin{cases}
   \frac{1- d}{n} + \frac{d}{m_i} &\mbox{if }i\to j\\
   \frac{1- d}{n} &\mbox{else} \end{cases}. $$
+  - In matrix form: let $L,M$ be as above, let $P$ be as we just redefined, and let $E$ be the $n\times n$ matrix containing only 1s. Then we are looking for a vector $p$ of scores such that
+  $$p = \left(\frac{(1 - d)}{n}E + dLM^{-1}\right)p.$$
   
+## Example (cont'd) {.allowframebreaks}
+
+```{r}
+d <- 0.85
+n <- length(m_vect)
+Amat <- (1 - d) * matrix(1, ncol = n, nrow = n)/n + 
+  d * Lmat %*% diag(1/m_vect)
+decomp <- eigen(Amat)
+decomp$values
+
+Re(decomp$vectors[,1])
+```
+
+```{r}
+page_rank(graph, damping = 0.85)$vector
+Re(decomp$vectors[,1])/(sum(Re(decomp$vectors[,1])))
+```
+
 ## Twitter example {.allowframebreaks}
 
   - Data comes from *Stanford Network Analysis Project*.
     + Downloaded from https://eecs490.github.io/project-pagerank/index.html
   - It is data about connections between Twitter accounts
+    + Who follows whom.
+  - I've randomly selected 10,000 nodes and only kept edges for which both nodes are in this subset.
 
 ```{r, message=FALSE}
 library(tidyverse)
-url <- paste0("https://raw.githubusercontent.com/turgeonmaxime/",
-              "twitter_pagerank_STAT4690/master/", 
-              "edge_list_subset.csv")
+url <- paste0("https://raw.githubusercontent.com/",
+        "turgeonmaxime/twitter_pagerank_STAT4690/", 
+              "master/edge_list_subset.csv")
 edge_sub <- read_csv(url) %>% 
+  mutate(Node_Id_1 = as.character(Node_Id_1),
+         Node_Id_2 = as.character(Node_Id_2)) %>% 
   as.matrix()
 ```
 
 ```{r}
 graph_twitter <- graph_from_edgelist(edge_sub)
 
-plot(graph_twitter, vertex.label=NA, 
+plot(graph_twitter, vertex.label = NA, 
      vertex.size = 2, edge.arrow.size = 0.5)
 ```
 
@@ -181,7 +206,7 @@ PR_vect <- page_rank(graph_twitter)$vector
 # Visualize scores
 library(colorspace)
 quartiles <- quantile(PR_vect,
-                      probs = seq(0, 1, length.out = 5))
+                      probs = seq(0, 1, length.out=5))
 colours <- cut(PR_vect, breaks = quartiles, 
                labels = sequential_hcl(4), 
                include.lowest = TRUE)
@@ -192,4 +217,3 @@ plot(graph_twitter, vertex.label = NA,
      vertex.size = 2, edge.arrow.size = 0.5,
      vertex.color = as.character(colours))
 ```
-
