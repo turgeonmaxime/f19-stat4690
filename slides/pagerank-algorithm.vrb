@@ -1,0 +1,76 @@
+\frametitle{Twitter example}
+\protect\hypertarget{twitter-example}{}
+
+\begin{itemize}
+\tightlist
+\item
+  Data comes from \emph{Stanford Network Analysis Project}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Downloaded from
+    \url{https://eecs490.github.io/project-pagerank/index.html}
+  \end{itemize}
+\item
+  It is data about connections between Twitter accounts
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Who follows whom.
+  \end{itemize}
+\item
+  I've randomly selected 10,000 nodes and only kept edges for which both
+  nodes are in this subset.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{url <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/"}\NormalTok{,}
+        \StringTok{"turgeonmaxime/twitter_pagerank_STAT4690/"}\NormalTok{, }
+              \StringTok{"master/edge_list_subset.csv"}\NormalTok{)}
+\NormalTok{edge_sub <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(url) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Node_Id_1 =} \KeywordTok{as.character}\NormalTok{(Node_Id_}\DecValTok{1}\NormalTok{),}
+         \DataTypeTok{Node_Id_2 =} \KeywordTok{as.character}\NormalTok{(Node_Id_}\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as.matrix}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph_twitter <-}\StringTok{ }\KeywordTok{graph_from_edgelist}\NormalTok{(edge_sub)}
+
+\KeywordTok{plot}\NormalTok{(graph_twitter, }\DataTypeTok{vertex.label =} \OtherTok{NA}\NormalTok{, }
+     \DataTypeTok{vertex.size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{edge.arrow.size =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pagerank-algorithm_files/figure-beamer/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# PageRank algorithm}
+\NormalTok{PR_vect <-}\StringTok{ }\KeywordTok{page_rank}\NormalTok{(graph_twitter)}\OperatorTok{$}\NormalTok{vector}
+
+\CommentTok{# Visualize scores}
+\KeywordTok{library}\NormalTok{(colorspace)}
+\NormalTok{quartiles <-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(PR_vect,}
+                      \DataTypeTok{probs =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{length.out=}\DecValTok{5}\NormalTok{))}
+\NormalTok{colours <-}\StringTok{ }\KeywordTok{cut}\NormalTok{(PR_vect, }\DataTypeTok{breaks =}\NormalTok{ quartiles, }
+               \DataTypeTok{labels =} \KeywordTok{sequential_hcl}\NormalTok{(}\DecValTok{4}\NormalTok{), }
+               \DataTypeTok{include.lowest =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(graph_twitter, }\DataTypeTok{vertex.label =} \OtherTok{NA}\NormalTok{, }
+     \DataTypeTok{vertex.size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{edge.arrow.size =} \FloatTok{0.5}\NormalTok{,}
+     \DataTypeTok{vertex.color =} \KeywordTok{as.character}\NormalTok{(colours))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pagerank-algorithm_files/figure-beamer/unnamed-chunk-12-1.pdf}
+
