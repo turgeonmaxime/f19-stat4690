@@ -100,6 +100,7 @@ Sigma_XY <- t(Sigma_YX)
 rbind(cbind(Sigma_Y, Sigma_YX),
       cbind(Sigma_XY, Sigma_X))
 ```
+
 ```{r, message = FALSE}
 library(expm)
 sqrt_Y <- sqrtm(Sigma_Y)
